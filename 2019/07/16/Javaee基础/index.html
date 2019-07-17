@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JavaEE基础ServletContext: Context上下文,ServletContext代表整个应用 一个应用只有一个ServletContext对象(单例对象) 作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。 其他域对象:session,request,page 常用方法:  void setAttribute(String name,object va">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE">
+<meta property="og:url" content="http://yoursite.com/2019/07/16/Javaee基础/index.html">
+<meta property="og:site_name" content="心如止水">
+<meta property="og:description" content="JavaEE基础ServletContext: Context上下文,ServletContext代表整个应用 一个应用只有一个ServletContext对象(单例对象) 作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。 其他域对象:session,request,page 常用方法:  void setAttribute(String name,object va">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-16T14:23:46.217Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaEE">
+<meta name="twitter:description" content="JavaEE基础ServletContext: Context上下文,ServletContext代表整个应用 一个应用只有一个ServletContext对象(单例对象) 作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。 其他域对象:session,request,page 常用方法:  void setAttribute(String name,object va">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/16/Javaee基础/">
+
+
+
+
+
+  <title>JavaEE | 心如止水</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/zljin"><img style="position: absolute; top: 500; left: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心如止水</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">积水成渊,蛟龙生焉</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/Javaee基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaEE</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JavaEE基础"><a href="#JavaEE基础" class="headerlink" title="JavaEE基础"></a>JavaEE基础</h2><h3 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext:"></a>ServletContext:</h3><ol>
+<li>Context上下文,ServletContext代表整个应用</li>
+<li>一个应用只有一个ServletContext对象(单例对象)</li>
+<li>作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。</li>
+<li>其他域对象:session,request,page</li>
+<li>常用方法: <ul>
+<li>void setAttribute(String name,object value)</li>
+<li>Object getAttribute(String name)</li>
+<li>void rmoveAttribute(String name)    </li>
+</ul>
+</li>
+</ol>
+<a id="more"></a>
+
+<h3 id="HTTP协议-超文本传输协议"><a href="#HTTP协议-超文本传输协议" class="headerlink" title="HTTP协议:超文本传输协议"></a>HTTP协议:超文本传输协议</h3><ol>
+<li>应用层协议 无状态</li>
+<li>URL(Uniform Resource Locator 缩写为URL)统一资源定位符<pre><code>schema://host[:port#]/path/.../[;url-params][?query-string][#anchor]</code></pre></li>
+<li>HTTP组成:(图片)</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>请求行</th>
+<th>响应行HTTP/1.1 200 ok</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>http header</td>
+<td>Content-Type: image/jpg; charset=UTF-8</td>
+</tr>
+<tr>
+<td>http header</td>
+<td>Content-Type: image/jpg; charset=UTF-8</td>
+</tr>
+<tr>
+<td>空格</td>
+<td></td>
+</tr>
+<tr>
+<td>body</td>
+<td></td>
+</tr>
+<tr>
+<td>4. HTTP其他常用的头,行请自行查询</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="Request和Response"><a href="#Request和Response" class="headerlink" title="Request和Response"></a>Request和Response</h3><ul>
+<li><p>HttpServletResponse:</p>
+<ul>
+<li><p>响应编码</p>
+<pre><code>response.setHeader(&quot;Content-Type&quot;,&quot;text/html;charset=utf-8&quot;);</code></pre></li>
+<li><p>方法</p>
+<ul>
+<li>getWrite(); 字符输出流</li>
+<li>getOutputStream(); 字节输出流</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>HttpServletRequest:</p>
+<ul>
+<li><p>接受编码request.setCharacterEncoding(“utf-8”);</p>
+<p>Get请求:<br>  tomcat8接收参数时采用了utf-8</p>
+<pre><code>tomcat7接收参数时采用了IOS-8859-1编码</code></pre></li>
+</ul>
+</li>
+<li><p>Servlet 转发和重定向:</p>
+<ol>
+<li>转发: 以前的request中存放的变量不会失效，就像把两个页面拼到了一起—地址栏不会变，客户端发送一次请求<ul>
+<li>request.getRequestDispatcher(“/index.jsp”).forward(request,response);</li>
+</ul>
+</li>
+<li>forward 和 include的区别:<br>forward原先执行的servlet终止,include原先的Servlet还可以继续响应</li>
+<li>重定向: 以前的request中存放的变量全部失效，并进入一个新的request作用域。–地址栏会变，并发送2次请求，增加服务器负担<ul>
+<li>response.sendRedirect(“/index.jsp”);    </li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Cookie和Session"><a href="#Cookie和Session" class="headerlink" title="Cookie和Session"></a>Cookie和Session</h3><ul>
+<li>什么是会话?<pre><code>用户打开浏览器,访问服务器多种资源,然后关闭浏览器这个过程称为一次会话</code></pre></li>
+<li>会话的作用?<pre><code>存储某个用户这个会话过程的数据,如购物车存储用户购买信息</code></pre><h4 id="Cookie-存放在客户端的会话技术"><a href="#Cookie-存放在客户端的会话技术" class="headerlink" title="Cookie(存放在客户端的会话技术)"></a>Cookie(存放在客户端的会话技术)</h4></li>
+<li>如密码保存的cookie保存在客户端</li>
+<li>常用方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cookie name = new Cookie(&quot;name&quot;,&quot;leonard&quot;);</span><br><span class="line">name.setMaxAge(60*60*24);</span><br><span class="line">response.addCookie( name );</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">maxAge:cookie的缓存时间。默认是-1，默认存在浏览器的缓存中。单位是秒</span><br><span class="line">负数：表示cookie的数据存在浏览器缓存中</span><br><span class="line">0：表示删除cookie</span><br><span class="line">正数：缓存在持久化磁盘上的时间</span><br></pre></td></tr></table></figure>
+
+<h4 id="Session-存放在服务器端的会话技术"><a href="#Session-存放在服务器端的会话技术" class="headerlink" title="Session(存放在服务器端的会话技术)"></a>Session(存放在服务器端的会话技术)</h4><ul>
+<li>在服务器为每一个用户开辟一个独享的HttpSession的对象在进行使用.</li>
+<li>常用方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void setAttribute(String name,Object value);</span><br><span class="line">Object getAttribute(String name);</span><br><span class="line">void removeAttribute(String name);</span><br><span class="line">setMaxInactiveInterval(int interval)  设置session的存活时间</span><br><span class="line">invalidate() 使此会话无效</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="jsp-动态页面技术"><a href="#jsp-动态页面技术" class="headerlink" title="jsp(动态页面技术)"></a>jsp(动态页面技术)</h3><ul>
+<li><p>jsp本质就是servlet,访问index.jsp的时候会先编译成index.java再编译成index.class</p>
+</li>
+<li><p>jsp用于前端显示界面(重点是显示数据)，servlet:控制器(写逻辑)</p>
+</li>
+<li><p>3个指令 page include taglib</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;!--静态包含：把其它资源包含到当前页面中--&gt;</span><br><span class="line">&lt;%@ include file=&quot;/include/header.jsp&quot; %&gt;</span><br><span class="line">&lt;!--导入JSTL标签库。替换jsp中的java代码片段。--&gt;</span><br><span class="line">&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot; %&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>6个常用动作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:include &gt; 动态包含</span><br><span class="line">&lt;jsp:forward&gt; 请求转发</span><br><span class="line">&lt;jsp:param&gt; 设置请求参数</span><br><span class="line">&lt;jsp:useBean&gt; 创建一个对象</span><br><span class="line">&lt;jsp:setProperty&gt; 给指定的对象属性赋值</span><br><span class="line">&lt;jsp:getProperty&gt; 取出指定对象的属性值</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>9大内置对象</p>
+<ul>
+<li>内置对象是指在JSP的&lt;%=%&gt; 和&lt;% %&gt;中可以直接使用的对象</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>对象名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>request</td>
+<td>javax.servlet.http.HttpServletRequest</td>
+<td>得到</td>
+</tr>
+<tr>
+<td>response</td>
+<td>javax.servlet.http.HttpServletResponse</td>
+<td>得到</td>
+</tr>
+<tr>
+<td>session</td>
+<td>javax.servlet.http.HttpSession</td>
+<td>由session=”true”开关</td>
+</tr>
+<tr>
+<td>application</td>
+<td>javax.servlet.ServletContext</td>
+<td>得到</td>
+</tr>
+<tr>
+<td>exception</td>
+<td>java.lang.Throwable</td>
+<td>由isErrorPage=”false”开关</td>
+</tr>
+<tr>
+<td>page</td>
+<td>java.lang.Object当前对象this</td>
+<td>当前servlet实例</td>
+</tr>
+<tr>
+<td>config</td>
+<td>javax.servlet.ServletConfig</td>
+<td>得到</td>
+</tr>
+<tr>
+<td>out</td>
+<td>javax.servlet.jsp.JspWriter</td>
+<td>字符输出流，相当于 printWriter对象</td>
+</tr>
+<tr>
+<td>pageContext</td>
+<td>javax.servlet.jsp.PageContext</td>
+<td>得到</td>
+</tr>
+</tbody></table>
+<h3 id="重点-pageContext"><a href="#重点-pageContext" class="headerlink" title="重点 pageContext"></a>重点 pageContext</h3><ul>
+<li><p>本身也是一个域对象：它可以操作其它三个域对象（request session application）的数据</p>
+</li>
+<li><p>pageContext获取其他8个隐式对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pageContext.getPage();</span><br><span class="line">pageContext.getResponse();</span><br><span class="line">pageContext.getRequest();</span><br><span class="line">pageContext.getSession();</span><br><span class="line">pageContext.getOut().write(&quot;你好&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用其他域的常用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">PageContext.PAGE_SCOPE </span><br><span class="line">PageContext.REQUEST_SCOPE </span><br><span class="line">PageContext.SESSION_SCOPE </span><br><span class="line">PageContext.APPLICATION_SCOPE</span><br><span class="line">*/</span><br><span class="line">void setAttribute(String name,Object o，int Scope);</span><br><span class="line">Object getAttribute(String name,int Scope);</span><br><span class="line">void removeAttribute(String name,int Scope);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>findAttribute(String name) 从page request session application依次查找，找到了就取值，结束查找</p>
+</li>
+</ul>
+<h3 id="四大域对象"><a href="#四大域对象" class="headerlink" title="四大域对象"></a>四大域对象</h3><ul>
+<li>PageContext : pageConext 存放的数据在当前页面有效。开发时使用较少。</li>
+<li>ServletRequest: request  存放的数据在一次请求（转发）内有效。使用非常多。</li>
+<li>HttpSession: session 存放的数据在一次会话中有效。使用的比较多。如：存放用户的登录信息，购物车功能。</li>
+<li>ServletContext: application 存放的数据在整个应用范围内都有效。因为范围太大，应尽量少用。</li>
+</ul>
+<h3 id="JSP的EL表达式"><a href="#JSP的EL表达式" class="headerlink" title="JSP的EL表达式"></a>JSP的EL表达式</h3><ul>
+<li><p>EL用于简化jsp中java开发,是一种规范</p>
+</li>
+<li><p>具体功能</p>
+<ul>
+<li><p>获取数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">    User user = new User(1,&quot;leonard&quot;,&quot;1998&quot;);</span><br><span class="line">    pageContext.setAttribute(&quot;user&quot;,user);</span><br><span class="line">%&gt;</span><br><span class="line">&lt;!--对象的toString()方法--&gt;</span><br><span class="line">&lt;!--原理：pageContext.findAttribute(&quot;user&quot;);-&gt;</span><br><span class="line">$&#123;user&#125;</span><br><span class="line">&lt;!--相当于调用了getName()方法--&gt;</span><br><span class="line">$&#123;user.name&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>点点语法，可以获取属性对象的属性</p>
+</li>
+<li><p>[]运算符  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;user.name&#125;== $&#123;user[&apos;name&apos;]&#125; == $&#123;user[&quot;name&quot;]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>三元运算符和empty运算(判断是否为null)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123; empty list? &quot;yes&quot;,&quot;no&quot;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>EL的11个隐式对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//灵活设置Servlet的访问路径</span><br><span class="line">$&#123;pageContext.request.contextPath&#125;/a.jsp </span><br><span class="line">//...其他略</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h3><ul>
+<li>JSP标准标签库,使用JSTL实现JSP页面中逻辑处理。判断、循环等.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--JSTL:JSP标签库的使用</span><br><span class="line">	使用步骤:</span><br><span class="line">		1.导入JSTL的jar包，然后再jsp页面顶部导入JSTL标签库</span><br><span class="line">		2.在jsp中可以使用c:形式使用标签</span><br><span class="line"> --%&gt;</span><br><span class="line">&lt;!-- 一：通用标签: set、 out、 remove - 用于操作作用域数据</span><br><span class="line">	set:存一个变量值</span><br><span class="line">	out:取值</span><br><span class="line">	remove:从作用域移除变量</span><br><span class="line">--&gt;</span><br><span class="line">存num数据:&lt;c:set  var=&quot;num&quot; value=&quot;$&#123;5+3&#125;&quot; scope=&quot;page&quot; &gt;&lt;/c:set&gt;&lt;br&gt;</span><br><span class="line">取出num数据:&lt;c:out value=&quot;$&#123;num&#125;&quot;&gt;&lt;/c:out&gt;&lt;br&gt;</span><br><span class="line">移除num数据:&lt;c:remove var=&quot;num&quot;/&gt;&lt;br&gt;</span><br><span class="line">再次取出num数据:&lt;c:out value=&quot;$&#123;num&#125;&quot; default=&quot;0&quot;&gt;&lt;/c:out&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 二：条件标签: if choose</span><br><span class="line">	   1.test属性中写EL表达式</span><br><span class="line">	   2.choose内部与when一起使用，相当switch</span><br><span class="line">--&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;c:set  var=&quot;a&quot; value=&quot;4&quot;&gt;&lt;/c:set&gt;</span><br><span class="line">&lt;c:if test=&quot;$&#123; a &gt; 5 &#125;&quot;&gt;</span><br><span class="line">    a的值大于5</span><br><span class="line">&lt;/c:if&gt;</span><br><span class="line"></span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;!-- b的值 1：春 2:夏 3：秋 4:冬 --&gt;</span><br><span class="line">&lt;c:set  var=&quot;b&quot; value=&quot;4&quot;&gt;&lt;/c:set&gt;</span><br><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;b == 1 &#125;&quot;&gt;</span><br><span class="line">        春天来了</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;b == 2 &#125;&quot;&gt;</span><br><span class="line">        夏天来了</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;b == 3 &#125;&quot;&gt;</span><br><span class="line">        秋天来了</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;b == 4 &#125;&quot;&gt;</span><br><span class="line">        冬天来了</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 三、迭代标签foreach --&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;c:forEach var=&quot;i&quot; begin=&quot;1&quot; end=&quot;10&quot; step=&quot;3&quot;&gt;</span><br><span class="line">    $&#123;i&#125;&lt;br&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="邹龄晋 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="邹龄晋 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/16/article/" rel="next" title="文章">
+                <i class="fa fa-chevron-left"></i> 文章
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/jquery/" rel="prev" title="jQuery对表单的操作及更多应用">
+                jQuery对表单的操作及更多应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4" alt="邹龄晋">
+            
+              <p class="site-author-name" itemprop="name">邹龄晋</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaEE基础"><span class="nav-number">1.</span> <span class="nav-text">JavaEE基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ServletContext"><span class="nav-number">1.1.</span> <span class="nav-text">ServletContext:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议-超文本传输协议"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP协议:超文本传输协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Request和Response"><span class="nav-number">1.3.</span> <span class="nav-text">Request和Response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie和Session"><span class="nav-number">1.4.</span> <span class="nav-text">Cookie和Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie-存放在客户端的会话技术"><span class="nav-number">1.4.1.</span> <span class="nav-text">Cookie(存放在客户端的会话技术)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Session-存放在服务器端的会话技术"><span class="nav-number">1.4.2.</span> <span class="nav-text">Session(存放在服务器端的会话技术)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jsp-动态页面技术"><span class="nav-number">1.5.</span> <span class="nav-text">jsp(动态页面技术)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重点-pageContext"><span class="nav-number">1.6.</span> <span class="nav-text">重点 pageContext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四大域对象"><span class="nav-number">1.7.</span> <span class="nav-text">四大域对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP的EL表达式"><span class="nav-number">1.8.</span> <span class="nav-text">JSP的EL表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSTL"><span class="nav-number">1.9.</span> <span class="nav-text">JSTL</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹龄晋</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">10.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+<div class="powered-by">
+	<i class="fa fa-user-md"></i>
+	<span id="busuanzi_container_site_uv">
+		本站访客数:<span id="busuanzi_value_site_uv"></span>
+	</span>
+	<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_pv">
+		本站访问量<span id="busuanzi_value_site_pv"></span>
+	</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
