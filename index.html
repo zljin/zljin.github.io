@@ -261,6 +261,249 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/ajax+jquery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/24/ajax+jquery/" itemprop="url">ajax&jquery用法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T09:34:01+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ajax-amp-jquery用法"><a href="#ajax-amp-jquery用法" class="headerlink" title="ajax&amp;jquery用法"></a>ajax&amp;jquery用法</h2><h4 id="1-ajax简介"><a href="#1-ajax简介" class="headerlink" title="1.ajax简介"></a>1.ajax简介</h4><ul>
+<li>Ajax是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术</li>
+<li>AJAX = 异步 JavaScript 和 XML</li>
+<li>Ajax运行原理:通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新</li>
+</ul>
+<p><img src="https://www.runoob.com/images/ajax.gif" alt></p>
+<h4 id="2-XMLHttpRequest"><a href="#2-XMLHttpRequest" class="headerlink" title="2.XMLHttpRequest"></a>2.XMLHttpRequest</h4><ul>
+<li><p>XMLHttpRequest对象用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</p>
+</li>
+<li><p>使用流程:(1)创建此对象(2)请求(3)响应</p>
+</li>
+<li><p>请求:Request.open(‘post’,url,async) &amp;&amp; Request.send(str)</p>
+<ul>
+<li>method:请求方法 ‘post’</li>
+<li>url:文件在服务器上的位置</li>
+<li>async:true异步</li>
+<li>str:参数用于post请求,get不需要写param</li>
+</ul>
+</li>
+<li><p>获取响应数据request.responseText</p>
+</li>
+<li><p>ajax状态码request.readyState</p>
+<ul>
+<li>0: 请求未初始化<ul>
+<li>1: 服务器连接已建立</li>
+</ul>
+</li>
+<li>2: 请求已接收</li>
+<li>3: 请求处理中    </li>
+<li>4: 请求已完成，且响应已就绪</li>
+</ul>
+</li>
+</ul>
+<h4 id="json"><a href="#json" class="headerlink" title="json"></a>json</h4><ul>
+<li>json字典相当于java的map</li>
+<li>json数组相当于数组存了map,字典<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//json字符串</span></span><br><span class="line"><span class="keyword">var</span> str1 = <span class="string">'&#123;"firstName":"lingjin","lastName":"zou"&#125;'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//json字符串转换为json对象</span></span><br><span class="line"><span class="keyword">var</span> jsonObj1 = <span class="built_in">JSON</span>.parse(str1);</span><br><span class="line"><span class="built_in">console</span>.log(jsonObj1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//对象转为字符串</span></span><br><span class="line"><span class="keyword">var</span> str2 = <span class="built_in">JSON</span>.stringify(jsonObj1);</span><br><span class="line"><span class="built_in">console</span>.log(str2)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="jackson"><a href="#jackson" class="headerlink" title="jackson"></a>jackson</h4><ul>
+<li><p>Jackson是一个简单基于Java应用库，Jackson可以轻松的将Java对象转换成json字符串和xml文档，同样也可以将json、xml转换成Java对象</p>
+</li>
+<li><p>对象转字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    Book book = <span class="keyword">new</span> Book(<span class="string">"10001"</span>, <span class="string">"Java入门"</span>, <span class="number">16</span>, <span class="number">100</span>, <span class="string">"计算机"</span>, <span class="string">"好书"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3.2 创建一个映射对象</span></span><br><span class="line">    ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3.2把对象转成json格式字符串</span></span><br><span class="line">    String jsonStr1 = mapper.writeValueAsString(book);</span><br><span class="line">    System.out.println(jsonStr1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串转对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String str1 = <span class="string">"&#123;\"id\":\"10001\",\"name\":\"Java入门\",\"price\":16.0&#125;"</span>;</span><br><span class="line">    System.out.println(str1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//字符串转对象</span></span><br><span class="line">    ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">    Book book = mapper.readValue(str1,Book.class);</span><br><span class="line">    System.out.println(book);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="3-基于js的post实例（不常用）"><a href="#3-基于js的post实例（不常用）" class="headerlink" title="3.基于js的post实例（不常用）"></a>3.基于js的post实例（不常用）</h4><ul>
+<li><p>First:前端表单页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color: red"</span> <span class="attr">id</span>=<span class="string">"tip"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    用户名:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">id</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    密码:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"password"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"登录"</span> <span class="attr">onclick</span>=<span class="string">"login()"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Second:ajax的js代码(返回json格式的数据)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//使用ajax往servlet发送post请求</span></span><br><span class="line">        <span class="keyword">var</span> username = <span class="built_in">document</span>.getElementById(<span class="string">"username"</span>).value;</span><br><span class="line">        <span class="keyword">var</span> password = <span class="built_in">document</span>.getElementById(<span class="string">"password"</span>).value;</span><br><span class="line">        <span class="comment">//url目标</span></span><br><span class="line">        <span class="keyword">var</span> url = <span class="string">"$&#123;pageContext.request.contextPath&#125;/LoginServlet"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> params = <span class="string">'username='</span>+username+<span class="string">'&amp;password='</span>+password;</span><br><span class="line">        <span class="built_in">console</span>.log(params)</span><br><span class="line">        <span class="keyword">var</span> request = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//post请求</span></span><br><span class="line"></span><br><span class="line">        request.open(<span class="string">'post'</span>,url,<span class="literal">true</span>);</span><br><span class="line">        <span class="comment">//设置post的请求头,！！！get不需要添加</span></span><br><span class="line">        request.setRequestHeader(<span class="string">'content-type'</span>,<span class="string">'application/x-www-form-urlencoded'</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//！！！get不需要paramas</span></span><br><span class="line">        request.send(params);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//接收服务的响应</span></span><br><span class="line">        request.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'准备状态码-'</span>+request.readyState+<span class="string">" :响应状态码-"</span>+request.status);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(request.readyState == <span class="number">4</span> &amp;&amp; request.status == <span class="number">200</span>)&#123;</span><br><span class="line">                <span class="comment">//接受服务器响应的数据</span></span><br><span class="line">                <span class="keyword">var</span> rspText = request.responseText;</span><br><span class="line">                <span class="built_in">console</span>.log(rspText);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//把数据转成json对象</span></span><br><span class="line">                <span class="keyword">var</span> jsonObj=<span class="built_in">JSON</span>.parse(rspText);</span><br><span class="line">                <span class="built_in">console</span>.log(jsonObj)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>(jsonObj.success == <span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="built_in">document</span>.getElementById(<span class="string">"tip"</span>).innerHTML = <span class="string">"登录成功"</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="built_in">document</span>.getElementById(<span class="string">"tip"</span>).innerHTML = jsonObj.errorMsg;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Third:服务器处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        response.setHeader(<span class="string">"content-type"</span>,<span class="string">"text/json;charset=utf-8"</span>);</span><br><span class="line">        String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">        String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line">        System.out.println(username+<span class="string">"-&gt;"</span>+password);</span><br><span class="line"></span><br><span class="line">        Map &lt;String,Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"zlj"</span>.equals(username) &amp;&amp; <span class="string">"123"</span>.equals(password))&#123;</span><br><span class="line">            map.put(<span class="string">"success"</span>,<span class="number">1</span>);</span><br><span class="line">            map.put(<span class="string">"errorMsg"</span>,<span class="string">""</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            map.put(<span class="string">"success"</span>,<span class="number">0</span>);</span><br><span class="line">            map.put(<span class="string">"errorMsg"</span>,<span class="string">"用户名或者密码不正确"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        String json = mapper.writeValueAsString(map);</span><br><span class="line">        response.getWriter().write(json);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="4-基于jQuery用法（常用）"><a href="#4-基于jQuery用法（常用）" class="headerlink" title="4.基于jQuery用法（常用）"></a>4.基于jQuery用法（常用）</h4><ul>
+<li><p>JQuery的get讲解(post改方法名即可)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line"> $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">//1.按钮绑定事件</span></span><br><span class="line">            $(<span class="string">'#loginBtn'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="comment">//2.获取表单数据</span></span><br><span class="line">                <span class="keyword">var</span> username = $(<span class="string">'#username'</span>).val();</span><br><span class="line">                <span class="keyword">var</span> password = $(<span class="string">'#password'</span>).val();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//3.封装表单数据username=zlj&amp;password=123</span></span><br><span class="line">                <span class="comment">//封装成对象</span></span><br><span class="line">                <span class="keyword">var</span> params = &#123;<span class="string">"username"</span>:username,<span class="string">"password"</span>:password&#125;;</span><br><span class="line">                <span class="built_in">console</span>.log(params);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//4.get请求</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> url = <span class="string">'$&#123;pageContext.request.contextPath&#125;/LoginServlet'</span>;</span><br><span class="line">                <span class="comment">/*$.get(url,params,function(data)&#123;</span></span><br><span class="line"><span class="comment">                    //data为服务器返回的数据</span></span><br><span class="line"><span class="comment">                    console.log(data);</span></span><br><span class="line"><span class="comment">                    //那data转为对象</span></span><br><span class="line"><span class="comment">                    var result = JSON.parse(data);</span></span><br><span class="line"><span class="comment">                    if(result.success==1)&#123;</span></span><br><span class="line"><span class="comment">                        $('#tip').text("登录成功");</span></span><br><span class="line"><span class="comment">                    &#125;else&#123;</span></span><br><span class="line"><span class="comment">                        $('#tip').text(result.errorMsg);</span></span><br><span class="line"><span class="comment">                    &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                &#125;,'text');*/</span></span><br><span class="line"></span><br><span class="line">                $.post(url,params,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;<span class="comment">//如果想写post请求直接改即可</span></span><br><span class="line">                    <span class="comment">//如果写了json,会把服务的数据直接转成json对象</span></span><br><span class="line">                    <span class="comment">//data服务器返回的数据</span></span><br><span class="line">                    <span class="built_in">console</span>.log(data);</span><br><span class="line">                    <span class="keyword">if</span>(data.success == <span class="number">1</span>)&#123;<span class="comment">//成功</span></span><br><span class="line">                        $(<span class="string">'#tip'</span>).text(<span class="string">'登录成功'</span>);</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        $(<span class="string">'#tip'</span>).text(data.errorMsg);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,<span class="string">'json'</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);       </span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JQuery表单序列化作用:params可以简化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="string">'#loginBtn'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> username = $(<span class="string">'#username'</span>).val();</span><br><span class="line">                <span class="keyword">var</span> password = $(<span class="string">'#password'</span>).val();</span><br><span class="line">                <span class="keyword">var</span> params = $(<span class="string">'form'</span>).serialize();<span class="comment">//转成username=zlj&amp;password=123</span></span><br><span class="line">                <span class="built_in">console</span>.log(params);</span><br><span class="line">                <span class="keyword">var</span> url = <span class="string">'$&#123;pageContext.request.contextPath&#125;/LoginServlet'</span>;</span><br><span class="line">                $.post(url,params,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">                    <span class="comment">//如果写了json,会把服务的数据直接转成json对象</span></span><br><span class="line">                    <span class="comment">//data服务器返回的数据</span></span><br><span class="line">                    <span class="built_in">console</span>.log(data);</span><br><span class="line">                    <span class="keyword">if</span>(data.success == <span class="number">1</span>)&#123;</span><br><span class="line">                        $(<span class="string">'#tip'</span>).text(<span class="string">'登录成功'</span>);</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        $(<span class="string">'#tip'</span>).text(data.errorMsg);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,<span class="string">'json'</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/jquery/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -561,196 +804,6 @@
           
             
           
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/Javaee基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/Javaee基础/" itemprop="url">JavaEE</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.8k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="JavaEE基础"><a href="#JavaEE基础" class="headerlink" title="JavaEE基础"></a>JavaEE基础</h2><h3 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext:"></a>ServletContext:</h3><ol>
-<li>Context上下文,ServletContext代表整个应用</li>
-<li>一个应用只有一个ServletContext对象(单例对象)</li>
-<li>作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。</li>
-<li>其他域对象:session,request,page</li>
-<li>常用方法: <ul>
-<li>void setAttribute(String name,object value)</li>
-<li>Object getAttribute(String name)</li>
-<li>void rmoveAttribute(String name)    </li>
-</ul>
-</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/Javaee基础/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1170,7 +1223,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/类的加载机制和反射/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/Javaee基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邹龄晋">
@@ -1189,7 +1242,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/16/类的加载机制和反射/" itemprop="url">类的加载机制和反射</a></h1>
+                <a class="post-title-link" href="/2019/07/16/Javaee基础/" itemprop="url">JavaEE</a></h1>
         
 
         <div class="post-meta">
@@ -1255,7 +1308,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  663 字
+                  1.8k 字
                 </span>
               
 
@@ -1271,7 +1324,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -1293,207 +1346,21 @@
 
       
         
-          <h2 id="类的加载机制和反射"><a href="#类的加载机制和反射" class="headerlink" title="类的加载机制和反射"></a>类的加载机制和反射</h2><h3 id="类加载器机制"><a href="#类加载器机制" class="headerlink" title="类加载器机制"></a>类加载器机制</h3><ul>
-<li>类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象.</li>
-<li>类的加载机制—- Person p=new Person();<ul>
-<li>编码</li>
-<li>编译  javac  .java—&gt;.class</li>
-<li>运行  java Person   ————&gt;   Person.class</li>
-<li>类加载:双亲委托机制–向上委托,向下加载:<ul>
-<li>1.Bootstrap ClassLoader，启动类加载器<pre><code>$JAVA_HOME/lib</code></pre></li>
-<li>2.External ClassLoader，外部类加载器<pre><code>$JAVA_HOME/jre/lib/exts</code></pre></li>
-<li>3.Application ClassLoader，应用程序类加载器<pre><code>$CLASSPATH</code></pre><ul>
-<li>Person.class文件加载到内存中，JVM会对该字节码文件进行分析，然后产生Class<person>类的对象，<br>把该对象称之为Person类的镜像，Class类是用于描述字节码文件这一类事物的。</person></li>
-<li>Person类中的main方法
+          <h2 id="JavaEE基础"><a href="#JavaEE基础" class="headerlink" title="JavaEE基础"></a>JavaEE基础</h2><h3 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext:"></a>ServletContext:</h3><ol>
+<li>Context上下文,ServletContext代表整个应用</li>
+<li>一个应用只有一个ServletContext对象(单例对象)</li>
+<li>作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。</li>
+<li>其他域对象:session,request,page</li>
+<li>常用方法: <ul>
+<li>void setAttribute(String name,object value)</li>
+<li>Object getAttribute(String name)</li>
+<li>void rmoveAttribute(String name)    </li>
+</ul>
+</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/类的加载机制和反射/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ul></li></ul></li></ul></li></ul></div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/多线程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/多线程/" itemprop="url">多线程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="1-并发与并行"><a href="#1-并发与并行" class="headerlink" title="1.并发与并行"></a>1.并发与并行</h3><ul>
-<li>并发:指两个或多个事物在同一个时间段内发生</li>
-<li>并行:指两个或多个事物在同一个时刻发生(同时发生)</li>
-</ul>
-<h3 id="2-线程与进程"><a href="#2-线程与进程" class="headerlink" title="2.线程与进程"></a>2.线程与进程</h3><ul>
-<li>进程:进程是程序的一次执行过程，是系统运行程序的基本单位.</li>
-<li>线程:线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程.<br>(简要来说,进程就是抢占cpu的资源,然后调用线程去利用这些资源)</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/多线程/#more" rel="contents">
+            <a class="btn" href="/2019/07/16/Javaee基础/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1741,6 +1608,382 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/多线程/" itemprop="url">多线程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="1-并发与并行"><a href="#1-并发与并行" class="headerlink" title="1.并发与并行"></a>1.并发与并行</h3><ul>
+<li>并发:指两个或多个事物在同一个时间段内发生</li>
+<li>并行:指两个或多个事物在同一个时刻发生(同时发生)</li>
+</ul>
+<h3 id="2-线程与进程"><a href="#2-线程与进程" class="headerlink" title="2.线程与进程"></a>2.线程与进程</h3><ul>
+<li>进程:进程是程序的一次执行过程，是系统运行程序的基本单位.</li>
+<li>线程:线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程.<br>(简要来说,进程就是抢占cpu的资源,然后调用线程去利用这些资源)</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/多线程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/类的加载机制和反射/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/类的加载机制和反射/" itemprop="url">类的加载机制和反射</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  663 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="类的加载机制和反射"><a href="#类的加载机制和反射" class="headerlink" title="类的加载机制和反射"></a>类的加载机制和反射</h2><h3 id="类加载器机制"><a href="#类加载器机制" class="headerlink" title="类加载器机制"></a>类加载器机制</h3><ul>
+<li>类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象.</li>
+<li>类的加载机制—- Person p=new Person();<ul>
+<li>编码</li>
+<li>编译  javac  .java—&gt;.class</li>
+<li>运行  java Person   ————&gt;   Person.class</li>
+<li>类加载:双亲委托机制–向上委托,向下加载:<ul>
+<li>1.Bootstrap ClassLoader，启动类加载器<pre><code>$JAVA_HOME/lib</code></pre></li>
+<li>2.External ClassLoader，外部类加载器<pre><code>$JAVA_HOME/jre/lib/exts</code></pre></li>
+<li>3.Application ClassLoader，应用程序类加载器<pre><code>$CLASSPATH</code></pre><ul>
+<li>Person.class文件加载到内存中，JVM会对该字节码文件进行分析，然后产生Class<person>类的对象，<br>把该对象称之为Person类的镜像，Class类是用于描述字节码文件这一类事物的。</person></li>
+<li>Person类中的main方法
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/类的加载机制和反射/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </li></ul></li></ul></li></ul></li></ul></div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1941,7 +2184,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2014,7 +2257,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">10.2k</span>
+    <span title="Site words total count">11.5k</span>
   
 </div>
 
