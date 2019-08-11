@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="类的加载机制和反射类加载器机制 类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象. 类的加载机制—- Person p=new Person(); 编码 编译  javac  .java—&amp;gt;.class 运行  java Person   ————&amp;gt;   Person.class 类加载:双亲委托机制–向上委托,向下加载: 1.Bootstrap">
+<meta name="description" content="索引 什么是索引?    索引是对数据库表中的一列或多列的值进行排序的数据结构可加快对表中记录的查找或排序   索引基操   mysql索引概要   索引和锁  索引的数据结构 事务管理 定义:事务处理用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行 事务四大特性：ACID  原子性:操作要不全部成功,要不全部失败回滚 一致性:事务执行前后都必须处于一致状态 隔离性:并">
 <meta property="og:type" content="article">
-<meta property="og:title" content="类的加载机制和反射">
-<meta property="og:url" content="http://yoursite.com/2019/07/16/类的加载机制和反射/index.html">
+<meta property="og:title" content="MySql">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/Mysql/index.html">
 <meta property="og:site_name" content="心如止水">
-<meta property="og:description" content="类的加载机制和反射类加载器机制 类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象. 类的加载机制—- Person p=new Person(); 编码 编译  javac  .java—&amp;gt;.class 运行  java Person   ————&amp;gt;   Person.class 类加载:双亲委托机制–向上委托,向下加载: 1.Bootstrap">
+<meta property="og:description" content="索引 什么是索引?    索引是对数据库表中的一列或多列的值进行排序的数据结构可加快对表中记录的查找或排序   索引基操   mysql索引概要   索引和锁  索引的数据结构 事务管理 定义:事务处理用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行 事务四大特性：ACID  原子性:操作要不全部成功,要不全部失败回滚 一致性:事务执行前后都必须处于一致状态 隔离性:并">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-16T14:24:11.506Z">
+<meta property="og:updated_time" content="2019-08-08T03:36:30.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="类的加载机制和反射">
-<meta name="twitter:description" content="类的加载机制和反射类加载器机制 类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象. 类的加载机制—- Person p=new Person(); 编码 编译  javac  .java—&amp;gt;.class 运行  java Person   ————&amp;gt;   Person.class 类加载:双亲委托机制–向上委托,向下加载: 1.Bootstrap">
+<meta name="twitter:title" content="MySql">
+<meta name="twitter:description" content="索引 什么是索引?    索引是对数据库表中的一列或多列的值进行排序的数据结构可加快对表中记录的查找或排序   索引基操   mysql索引概要   索引和锁  索引的数据结构 事务管理 定义:事务处理用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行 事务四大特性：ACID  原子性:操作要不全部成功,要不全部失败回滚 一致性:事务执行前后都必须处于一致状态 隔离性:并">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/16/类的加载机制和反射/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/07/Mysql/">
 
 
 
 
 
-  <title>类的加载机制和反射 | 心如止水</title>
+  <title>MySql | 心如止水</title>
   
 
 
@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/类的加载机制和反射/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邹龄晋">
@@ -281,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">类的加载机制和反射</h1>
+          <h1 class="post-title" itemprop="name headline">MySql</h1>
         
 
         <div class="post-meta">
@@ -293,8 +293,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T14:45:45+08:00">
+                2019-08-07
               </time>
             
 
@@ -316,8 +316,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
                   </a>
                 </span>
 
@@ -347,7 +347,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  663 字
+                  888 字
                 </span>
               
 
@@ -363,7 +363,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -384,39 +384,55 @@
       
 
       
-        <h2 id="类的加载机制和反射"><a href="#类的加载机制和反射" class="headerlink" title="类的加载机制和反射"></a>类的加载机制和反射</h2><h3 id="类加载器机制"><a href="#类加载器机制" class="headerlink" title="类加载器机制"></a>类加载器机制</h3><ul>
-<li>类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象.</li>
-<li>类的加载机制—- Person p=new Person();<ul>
-<li>编码</li>
-<li>编译  javac  .java—&gt;.class</li>
-<li>运行  java Person   ————&gt;   Person.class</li>
-<li>类加载:双亲委托机制–向上委托,向下加载:<ul>
-<li>1.Bootstrap ClassLoader，启动类加载器<pre><code>$JAVA_HOME/lib</code></pre></li>
-<li>2.External ClassLoader，外部类加载器<pre><code>$JAVA_HOME/jre/lib/exts</code></pre></li>
-<li>3.Application ClassLoader，应用程序类加载器<pre><code>$CLASSPATH</code></pre><ul>
-<li>Person.class文件加载到内存中，JVM会对该字节码文件进行分析，然后产生Class<person>类的对象，<br>把该对象称之为Person类的镜像，Class类是用于描述字节码文件这一类事物的。</person></li>
-<li>Person类中的main方法<a id="more"></a>
-
-</li>
+        <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ul>
+<li>什么是索引?</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>索引是对数据库表中的一列或多列的值进行排序的数据结构<br>可加快对表中记录的查找或排序</p>
+</blockquote>
+</blockquote>
+<p><a href="https://juejin.im/entry/5a448726f265da43062b10f1#comment" target="_blank" rel="noopener">索引基操</a>   <a href="https://juejin.im/entry/59b6bf5a6fb9a00a496e3bbc" target="_blank" rel="noopener">mysql索引概要</a>   <a href="https://juejin.im/post/5b55b842f265da0f9e589e79" target="_blank" rel="noopener">索引和锁</a>  <a href="https://www.jianshu.com/p/1775b4ff123a" target="_blank" rel="noopener">索引的数据结构</a></p>
+<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><ul>
+<li>定义:事务处理用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行</li>
+<li>事务四大特性：ACID <ul>
+<li>原子性:操作要不全部成功,要不全部失败回滚</li>
+<li>一致性:事务执行前后都必须处于一致状态</li>
+<li>隔离性:并发事务互不干扰</li>
+<li>持久性；事务提交成功,对数据库的数据改变是永久的</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><ul>
-<li>Java 反射机制在程序运行时，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性。这种 动态的获取信息 以及 动态调用对象的方法 的功能称为 java 的反射机制</li>
-</ul>
-<p>下面的例子:获取Person类的对象，先获取Person类的镜像（Class对象）。获取镜像的三个方法.</p>
+<a id="more"></a>
 <ul>
-<li>调用getClass()方法，是Object类中的。</li>
-<li>由类名直接调用.class属性，获取到的也是Class对象；</li>
-<li>不知道字节码文件在什么位置，但是知道的是类的名字；（常用）Class.forName(类名);</li>
+<li><p>基本术语</p>
+<ul>
+<li>事务（transaction）指一组 SQL 语句</li>
+<li>回退（rollback）指撤销指定 SQL 语句的过程</li>
+<li>提交（commit）指将未存储的 SQL 语句结果写入数据库表</li>
+<li>保留点（savepoint）指事务处理中设置的临时占位符placeholder可回退（与回退整个事务处理不同）。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Class 获取某个类的镜像【Class类的对象】</span></span><br><span class="line"><span class="comment">Constructor：用于获取构造器</span></span><br><span class="line"><span class="comment">Field：用于获取字段，成员变量</span></span><br><span class="line"><span class="comment">Method：用于获取方法。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    <span class="comment">//3.使用Class类中的forName方法:</span></span><br><span class="line">    String className=<span class="string">"杰普.day3.Person"</span>;</span><br><span class="line">    Class cPerson = Class.forName(className);</span><br><span class="line">    <span class="comment">//创建Person类的对象,首先需要获取Person类中的构造器</span></span><br><span class="line">    Constructor con=cPerson.getConstructor(String.class,<span class="keyword">int</span>.class);</span><br><span class="line">    <span class="comment">//System.out.println(con);</span></span><br><span class="line">    <span class="comment">//创建对象</span></span><br><span class="line">    Object o=con.newInstance(<span class="string">"leonard"</span>,<span class="number">22</span>);</span><br><span class="line">    <span class="comment">//使用Class对象获取Person类中的成员变量</span></span><br><span class="line">    Field fName=cPerson.getDeclaredField(<span class="string">"name"</span>);<span class="comment">//只要声明即可访问</span></span><br><span class="line">    fName.setAccessible(<span class="keyword">true</span>);<span class="comment">//暴力访问</span></span><br><span class="line">    fName.set(o,<span class="string">"李四"</span>);</span><br><span class="line">    System.out.println(fName.get(o));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取Person类中的方法</span></span><br><span class="line">    Method method = cPerson.getMethod(<span class="string">"say"</span>,String.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用该方法</span></span><br><span class="line">    method.invoke(o,<span class="string">"baby"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取静态方法</span></span><br><span class="line">    Method staticMethodSay = cPerson.getMethod(<span class="string">"hello"</span>, String.class);</span><br><span class="line">    staticMethodSay.invoke(<span class="keyword">null</span>,<span class="string">"lady"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>事物四大隔离级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">脏读:指在一个事务处理过程里读取了另一个未提交的事务中的数据。</span><br><span class="line">T1 修改一个数据，T2 随后读取这个数据。如果 T1 撤销了这次修改，那么 T2 读取的数据是脏数据。</span><br><span class="line">		</span><br><span class="line">不可重复读:</span><br><span class="line">T2 读取一个数据，T1 对该数据做了修改。如果 T2 再次读取这个数据，此时读取的结果和第一次读取的结果不同。</span><br><span class="line">		</span><br><span class="line">幻读:</span><br><span class="line">T1 读取某个范围的数据，T2 在这个范围内插入新的数据，T1 再次读取这个范围的数据，此时读取的结果和和第一次</span><br><span class="line">读取的结果不同。</span><br><span class="line"></span><br><span class="line">Serializable (串行化)：可避免脏读、不可重复读、幻读的发生。</span><br><span class="line">Repeatable read (可重复读)：可避免脏读、不可重复读的发生。</span><br><span class="line">Read committed (读已提交)：可避免脏读的发生。</span><br><span class="line">Read uncommitted (读未提交)：最低级别，任何情况都无法保证。</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = <span class="number">18</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(s+<span class="string">" say:hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(s+<span class="string">"**"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="mysql数据类型"><a href="#mysql数据类型" class="headerlink" title="mysql数据类型"></a>mysql数据类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">整数【定点】类型：</span><br><span class="line">	int(M)：对应Java中的int类型。</span><br><span class="line">	bigint(M)：对应Java中的long类型。</span><br><span class="line"></span><br><span class="line">小数【浮点】类型：</span><br><span class="line">	double(M,D)：对应Java中double。</span><br><span class="line">	float(M,D)：对应Java中的float。</span><br><span class="line"></span><br><span class="line">	decimal(M[,D]);  既能表示整数又能表示小数。</span><br><span class="line">	numberic(M[,D]);</span><br><span class="line">	</span><br><span class="line">字符型：</span><br><span class="line">	char(M);	固定长度的字符。 String</span><br><span class="line">	varchar(M);	可变长度的字符。</span><br><span class="line"></span><br><span class="line">	blob：能够存储特别大的二进制数据。  byte[]，Blob</span><br><span class="line">	text：类似于CLOB。					String，Clob</span><br><span class="line">	Oracle数据库中有CLOB：能够存储特别大的字符数据。</span><br><span class="line"></span><br><span class="line">枚举类型：</span><br><span class="line">	enum：该数据类型的值有有限个，在进行数据类型定义的时候需要指定该数据类型能够存储的值有哪些，</span><br><span class="line">	并且在插入数据的时候只能在这个值中根据需求任选其一。</span><br><span class="line">集合类型：</span><br><span class="line">	set：</span><br><span class="line"></span><br><span class="line">日期类型：</span><br><span class="line">	datetime：表示日期和时间。 java.sql.Date     java.util.Date</span><br><span class="line">	&apos;2008-01-16 22:37:08&apos;</span><br><span class="line">	timestamp：时间戳。距离1970年01月01日00:00:00的毫秒数。在Java中一般使用Long类型的整数表示</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><ul>
+<li>MySQL 的账户信息保存在 mysql 这个数据库中。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> mysql;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">user</span> <span class="keyword">FROM</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>用户权限操作</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> myuser <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'mypassword'</span>;  <span class="comment"># 新创建的账户没有任何权限</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RENAME</span> <span class="keyword">USER</span> myuser <span class="keyword">TO</span> newuser;</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> myuser;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">GRANTS</span> <span class="keyword">FOR</span> myuser;</span><br><span class="line"></span><br><span class="line"><span class="comment">#账户用 username@host 的形式定义，username@% 使用的是默认主机名。</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>, <span class="keyword">INSERT</span> <span class="keyword">ON</span> mydatabase.* <span class="keyword">TO</span> myuser; </span><br><span class="line"></span><br><span class="line">REVOKE SELECT, INSERT ON mydatabase.* FROM myuser; *删除权限</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> PASSWROD <span class="keyword">FOR</span> myuser = <span class="keyword">Password</span>(<span class="string">'new_password'</span>);</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -471,8 +487,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/16/jdk  新特性/" rel="next" title="JDK8新特性">
-                <i class="fa fa-chevron-left"></i> JDK8新特性
+              <a href="/2019/08/07/Sql/" rel="next" title="SQL">
+                <i class="fa fa-chevron-left"></i> SQL
               </a>
             
           </div>
@@ -481,8 +497,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/16/集合/" rel="prev" title="集合">
-                集合 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/08/数据库理论范式/" rel="prev" title="数据库理论">
+                数据库理论 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -644,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类的加载机制和反射"><span class="nav-number">1.</span> <span class="nav-text">类的加载机制和反射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器机制"><span class="nav-number">1.1.</span> <span class="nav-text">类加载器机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射"><span class="nav-number">1.2.</span> <span class="nav-text">反射</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">1.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务管理"><span class="nav-number">2.</span> <span class="nav-text">事务管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql数据类型"><span class="nav-number">3.</span> <span class="nav-text">mysql数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限管理"><span class="nav-number">4.</span> <span class="nav-text">权限管理</span></a></li></ol></div>
             
 
           </div>
