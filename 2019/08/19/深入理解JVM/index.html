@@ -86,15 +86,15 @@
 <meta property="og:site_name" content="心如止水">
 <meta property="og:description" content="你了解java内存模型吗? 程序计数器 当前线程所执行的字节码行号指示器 改变计数器的值来选取下一条需要执行的指令 和线程是一对一的关系,线程私有 不会发生内存泄露 对Java方法计数,如果是Native方法测计数器值为Undefined  Java虚拟机栈 Java方法执行的内存模型 每个方法执行在执行的过程中都会创建一个栈帧(局部变量表,操作数栈,动态链接,返回地址) 每一个方法从调用直至执行">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154735180-125458188.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154800865-706907176.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154824108-1554207287.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154747200-1559883116.png">
-<meta property="og:updated_time" content="2019-08-19T07:52:41.204Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/19/深入理解JVM/images/model.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/19/深入理解JVM/images/zz.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/19/深入理解JVM/images/test.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/19/深入理解JVM/images/re.png">
+<meta property="og:updated_time" content="2019-08-19T08:17:57.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解JVM">
 <meta name="twitter:description" content="你了解java内存模型吗? 程序计数器 当前线程所执行的字节码行号指示器 改变计数器的值来选取下一条需要执行的指令 和线程是一对一的关系,线程私有 不会发生内存泄露 对Java方法计数,如果是Native方法测计数器值为Undefined  Java虚拟机栈 Java方法执行的内存模型 每个方法执行在执行的过程中都会创建一个栈帧(局部变量表,操作数栈,动态链接,返回地址) 每一个方法从调用直至执行">
-<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154735180-125458188.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/19/深入理解JVM/images/model.png">
 
 
 
@@ -389,7 +389,7 @@
       
 
       
-        <h1 id="你了解java内存模型吗"><a href="#你了解java内存模型吗" class="headerlink" title="你了解java内存模型吗?"></a>你了解java内存模型吗?</h1><p><img src="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154735180-125458188.png" alt></p>
+        <h1 id="你了解java内存模型吗"><a href="#你了解java内存模型吗" class="headerlink" title="你了解java内存模型吗?"></a>你了解java内存模型吗?</h1><p><img src="images/model.png" alt></p>
 <h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><ul>
 <li>当前线程所执行的字节码行号指示器</li>
 <li>改变计数器的值来选取下一条需要执行的指令</li>
@@ -403,7 +403,7 @@
 <li>每一个方法从调用直至执行完成的过程就对应着一个栈帧在虚拟机栈中入栈到出栈的过程</li>
 <li>JVM中这个区域规定了2种异常:1.如果线程栈的深度大于虚拟机栈的深度:StackOverflowError2.如果虚拟栈动态扩展无法申请到足够内存:OutOfMemoryError</li>
 </ul>
-<p><img src="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154800865-706907176.png" alt></p>
+<p><img src="images/zz.png" alt></p>
 <h4 id="局部变量表和操作数栈"><a href="#局部变量表和操作数栈" class="headerlink" title="局部变量表和操作数栈"></a>局部变量表和操作数栈</h4><ul>
 <li>局部变量表:包含方法执行过程中所有的变量<br>其中64位的占用2个局部变量空间</li>
 <li>操作数栈:入栈,出栈,复制,交换,产生消费变量</li>
@@ -411,7 +411,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">       c = a+b;</span><br><span class="line">       <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154824108-1554207287.png" alt></p>
+<p><img src="images/test.png" alt></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*	先javac *.java 编译, </span><br><span class="line">	然后执行javap -verbose .class 反编译字节码信息</span><br><span class="line">	这是add方法的字节码信息</span><br><span class="line">*/</span><br><span class="line">public static int add(int, int);</span><br><span class="line">    descriptor: (II)I</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">	//locals:</span><br><span class="line">	//stack操作数栈  locals局部变量表  args_size入参个数</span><br><span class="line">      stack=2, locals=3, args_size=2</span><br><span class="line">	  //JVM 指令</span><br><span class="line">         0: iconst_0   //将int值0 压入操作栈中</span><br><span class="line">         1: istore_2   //将操作栈的栈顶数0出栈到局部变量表中第2个变量中</span><br><span class="line">         2: iload_0    //将局部变量表中第0个变量压栈到操作栈顶</span><br><span class="line">         3: iload_1    //将局部变量表中第1个变量压栈到操作栈顶</span><br><span class="line">         4: iadd	   //+操作</span><br><span class="line">         5: istore_2   //将结果存到局部变量表第2个变量中(0被替代)</span><br><span class="line">         6: iload_2	   //将第2个变量中的结果压栈道操作栈顶</span><br><span class="line">         7: ireturn	   //将操作栈顶元素返回出去得到结果</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 6: 0</span><br><span class="line">        line 7: 2</span><br><span class="line">        line 8: 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈和Java虚拟机栈类似,只不过此栈是为虚拟机提供Native本地方法服务的.A native method is a Java method<br>whose implementation is provided by non-java code本地方法一般是用其它语言（C、C++ 或汇编语言等）编写的</p>
@@ -443,7 +443,7 @@
 </ul>
 <h3 id="元空间-堆-线程独占部分间的联系–内存角度"><a href="#元空间-堆-线程独占部分间的联系–内存角度" class="headerlink" title="元空间,堆,线程独占部分间的联系–内存角度"></a>元空间,堆,线程独占部分间的联系–内存角度</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello "</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">        HelloWorld hw = <span class="keyword">new</span> HelloWorld();</span><br><span class="line">        hw.setName(<span class="string">"test"</span>);</span><br><span class="line">        hw.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img2018.cnblogs.com/blog/1255358/201908/1255358-20190819154747200-1559883116.png" alt></p>
+<p><img src="images/re.png" alt></p>
 
       
     </div>
