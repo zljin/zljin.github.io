@@ -79,14 +79,17 @@
 
 
 
+<meta name="description" content="Redis(Nosql内存数据库) Redis是用C语言开发的一个开源的高性能键值对数据库   数据类型包括:字符串类型 ●散列类型 ●列表类型 ●集合类型 ●有序集合类型  内存持续和持久化Redis的所有数据存储在内存,内存的读取速度比硬盘高很多,所以性能更占优但程序退出后内存的数据会丢失,Redis提供持久化操作将内存数据异步存储到硬盘不影响继续提供服务  多种功能多用于缓存和队列系统:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis">
 <meta property="og:url" content="http://yoursite.com/2019/08/09/Redis/index.html">
 <meta property="og:site_name" content="心如止水">
+<meta property="og:description" content="Redis(Nosql内存数据库) Redis是用C语言开发的一个开源的高性能键值对数据库   数据类型包括:字符串类型 ●散列类型 ●列表类型 ●集合类型 ●有序集合类型  内存持续和持久化Redis的所有数据存储在内存,内存的读取速度比硬盘高很多,所以性能更占优但程序退出后内存的数据会丢失,Redis提供持久化操作将内存数据异步存储到硬盘不影响继续提供服务  多种功能多用于缓存和队列系统:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-09T04:02:24.324Z">
+<meta property="og:updated_time" content="2019-08-15T02:26:40.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
+<meta name="twitter:description" content="Redis(Nosql内存数据库) Redis是用C语言开发的一个开源的高性能键值对数据库   数据类型包括:字符串类型 ●散列类型 ●列表类型 ●集合类型 ●有序集合类型  内存持续和持久化Redis的所有数据存储在内存,内存的读取速度比硬盘高很多,所以性能更占优但程序退出后内存的数据会丢失,Redis提供持久化操作将内存数据异步存储到硬盘不影响继续提供服务  多种功能多用于缓存和队列系统:">
 
 
 
@@ -344,7 +347,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  778 字
                 </span>
               
 
@@ -360,7 +363,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -381,7 +384,47 @@
       
 
       
-        
+        <h2 id="Redis-Nosql内存数据库"><a href="#Redis-Nosql内存数据库" class="headerlink" title="Redis(Nosql内存数据库)"></a>Redis(Nosql内存数据库)</h2><blockquote>
+<p>Redis是用C语言开发的一个开源的高性能键值对数据库</p>
+</blockquote>
+<ul>
+<li><p>数据类型包括:字符串类型 ●散列类型 ●列表类型 ●集合类型 ●有序集合类型</p>
+</li>
+<li><p>内存持续和持久化<br>Redis的所有数据存储在内存,内存的读取速度比硬盘高很多,所以性能更占优<br>但程序退出后内存的数据会丢失,Redis提供持久化操作将内存数据异步存储到<br>硬盘不影响继续提供服务</p>
+</li>
+<li><p>多种功能<br>多用于缓存和队列系统:<br>  Redis可以为每个键设置生存时间（Time To Live，TTL），<br>  生存时间到期后键会自动被删除这个功能可作为缓存系统使用<br>Redis和Memcached优劣:<br>  在性能上Redis是 单线程模型，而Memcached支持多线程，所以在多核服务器上后者的性能更高<br>  如果需要用到高级的数据类型 或是持久化等功能，Redis是很好的替代品<br>  作为缓存系统，Redis还可以限定数据占用的最大内存空间，在数据达到空间限制后可以 按照一定的规则自动淘汰不需要的键<br>  Redis的列表类型键可以用来实现队列，并且支持阻塞式读取，可以很容易地 实现一个高性能的优先级队列。同时在更高层面上，<br>  Redis还支持“发布/订阅”的消息模式，可 以基于此构建聊天室等系统。</p>
+</li>
+</ul>
+<p>Redis持久化:<br>    RDB是Redis默认采用的持久化操作(通过快照文件,将数据从硬盘载入到内存)<br>    save 900 1 表示15分钟（900秒钟）内至少1个键被更改则进行快照<br>    AOF(手动配置,操作一次写入一次数据)</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ul>
+<li>ubuntu下载: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$sudo apt-get update</span><br><span class="line">$sudo apt-get install redis-server</span><br><span class="line">$redis-server --启动</span><br><span class="line">$redis-cli --登录后ping看是否pong通</span><br><span class="line">$redis-cli -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>Ubuntu下redis开放端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dpkg -L redis-server </span><br><span class="line">sudo vim /etc/redis/redis.conf </span><br><span class="line">bind 0.0.0.0</span><br><span class="line">service redis-server restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>String:最基本的数据类型,二进制安全</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set akey redis</span><br><span class="line">mset k1 v1 k2 v2 k3 v3//设置多个键值对用m</span><br><span class="line">mget k1 k3</span><br><span class="line">get akey del akey</span><br><span class="line">incr num  decr num</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hash:String元素组成的字典,适合用于存储对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hmset lilei name &quot;Lilei&quot; age 26 title &quot;Senior&quot;</span><br><span class="line">hget lilei age</span><br><span class="line">hget lilei title</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>List:列表,按照String元素插入顺序排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lpush mylist aaa</span><br><span class="line">lpush mylist bbb</span><br><span class="line">lpush mylist ccc</span><br><span class="line">lrange mylist 0 10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SortedSet:通过分数来为集合中的成员进行从小到大的排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zadd myzset 3 abc</span><br><span class="line">zadd myzset 1 abd</span><br><span class="line">zadd myzset 2 abb</span><br><span class="line">zadd myzset 1 bgg</span><br><span class="line">zrangebyscore myzset 0 10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis查询海量前缀key:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dbsize			//统计所有key的个数</span><br><span class="line">keys pattern	//查找所有pattern模式的key,一次返回所有若过大则使服务卡顿</span><br><span class="line">keys k1*</span><br><span class="line">SCAN cursor[MATCH pattern][COUNT count]</span><br><span class="line">scan 0 match k1* count 10</span><br><span class="line">scan 11534336 match k1* count 10</span><br><span class="line"></span><br><span class="line">whereis redis-server</span><br><span class="line">/usr/bin/redis-server /usr/share/man/man1/redis-server.1.gz</span><br><span class="line">vi /etc/redis/redis.conf	/not a filename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set:String元素组成的无序集合,通过哈希表实现,不允许重复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sadd myset 111</span><br><span class="line">sadd myset 222</span><br><span class="line">sadd myset 333</span><br><span class="line">smembers myset</span><br></pre></td></tr></table></figure></li>
+</ul>
+
       
     </div>
     
@@ -445,6 +488,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/19/深入理解JVM/" rel="prev" title="深入理解JVM">
+                深入理解JVM <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -523,8 +570,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -541,7 +597,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +608,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -587,6 +643,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-Nosql内存数据库"><span class="nav-number">1.</span> <span class="nav-text">Redis(Nosql内存数据库)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">2.</span> <span class="nav-text">基本操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -614,7 +686,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">14.8k</span>
+    <span title="Site words total count">16.8k</span>
   
 </div>
 
