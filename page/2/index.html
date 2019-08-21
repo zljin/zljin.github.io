@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/jdk  新特性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/类的加载机制和反射/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邹龄晋">
@@ -280,7 +280,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/16/jdk  新特性/" itemprop="url">JDK8新特性</a></h1>
+                <a class="post-title-link" href="/2019/07/16/类的加载机制和反射/" itemprop="url">类的加载机制和反射</a></h1>
         
 
         <div class="post-meta">
@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k 字
+                  663 字
                 </span>
               
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -384,17 +384,207 @@
 
       
         
-          <h2 id="JDK8-新特性"><a href="#JDK8-新特性" class="headerlink" title="JDK8 新特性"></a>JDK8 新特性</h2><h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><ul>
-<li>lambda就是对匿名内部类的简化 (形参1…)-&gt; 返回值</li>
-<li>匿名内部类对象核心:是方法的重写,需要重写的方法有且只有一个</li>
-<li>方法的核心:形参列表和函数体语句</li>
-<li>lambda 表达式的局部变量可以不用声明为 final,默认final修饰</li>
-<li>lambda 表达式只能引用标记了 final 的外层局部变量</li>
-<li>lambda表达式可以自动匹配数据类型</li>
+          <h2 id="类的加载机制和反射"><a href="#类的加载机制和反射" class="headerlink" title="类的加载机制和反射"></a>类的加载机制和反射</h2><h3 id="类加载器机制"><a href="#类加载器机制" class="headerlink" title="类加载器机制"></a>类加载器机制</h3><ul>
+<li>类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象.</li>
+<li>类的加载机制—- Person p=new Person();<ul>
+<li>编码</li>
+<li>编译  javac  .java—&gt;.class</li>
+<li>运行  java Person   ————&gt;   Person.class</li>
+<li>类加载:双亲委托机制–向上委托,向下加载:<ul>
+<li>1.Bootstrap ClassLoader，启动类加载器<pre><code>$JAVA_HOME/lib</code></pre></li>
+<li>2.External ClassLoader，外部类加载器<pre><code>$JAVA_HOME/jre/lib/exts</code></pre></li>
+<li>3.Application ClassLoader，应用程序类加载器<pre><code>$CLASSPATH</code></pre><ul>
+<li>Person.class文件加载到内存中，JVM会对该字节码文件进行分析，然后产生Class<person>类的对象，<br>把该对象称之为Person类的镜像，Class类是用于描述字节码文件这一类事物的。</person></li>
+<li>Person类中的main方法</li></ul></li></ul></li></ul></li></ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/类的加载机制和反射/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/多线程/" itemprop="url">多线程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="1-并发与并行"><a href="#1-并发与并行" class="headerlink" title="1.并发与并行"></a>1.并发与并行</h3><ul>
+<li>并发:指两个或多个事物在同一个时间段内发生</li>
+<li>并行:指两个或多个事物在同一个时刻发生(同时发生)</li>
+</ul>
+<h3 id="2-线程与进程"><a href="#2-线程与进程" class="headerlink" title="2.线程与进程"></a>2.线程与进程</h3><ul>
+<li>进程:进程是程序的一次执行过程，是系统运行程序的基本单位.</li>
+<li>线程:线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程.<br>(简要来说,进程就是抢占cpu的资源,然后调用线程去利用这些资源)</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/jdk  新特性/#more" rel="contents">
+            <a class="btn" href="/2019/07/16/多线程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -637,191 +827,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/IO编程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/IO编程/" itemprop="url">IO编程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.1k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><ul>
-<li><p>1.什么是IO流? </p>
-<ul>
-<li>数据的传输可以看成数据的流动,按照流动的方向,以内存为基准,分为输入和输出,即流向内存为输入,留出内存为输出.</li>
-</ul>
-</li>
-<li><p>2.字节流</p></li></ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/IO编程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/article/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -948,196 +953,6 @@
           
             
           
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/类的加载机制和反射/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/类的加载机制和反射/" itemprop="url">类的加载机制和反射</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  663 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="类的加载机制和反射"><a href="#类的加载机制和反射" class="headerlink" title="类的加载机制和反射"></a>类的加载机制和反射</h2><h3 id="类加载器机制"><a href="#类加载器机制" class="headerlink" title="类加载器机制"></a>类加载器机制</h3><ul>
-<li>类加载器负责将.class文件加载到内存,并生成对应的java.lang.Class对象.</li>
-<li>类的加载机制—- Person p=new Person();<ul>
-<li>编码</li>
-<li>编译  javac  .java—&gt;.class</li>
-<li>运行  java Person   ————&gt;   Person.class</li>
-<li>类加载:双亲委托机制–向上委托,向下加载:<ul>
-<li>1.Bootstrap ClassLoader，启动类加载器<pre><code>$JAVA_HOME/lib</code></pre></li>
-<li>2.External ClassLoader，外部类加载器<pre><code>$JAVA_HOME/jre/lib/exts</code></pre></li>
-<li>3.Application ClassLoader，应用程序类加载器<pre><code>$CLASSPATH</code></pre><ul>
-<li>Person.class文件加载到内存中，JVM会对该字节码文件进行分析，然后产生Class<person>类的对象，<br>把该对象称之为Person类的镜像，Class类是用于描述字节码文件这一类事物的。</person></li>
-<li>Person类中的main方法</li></ul></li></ul></li></ul></li></ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/类的加载机制和反射/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1329,6 +1144,191 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/07/16/集合/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/IO编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/IO编程/" itemprop="url">IO编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><ul>
+<li><p>1.什么是IO流? </p>
+<ul>
+<li>数据的传输可以看成数据的流动,按照流动的方向,以内存为基准,分为输入和输出,即流向内存为输入,留出内存为输出.</li>
+</ul>
+</li>
+<li><p>2.字节流</p></li></ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/IO编程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1658,7 +1658,7 @@
     
       <span class="post-meta-item-text">总字数&#58;</span>
     
-    <span title="总字数">17.4k</span>
+    <span title="总字数">18.1k</span>
   
 </div>
 

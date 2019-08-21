@@ -92,7 +92,13 @@
 <meta property="og:image" content="https://github.com/zljin/img_z/blob/master/Compacting.png?raw=true">
 <meta property="og:image" content="https://github.com/zljin/img_z/blob/master/gc.png?raw=true">
 <meta property="og:image" content="https://github.com/zljin/img_z/blob/master/gcp.png?raw=true">
-<meta property="og:updated_time" content="2019-08-20T07:07:12.063Z">
+<meta property="og:image" content="https://github.com/zljin/img_z/blob/master/gcmachine.png?raw=true">
+<meta property="og:image" content="https://github.com/zljin/img_z/blob/master/Serial.png?raw=true">
+<meta property="og:image" content="https://github.com/zljin/img_z/blob/master/ParNew.png?raw=true">
+<meta property="og:image" content="https://github.com/zljin/img_z/blob/master/Parallel.png?raw=true">
+<meta property="og:image" content="https://github.com/zljin/img_z/blob/master/Serialo.png?raw=true">
+<meta property="og:image" content="https://github.com/zljin/img_z/blob/master/Parallelo.png?raw=true">
+<meta property="og:updated_time" content="2019-08-21T02:31:55.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM中的GC回收机制">
 <meta name="twitter:description" content="垃圾收集主要针对堆和方法区这种线程共享的区域,因为像栈和PC区域属于线程私有,当线程的生命周期结束时也就会消失   判断对象是否是个垃圾1.引用计数算法(无法处理循环引用)2.可达性算法 通过判断对象的引用链是否可达来决定对象是否可以回收    GCRoots包含以下内容 虚拟机栈的引用的对象 方法区中常量的引用的对象 方法区中类静态属性所引用的对象 本地方法栈中JNI(Native方法)的引">
@@ -359,7 +365,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  631 字
+                  1.3k 字
                 </span>
               
 
@@ -375,7 +381,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -435,8 +441,7 @@
 <li>按照对象生命周期的不同划分区域进行不同的垃圾回收算法</li>
 </ul>
 <p><img src="https://github.com/zljin/img_z/blob/master/gc.png?raw=true" alt="img"></p>
-<p>####GC的分类</p>
-<blockquote>
+<h4 id="GC的分类"><a href="#GC的分类" class="headerlink" title="GC的分类"></a>GC的分类</h4><blockquote>
 <p>年轻代:尽可能快速地收集掉那些生命周期短的对象<br>由Eden区 和两个Survivor区(From区和To区,此两区顺序不是绝对)</p>
 </blockquote>
 <blockquote>
@@ -448,7 +453,7 @@
 <li>Survivor区中存放不下的对象</li>
 <li>新生代的大对象(-XX:+PretenuerSizeThreshold)</li>
 <li>-XX:SurvivorRatio:Eden和Survivor的比值</li>
-<li>-XX:NewRatio: 老年代:年轻代值</li>
+<li>-XX:NewRatio: 老年代和年轻代值的空间比值</li>
 </ul>
 </li>
 </ul>
@@ -456,13 +461,59 @@
 <p>老年代:存放生命周期较长的对象        </p>
 </blockquote>
 <ul>
-<li>Minor GC</li>
-</ul>
-<ul>
-<li>Full GC<blockquote>
+<li><p>Minor GC:回收新生代,因为新生代对象存活时间很短,会频繁执行,执行的速度快</p>
+<blockquote>
+<p>触发条件:当Eden空间满时,触发</p>
+</blockquote>
+</li>
+<li><p>Full GC:回收老年代和新生代,老年代对象其存活时间长,Full GC很少执行,且速度慢</p>
+<blockquote>
 <p>触发条件:<br>  1.老年代空间不足 2.永久代空间不足 3.调用System.gc() 4.Minor GC晋升老年代的平均大小大于剩余空间</p>
 </blockquote>
 </li>
+</ul>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><h3 id="两个概念"><a href="#两个概念" class="headerlink" title="两个概念"></a>两个概念</h3><ul>
+<li>Stop-the-World:JVM执行GC要停止应用程序的执行,任何GC都会发生,通过优化stw的时间来提高程序性能</li>
+<li>Safepoint:分析过程中对象引用关系不会发生变化的点(一般出现在:方法调用,循环跳转,异常跳转)</li>
+</ul>
+<h3 id="垃圾收集器的关系图"><a href="#垃圾收集器的关系图" class="headerlink" title="垃圾收集器的关系图"></a>垃圾收集器的关系图</h3><p><img src="https://github.com/zljin/img_z/blob/master/gcmachine.png?raw=true" alt="img"></p>
+<ul>
+<li>单线程与多线程：垃圾收集器使用线程数.</li>
+<li>串行与并行：串行指垃圾收集器(需要停顿用户程序)与用户程序交替执行,并行是同时执行(不需要停顿用户程序),除了CMS/G1都是串行。</li>
+</ul>
+<h3 id="年轻代常见垃圾收集器"><a href="#年轻代常见垃圾收集器" class="headerlink" title="年轻代常见垃圾收集器"></a>年轻代常见垃圾收集器</h3><blockquote>
+<p>Serial收集器(-XX:+UseSerialGC,复制算法,单线程,简单高效,JVM的Client模式下默认的年轻代收集器)</p>
+</blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/Serial.png?raw=true" alt="img"></p>
+<blockquote>
+<p>ParNew收集器(-XX:+UseParNewGC,复制算法,多线程,和前面类似,多核执行才比前面有优势)</p>
+</blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/ParNew.png?raw=true" alt="img"></p>
+<blockquote>
+<p>Parallel Scavenge收集器(-XX:+UserParallelGC,多线程,吞吐量优先收集器,多核才有优势,JVM的Server模式下默认的年轻代收集器)</p>
+</blockquote>
+<ul>
+<li>吞吐量:运行用户代码时间/(运行用户代码时间+垃圾收集时间)</li>
+<li>其它收集器目标是尽可能缩短垃圾收集时用户线程的停顿时间(用户交互时间越短能提高用户体验)，而它的目标是达到一个可控制的吞吐量(可高效率利用CPU时间,快速完成程序运算任务<br><img src="https://github.com/zljin/img_z/blob/master/Parallel.png?raw=true" alt="img"></li>
+</ul>
+<h3 id="老年代常见的垃圾收集器"><a href="#老年代常见的垃圾收集器" class="headerlink" title="老年代常见的垃圾收集器"></a>老年代常见的垃圾收集器</h3><blockquote>
+<p>Serial Old收集器(-XX:+UseSerialOldGC,标记整理算法,单线程,Client模式下默认老年代收集器)<br><img src="https://github.com/zljin/img_z/blob/master/Serialo.png?raw=true" alt="img"></p>
+</blockquote>
+<blockquote>
+<p>Parallel Old收集器(-XX:+UseParallelOldGC,多线程,吞吐量优先,标记整理算法)<br><img src="https://github.com/zljin/img_z/blob/master/Parallelo.png?raw=true" alt="img"></p>
+</blockquote>
+<blockquote>
+<p>CMS收集器(-XX:+UseConcMarkSweepGC,标记清除算法)</p>
+<ul>
+<li>流程:初始标记,并发标记,重新标记,并发清除</li>
+<li>特定:在整个过程中耗时最长的并发标记和并发清除过程中，收集器线程都可以与用户线程一起工作，不需要进行停顿</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>G1收集器(-XX:+UseG1GC,复制+标记-整理算法)</p>
+</blockquote>
+<ul>
+<li>特点:将整个Java堆内存划分成多个大小相等的Region,年轻代和老年代不再物理隔离</li>
 </ul>
 
       
@@ -688,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断对象是否是个垃圾"><span class="nav-number">1.</span> <span class="nav-text">判断对象是否是个垃圾</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-引用计数算法-无法处理循环引用"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.引用计数算法(无法处理循环引用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-可达性算法"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.可达性算法</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收算法"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-标记清除算法-Mark-and-Sweep"><span class="nav-number">2.1.</span> <span class="nav-text">1.标记清除算法(Mark and Sweep)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-复制算法-Copying"><span class="nav-number">2.2.</span> <span class="nav-text">2.复制算法(Copying)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-标记整理算法-Compacting"><span class="nav-number">2.3.</span> <span class="nav-text">3.标记整理算法(Compacting)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-分代收集算法-Generational-Collector"><span class="nav-number">2.4.</span> <span class="nav-text">4.分代收集算法(Generational Collector)</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断对象是否是个垃圾"><span class="nav-number">1.</span> <span class="nav-text">判断对象是否是个垃圾</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-引用计数算法-无法处理循环引用"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.引用计数算法(无法处理循环引用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-可达性算法"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.可达性算法</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收算法"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-标记清除算法-Mark-and-Sweep"><span class="nav-number">2.1.</span> <span class="nav-text">1.标记清除算法(Mark and Sweep)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-复制算法-Copying"><span class="nav-number">2.2.</span> <span class="nav-text">2.复制算法(Copying)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-标记整理算法-Compacting"><span class="nav-number">2.3.</span> <span class="nav-text">3.标记整理算法(Compacting)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-分代收集算法-Generational-Collector"><span class="nav-number">2.4.</span> <span class="nav-text">4.分代收集算法(Generational Collector)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GC的分类"><span class="nav-number">2.4.1.</span> <span class="nav-text">GC的分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">3.</span> <span class="nav-text">垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两个概念"><span class="nav-number">3.1.</span> <span class="nav-text">两个概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集器的关系图"><span class="nav-number">3.2.</span> <span class="nav-text">垃圾收集器的关系图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#年轻代常见垃圾收集器"><span class="nav-number">3.3.</span> <span class="nav-text">年轻代常见垃圾收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老年代常见的垃圾收集器"><span class="nav-number">3.4.</span> <span class="nav-text">老年代常见的垃圾收集器</span></a></li></ol></li></div>
             
 
           </div>
@@ -722,7 +773,7 @@
     
       <span class="post-meta-item-text">总字数&#58;</span>
     
-    <span title="总字数">17.4k</span>
+    <span title="总字数">18.1k</span>
   
 </div>
 

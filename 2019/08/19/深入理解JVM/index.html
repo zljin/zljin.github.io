@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://github.com/zljin/img_z/blob/master/zz.png?raw=true">
 <meta property="og:image" content="https://github.com/zljin/img_z/blob/master/test.png?raw=true">
 <meta property="og:image" content="https://github.com/zljin/img_z/blob/master/re.png?raw=true">
-<meta property="og:updated_time" content="2019-08-20T07:13:32.282Z">
+<meta property="og:updated_time" content="2019-08-20T08:52:06.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解JVM">
 <meta name="twitter:description" content="你了解java内存模型吗? 程序计数器 当前线程所执行的字节码行号指示器 改变计数器的值来选取下一条需要执行的指令 和线程是一对一的关系,线程私有 不会发生内存泄露 对Java方法计数,如果是Native方法测计数器值为Undefined  Java虚拟机栈 Java方法执行的内存模型 每个方法执行在执行的过程中都会创建一个栈帧(局部变量表,操作数栈,动态链接,返回地址) 每一个方法从调用直至执行">
@@ -437,9 +437,11 @@
 <li>-xmx :堆能达到的最大值</li>
 </ul>
 <h3 id="String-intern-在jdk6和jdk6-的区别"><a href="#String-intern-在jdk6和jdk6-的区别" class="headerlink" title="String.intern()在jdk6和jdk6+的区别"></a>String.intern()在jdk6和jdk6+的区别</h3><ul>
-<li>jdk6:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用<br>否则将字符串对象添加到常量池中,并返回常量池中的引用</li>
+<li><p>jdk6:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用<br>否则将字符串对象添加到常量池中,并返回常量池中的引用</p>
+</li>
+<li><p>jdk6+:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用,<br>否则如果字符串对象已经在堆中,那么将堆中引用添加到字符串常量池,并且返回<br>该引用(堆中的引用),若不存在则直接在常量池中创建该对象并返回其引用</p>
+</li>
 </ul>
-<p>*jdk6+:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用,<br>否则如果字符串对象已经在堆中,那么将堆中引用添加到字符串常量池,并且返回<br>该引用(堆中的引用),若不存在则直接在常量池中创建该对象并返回其引用</p>
 <h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
 <li>联系:引用对象,数组时,栈里定义变量保存堆中目标的首地址</li>
 <li>空间大小,效率,碎片相关</li>
@@ -711,7 +713,7 @@
     
       <span class="post-meta-item-text">总字数&#58;</span>
     
-    <span title="总字数">17.4k</span>
+    <span title="总字数">18.1k</span>
   
 </div>
 
