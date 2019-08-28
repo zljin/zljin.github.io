@@ -261,6 +261,438 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/28/类的加载机制和反射/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/28/类的加载机制和反射/" itemprop="url">类的加载机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T11:57:45+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>面试:请你解释一下类加载机制,双亲委派模型,好处是什么?</p>
+</blockquote>
+<h2 id="类的加载机制"><a href="#类的加载机制" class="headerlink" title="类的加载机制"></a>类的加载机制</h2><h3 id="类加载器机制-类加载只执行一次"><a href="#类加载器机制-类加载只执行一次" class="headerlink" title="类加载器机制(类加载只执行一次)"></a>类加载器机制(类加载只执行一次)</h3><blockquote>
+<p>类是在运行期间第一次使用动态加载,如果一次性加载会占用很多内存.</p>
+</blockquote>
+<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4><blockquote>
+<p>加载-&gt;验证-&gt;准备-&gt;解析-&gt;初始化</p>
+</blockquote>
+<h5 id="加载-完成3件事-此过程通过classloader完成"><a href="#加载-完成3件事-此过程通过classloader完成" class="headerlink" title="加载:完成3件事(此过程通过classloader完成):"></a>加载:完成3件事(此过程通过classloader完成):</h5><pre><code>* 通过类全名获取该类二进制字节流
+* 将字节流的静态存储结构转换到方法区的运行存储结构
+* 在堆中生成代表此类的Class镜像作为方法区对这些数据的访问入口</code></pre><h5 id="验证-确保次类字节流文件信息符合JVM的要求"><a href="#验证-确保次类字节流文件信息符合JVM的要求" class="headerlink" title="验证:确保次类字节流文件信息符合JVM的要求"></a>验证:确保次类字节流文件信息符合JVM的要求</h5><h5 id="准备-为类变量分配内存并初始化"><a href="#准备-为类变量分配内存并初始化" class="headerlink" title="准备:为类变量分配内存并初始化"></a>准备:为类变量分配内存并初始化</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value=<span class="number">123</span>; <span class="comment">//此初始化为0</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> value=<span class="number">123</span>;<span class="comment">//若类变量为常量则为123</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="解析-虚拟机常量池的符号引用替换为直接引用"><a href="#解析-虚拟机常量池的符号引用替换为直接引用" class="headerlink" title="解析:虚拟机常量池的符号引用替换为直接引用"></a>解析:虚拟机常量池的符号引用替换为直接引用</h5><p>什么是符号引用和直接引用???</p>
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化:"></a>初始化:</h5><blockquote>
+<p>‘&lt;’clinit’&gt;’:编译后在字节码文件中生成的clinit方法,称为类构造器(将静态语句块,静态变量初始化收敛到此方法中)</p>
+</blockquote>
+<blockquote>
+<p>‘&lt;’init’&gt;’:编译后在字节码文件中生成的init方法,称为实例构造器(将语句块,变量初始化收敛)</p>
+</blockquote>
+<ul>
+<li>初始化是JVM执行类构造器’&lt;’clinit’&gt;’方法的过程.在准备阶段类变量已经赋过一次系统的初始值,在初始化阶段可以主观计划初始化类变量和其他资源.</li>
+<li>JVM会保证一个类执行’&lt;’clinit’&gt;’方法在多线程环境下正确的加锁和同步.</li>
+</ul>
+<h5 id="类的初始化时机"><a href="#类的初始化时机" class="headerlink" title="类的初始化时机:"></a>类的初始化时机:</h5><blockquote>
+<p>主动引用(初始化过程会被触发执行)</p>
+</blockquote>
+<ul>
+<li>遇到new字节码指令</li>
+<li>反射调用</li>
+<li>初始化一个子类,若父类还没初始化</li>
+<li>JVM启动,用户指定执行的主类(含有main方法的类),先初始化此类</li>
+</ul>
+<blockquote>
+<p>被动引用(除主动引用外,所有引用类的方式都不会触发初始化)</p>
+</blockquote>
+<ul>
+<li>子类调用父类静态字段</li>
+<li>直接引用常量(常量在编译阶段会存入调用类的常量池中,本质上并没有直接引用到定义常量的类,因此不会触发定义常量的类的初始化)</li>
+<li>通过数组定义来引用类,不会触发此类的初始化。该过程会对数组类进行初始化,数组类是一个由虚拟机自动生成的、直接继承自 Object 的子类,其中包含了数组的属性和方法</li>
+</ul>
+<h4 id="类与类加载器"><a href="#类与类加载器" class="headerlink" title="类与类加载器"></a>类与类加载器</h4><blockquote>
+<p>什么是类加载器(classloader)?<br>    java核心组件,所有class必须由它加载classloader负责将Class文件里<br>    二进制数据流装载进系统,然后交给jvm进行连接,初始化操作</p>
+</blockquote>
+<blockquote>
+<p>类相等判断标准?<br>    类本身相同且在同一个类加载器中进行加载,这是因为每一个类加载器都拥有一个独立的类名称空间.</p>
+</blockquote>
+<h5 id="classloader分类"><a href="#classloader分类" class="headerlink" title="classloader分类"></a>classloader分类</h5><ul>
+<li>Bootstrap ClassLoader,启动类加载器 $JAVA_HOME/lib    (C++编写,加载核心库java.* )</li>
+<li>External ClassLoader,外部类加载器 $JAVA_HOME/jre/lib/exts    (Java编写,加载扩展库javax.*)</li>
+<li>Application ClassLoader,应用程序类加载器 $CLASSPATH(Java编写,加载程序所造目录)</li>
+</ul>
+<h5 id="双亲委托机制"><a href="#双亲委托机制" class="headerlink" title="双亲委托机制"></a>双亲委托机制</h5><ul>
+<li>自顶向下尝试加载类,自底向上检查类是否已经加载</li>
+</ul>
+<blockquote>
+<p>作用:加载位于rt.jar包中的类java.lang.Object,不管是哪个加载器加载这个类,最终都是委托给顶层的启动类加载器进行加载,<br>这样就保证了使用不同的类加载器最终得到的都是同样一个Object对象.(可以避免多份同样的字节码加载)</p>
+</blockquote>
+<h5 id="自定义classloader"><a href="#自定义classloader" class="headerlink" title="自定义classloader"></a>自定义classloader</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClassLoader</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String path;</span><br><span class="line">    <span class="keyword">private</span> String classLoaderName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyClassLoader</span><span class="params">(String path, String classLoaderName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.path = path;</span><br><span class="line">        <span class="keyword">this</span>.classLoaderName = classLoaderName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于寻找类文件</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Class <span class="title">findClass</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">         <span class="keyword">byte</span>[] b = loadClassData(name);</span><br><span class="line">         <span class="keyword">return</span> defineClass(name,b,<span class="number">0</span>,b.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于加载类文件</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] loadClassData(String name) &#123;</span><br><span class="line">        name = path + name + <span class="string">".class"</span>;</span><br><span class="line">        InputStream in = <span class="keyword">null</span>;</span><br><span class="line">        ByteArrayOutputStream out = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            in = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(name));</span><br><span class="line">            out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">            <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>((i = in.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">                out.write(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                out.close();</span><br><span class="line">                in.close();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> out.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderChecker</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, IllegalAccessException, InstantiationException </span>&#123;</span><br><span class="line">        MyClassLoader m = <span class="keyword">new</span> MyClassLoader(<span class="string">"G:\\"</span>,<span class="string">"myclassloader"</span>);</span><br><span class="line">        Class&lt;?&gt; c = m.loadClass(<span class="string">"Wail"</span>);</span><br><span class="line">        System.out.println(c.getClassLoader());</span><br><span class="line">        System.out.println(c.getClassLoader().getParent());</span><br><span class="line">        System.out.println(c.getClassLoader().getParent().getParent());</span><br><span class="line">        System.out.println(c.getClassLoader().getParent().getParent().getParent());</span><br><span class="line">        c.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">result:</span><br><span class="line">interview.com.javabasic.reflect.MyClassLoader@4b67cf4d</span><br><span class="line">sun.misc.Launcher$AppClassLoader@18b4aac2</span><br><span class="line">sun.misc.Launcher$ExtClassLoader@12a3a380</span><br><span class="line">null</span><br><span class="line">Hello Wail</span><br></pre></td></tr></table></figure>
+
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><blockquote>
+<p>Java 反射机制在程序运行时,对于任意一个类,都能够知道这个类的所有属性和方法;<br>对于任意一个对象,都能够调用它的任意一个方法和属性.这种动态的获取信息以及动态调用对象的方法的功能称为java的反射机制</p>
+</blockquote>
+<p>下面的例子:获取Person类的对象，先获取Person类的镜像（Class对象）。获取镜像的三个方法.</p>
+<ul>
+<li>调用getClass()方法，是Object类中的。</li>
+<li>由类名直接调用.class属性，获取到的也是Class对象；</li>
+<li>不知道字节码文件在什么位置，但是知道的是类的名字；（常用）Class.forName(类名);</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Class 获取某个类的镜像【Class类的对象】</span></span><br><span class="line"><span class="comment">Constructor：用于获取构造器</span></span><br><span class="line"><span class="comment">Field：用于获取字段，成员变量</span></span><br><span class="line"><span class="comment">Method：用于获取方法。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    <span class="comment">//3.使用Class类中的forName方法:</span></span><br><span class="line">    String className=<span class="string">"杰普.day3.Person"</span>;</span><br><span class="line">    Class cPerson = Class.forName(className);</span><br><span class="line">    <span class="comment">//创建Person类的对象,首先需要获取Person类中的构造器</span></span><br><span class="line">    Constructor con=cPerson.getConstructor(String.class,<span class="keyword">int</span>.class);</span><br><span class="line">    <span class="comment">//System.out.println(con);</span></span><br><span class="line">    <span class="comment">//创建对象</span></span><br><span class="line">    Object o=con.newInstance(<span class="string">"leonard"</span>,<span class="number">22</span>);</span><br><span class="line">    <span class="comment">//使用Class对象获取Person类中的成员变量</span></span><br><span class="line">    Field fName=cPerson.getDeclaredField(<span class="string">"name"</span>);<span class="comment">//只要声明即可访问</span></span><br><span class="line">    fName.setAccessible(<span class="keyword">true</span>);<span class="comment">//暴力访问</span></span><br><span class="line">    fName.set(o,<span class="string">"李四"</span>);</span><br><span class="line">    System.out.println(fName.get(o));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取Person类中的方法</span></span><br><span class="line">    Method method = cPerson.getMethod(<span class="string">"say"</span>,String.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用该方法</span></span><br><span class="line">    method.invoke(o,<span class="string">"baby"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取静态方法</span></span><br><span class="line">    Method staticMethodSay = cPerson.getMethod(<span class="string">"hello"</span>, String.class);</span><br><span class="line">    staticMethodSay.invoke(<span class="keyword">null</span>,<span class="string">"lady"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = <span class="number">18</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(s+<span class="string">" say:hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(s+<span class="string">"**"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/22/单例模式/" itemprop="url">单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T10:28:45+08:00">
+                2019-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ooad/" itemprop="url" rel="index">
+                    <span itemprop="name">ooad</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  436 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="synchronized-DCL-Double-check-lock"><a href="#synchronized-DCL-Double-check-lock" class="headerlink" title="synchronized+DCL(Double check lock)"></a>synchronized+DCL(Double check lock)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * volatile防止指令重排序:</span></span><br><span class="line"><span class="comment">     * 防止new Singleton时指令重排序导致其他线程获取到未初始化完的对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class)&#123;</span><br><span class="line">                <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="comment">/**</span></span><br><span class="line"><span class="comment">                     * 执行的三大步骤</span></span><br><span class="line"><span class="comment">                     * 1.给Singleton对象分配内存</span></span><br><span class="line"><span class="comment">                     * 2.调用构造函数初始化成员变量</span></span><br><span class="line"><span class="comment">                     * 3.instance引用对象指向分配的内存空间</span></span><br><span class="line"><span class="comment">                     *</span></span><br><span class="line"><span class="comment">                     * JVM执行上面操作是乱序的,若为1,3,2顺序</span></span><br><span class="line"><span class="comment">                     * 加入在3的时候线程A切换线程B,且instance已经</span></span><br><span class="line"><span class="comment">                     * 不为null,那么线程A返回的是未执行步骤2的对象</span></span><br><span class="line"><span class="comment">                     * 而线程B拿到的是未初始化的对象</span></span><br><span class="line"><span class="comment">                     *</span></span><br><span class="line"><span class="comment">                     * 如何解决?</span></span><br><span class="line"><span class="comment">                     * 防止指令重排序,Java中可以通过volatile关键字来防止指令重排序。</span></span><br><span class="line"><span class="comment">                     */</span></span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="基于类的初始化"><a href="#基于类的初始化" class="headerlink" title="基于类的初始化"></a>基于类的初始化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解决反射</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> flag =<span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!flag)&#123;</span><br><span class="line">            flag = <span class="keyword">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"不能创建多个对象"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonFactory</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonFactory.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用classloder的机制来保证初始化instance时只有一个线程。<br>JVM在类初始化阶段会获取一个锁，这个锁可以同步多个线程对同一个类的初始化。</p>
+<p>对于每一个类或者接口C,都有一个唯一的初始化锁LC与之相对应。从C到LC的映射，由JVM的具体实现去自由实现。<br>JVM在类初始化阶段期间会获取这个初始化锁，并且每一个线程至少获取一次锁来确保这个类已经被初始化过了</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11963487-b4e949f0ac6bf787.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/20/GC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -346,7 +778,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k 字
+                  1.7k 字
                 </span>
               
 
@@ -362,7 +794,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -407,7 +839,7 @@
 <h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="1-标记清除算法-Mark-and-Sweep"><a href="#1-标记清除算法-Mark-and-Sweep" class="headerlink" title="1.标记清除算法(Mark and Sweep)"></a>1.标记清除算法(Mark and Sweep)</h3><ul>
 <li>标记:从根集合进行扫描,将存活对象标记</li>
 <li>清除:从堆内存从头到尾线性遍历,回收不可达对象</li>
-<li>缺点碎片化<br><img src="https://github.com/zljin/img_z/blob/master/M&S.png?raw=true" alt="img"></li>
+<li>缺点碎片化,不能压缩存活对象,在CMS中采用此算法后还要进行一次gc<br><img src="https://github.com/zljin/img_z/blob/master/M&S.png?raw=true" alt="img"></li>
 </ul>
 <h3 id="2-复制算法-Copying"><a href="#2-复制算法-Copying" class="headerlink" title="2.复制算法(Copying)"></a>2.复制算法(Copying)</h3><ul>
 <li>分为对象面和空闲面,对象创建在对象面,存活的对象存放在空闲面,将对象面中的所有对象从内存清除</li>
@@ -458,11 +890,12 @@
 <h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><h3 id="两个概念"><a href="#两个概念" class="headerlink" title="两个概念"></a>两个概念</h3><ul>
 <li>Stop-the-World:JVM执行GC要停止应用程序的执行,任何GC都会发生,通过优化stw的时间来提高程序性能</li>
 <li>Safepoint:分析过程中对象引用关系不会发生变化的点(一般出现在:方法调用,循环跳转,异常跳转)</li>
+<li>JVM的运行模式:分为Client运行模式和Server运行模式</li>
 </ul>
 <h3 id="垃圾收集器的关系图"><a href="#垃圾收集器的关系图" class="headerlink" title="垃圾收集器的关系图"></a>垃圾收集器的关系图</h3><p><img src="https://github.com/zljin/img_z/blob/master/gcmachine.png?raw=true" alt="img"></p>
 <ul>
 <li>单线程与多线程：垃圾收集器使用线程数.</li>
-<li>串行与并行：串行指垃圾收集器(需要停顿用户程序)与用户程序交替执行,并行是同时执行(不需要停顿用户程序),除了CMS/G1都是串行。</li>
+<li>串行与并行：串行指垃圾收集器与用户程序交替执行(需要停顿用户程序),并行是同时执行(不需要停顿用户程序),除了CMS/G1都是串行。</li>
 </ul>
 <h3 id="年轻代常见垃圾收集器"><a href="#年轻代常见垃圾收集器" class="headerlink" title="年轻代常见垃圾收集器"></a>年轻代常见垃圾收集器</h3><blockquote>
 <p>Serial收集器(-XX:+UseSerialGC,复制算法,单线程,简单高效,JVM的Client模式下默认的年轻代收集器)</p>
@@ -473,31 +906,55 @@
 </blockquote>
 <p><img src="https://github.com/zljin/img_z/blob/master/ParNew.png?raw=true" alt="img"></p>
 <blockquote>
-<p>Parallel Scavenge收集器(-XX:+UserParallelGC,多线程,吞吐量优先收集器,多核才有优势,JVM的Server模式下默认的年轻代收集器)</p>
+<p>Parallel Scavenge收集器(-XX:+UserParallelGC,复制算法,多线程,吞吐量优先收集器,多核才有优势,JVM的Server模式下默认的年轻代收集器)</p>
 </blockquote>
 <ul>
 <li>吞吐量:运行用户代码时间/(运行用户代码时间+垃圾收集时间)</li>
-<li>其它收集器目标是尽可能缩短垃圾收集时用户线程的停顿时间(用户交互时间越短能提高用户体验)，而它的目标是达到一个可控制的吞吐量(可高效率利用CPU时间,快速完成程序运算任务<br><img src="https://github.com/zljin/img_z/blob/master/Parallel.png?raw=true" alt="img"></li>
+<li>其它收集器目标是尽可能缩短垃圾收集时用户线程的停顿时间(用户交互时间越短能提高用户体验)，而它的目标是达到一个可控制的吞吐量(可高效率利用CPU时间,快速完成程序运算任务)<br><img src="https://github.com/zljin/img_z/blob/master/Parallel.png?raw=true" alt="img"></li>
 </ul>
 <h3 id="老年代常见的垃圾收集器"><a href="#老年代常见的垃圾收集器" class="headerlink" title="老年代常见的垃圾收集器"></a>老年代常见的垃圾收集器</h3><blockquote>
 <p>Serial Old收集器(-XX:+UseSerialOldGC,标记整理算法,单线程,Client模式下默认老年代收集器)<br><img src="https://github.com/zljin/img_z/blob/master/Serialo.png?raw=true" alt="img"></p>
 </blockquote>
 <blockquote>
-<p>Parallel Old收集器(-XX:+UseParallelOldGC,多线程,吞吐量优先,标记整理算法)<br><img src="https://github.com/zljin/img_z/blob/master/Parallelo.png?raw=true" alt="img"></p>
+<p>Parallel Old收集器(-XX:+UseParallelOldGC,标记整理算法,多线程,吞吐量优先)<br><img src="https://github.com/zljin/img_z/blob/master/Parallelo.png?raw=true" alt="img"></p>
 </blockquote>
 <blockquote>
 <p>CMS收集器(-XX:+UseConcMarkSweepGC,标记清除算法)</p>
 <ul>
-<li>流程:初始标记,并发标记,重新标记,并发清除</li>
-<li>特定:在整个过程中耗时最长的并发标记和并发清除过程中，收集器线程都可以与用户线程一起工作，不需要进行停顿</li>
+<li>流程:<ol>
+<li>初始标记:stop-the-World</li>
+<li>并发标记:并发追溯标记,程序不会停顿</li>
+<li>并发预处理:查找执行并发标记阶段从年轻代晋升到老年代的对象</li>
+<li>重新标记:暂停虚拟机,扫描CMS堆中的剩余对象  (需要端正stw)</li>
+<li>并发清理:清理垃圾对象.程序不会停顿</li>
+<li>并发重置:重置CMS收集器的数据结构</li>
+</ol>
+</li>
 </ul>
 </blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/cms.png?raw=true" alt="img"></p>
+<ul>
+<li>特点:并发标记的过程就是和用户同时工作(边丢垃圾边打扫)</li>
+</ul>
 <blockquote>
 <p>G1收集器(-XX:+UseG1GC,复制+标记-整理算法)</p>
 </blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/G1.png?raw=true" alt="img"></p>
 <ul>
-<li>特点:将整个Java堆内存划分成多个大小相等的Region,年轻代和老年代不再物理隔离</li>
+<li>特点:<ol>
+<li>并行并发,分代收集,空间整合,可预测停顿</li>
+<li>将整个Java堆内存划分成多个大小相等的Region,年轻代和老年代不再物理隔离</li>
+</ol>
+</li>
 </ul>
+<h2 id="GC常见面试题"><a href="#GC常见面试题" class="headerlink" title="GC常见面试题"></a>GC常见面试题</h2><h5 id="Object的finalize-方法的作用"><a href="#Object的finalize-方法的作用" class="headerlink" title="Object的finalize()方法的作用"></a>Object的finalize()方法的作用</h5><ol>
+<li>GC中宣告一个对象死亡时至少要标记两次</li>
+<li>将未被引用的对象放置于F-Queue队列中</li>
+<li>给予对象最后一次重生的机会</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 真正宣告一个对象的死亡,至少要经历两次标记过程</span></span><br><span class="line"><span class="comment"> * 3.2.4生存还是死亡?</span></span><br><span class="line"><span class="comment"> *  任何一个对象放入finalize()方法都会只调用一次,</span></span><br><span class="line"><span class="comment">	它的作用是给予对象最后一次重生的机会</span></span><br><span class="line"><span class="comment">	当面临下次回收,将不会调用,所以自救失败.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalizeEscapeGC</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FinalizeEscapeGC SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">isAlive</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"yes i am alive"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.finalize();</span><br><span class="line">        System.out.println(<span class="string">"finalize method is run"</span>);</span><br><span class="line">        FinalizeEscapeGC.SAVE_HOOK = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        SAVE_HOOK = <span class="keyword">new</span> FinalizeEscapeGC();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第一次对象成功的解救了自己</span></span><br><span class="line">        SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//因为Finalize方法优先级很低,暂停几秒</span></span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        <span class="keyword">if</span>(SAVE_HOOK!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            SAVE_HOOK.isAlive();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"dead "</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第二次自救失败</span></span><br><span class="line">        SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//因为Finalize方法优先级很低,暂停几秒</span></span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        <span class="keyword">if</span>(SAVE_HOOK!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            SAVE_HOOK.isAlive();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"dead "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Java中的四种引用"><a href="#Java中的四种引用" class="headerlink" title="Java中的四种引用"></a>Java中的四种引用</h5><p><a href="https://blog.csdn.net/u014532217/article/details/79184412" target="_blank" rel="noopener">Java 四种引用介绍及使用场景</a></p>
 
           
         
@@ -1644,7 +2101,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  243 字
+                  324 字
                 </span>
               
 
@@ -1703,6 +2160,16 @@
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">快捷键:</span><br><span class="line">	Alt+F10:show excute point</span><br><span class="line">	F8:Step over(步入)可以进入方法内部</span><br><span class="line">	Shift + F8：Step Out(步出)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>markdown基本命令</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">链接: [标题](网址)</span><br><span class="line">图片: ![标题](网址)</span><br><span class="line"></span><br><span class="line">分割线:----</span><br><span class="line"></span><br><span class="line">引用:&gt;</span><br><span class="line"></span><br><span class="line">表格:</span><br><span class="line">姓名|技能|排行</span><br><span class="line">--|:--:|--:</span><br><span class="line">刘备|哭|大哥</span><br><span class="line">关羽|打|二哥</span><br><span class="line">张飞|骂|三弟</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>md的流程图</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">op=&gt;operation: My Operation</span><br><span class="line">cond=&gt;condition: Yes or No?</span><br><span class="line">e=&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure>
 
 
           
@@ -1924,366 +2391,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/jquery/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/17/jquery/" itemprop="url">jQuery对表单的操作及更多应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T09:34:01+08:00">
-                2019-07-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  0 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/jdk  新特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/jdk  新特性/" itemprop="url">JDK8新特性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.5k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="JDK8-新特性"><a href="#JDK8-新特性" class="headerlink" title="JDK8 新特性"></a>JDK8 新特性</h2><h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><ul>
-<li>lambda就是对匿名内部类的简化 (形参1…)-&gt; 返回值</li>
-<li>匿名内部类对象核心:是方法的重写,需要重写的方法有且只有一个</li>
-<li>方法的核心:形参列表和函数体语句</li>
-<li>lambda 表达式的局部变量可以不用声明为 final,默认final修饰</li>
-<li>lambda 表达式只能引用标记了 final 的外层局部变量</li>
-<li>lambda表达式可以自动匹配数据类型</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/jdk  新特性/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2336,7 +2443,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2347,7 +2454,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2409,7 +2516,7 @@
     
       <span class="post-meta-item-text">总字数&#58;</span>
     
-    <span title="总字数">18.1k</span>
+    <span title="总字数">20k</span>
   
 </div>
 
