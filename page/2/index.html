@@ -261,6 +261,1534 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/20/GC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/20/GC/" itemprop="url">JVM中的GC回收机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T10:57:45+08:00">
+                2019-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<blockquote>
+<p>垃圾收集主要针对堆和方法区这种线程共享的区域,因为像栈和PC区域属于线程私有,当线程的生命周期结束时也就会消失</p>
+</blockquote>
+</blockquote>
+<h2 id="判断对象是否是个垃圾"><a href="#判断对象是否是个垃圾" class="headerlink" title="判断对象是否是个垃圾"></a>判断对象是否是个垃圾</h2><h4 id="1-引用计数算法-无法处理循环引用"><a href="#1-引用计数算法-无法处理循环引用" class="headerlink" title="1.引用计数算法(无法处理循环引用)"></a>1.引用计数算法(无法处理循环引用)</h4><h4 id="2-可达性算法"><a href="#2-可达性算法" class="headerlink" title="2.可达性算法"></a>2.可达性算法</h4><ul>
+<li>通过判断对象的引用链是否可达来决定对象是否可以回收</li>
+</ul>
+<p><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/83d909d2-3858-4fe1-8ff4-16471db0b180.png" alt="img"></p>
+<ul>
+<li>GCRoots包含以下内容<ul>
+<li>虚拟机栈的引用的对象</li>
+<li>方法区中常量的引用的对象</li>
+<li>方法区中类静态属性所引用的对象</li>
+<li>本地方法栈中JNI(Native方法)的引用对象</li>
+<li>活跃线程的引用对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="1-标记清除算法-Mark-and-Sweep"><a href="#1-标记清除算法-Mark-and-Sweep" class="headerlink" title="1.标记清除算法(Mark and Sweep)"></a>1.标记清除算法(Mark and Sweep)</h3><ul>
+<li>标记:从根集合进行扫描,将存活对象标记</li>
+<li>清除:从堆内存从头到尾线性遍历,回收不可达对象</li>
+<li>缺点碎片化,不能压缩存活对象,在CMS中采用此算法后还要进行一次gc<br><img src="https://github.com/zljin/img_z/blob/master/M&S.png?raw=true" alt="img"></li>
+</ul>
+<h3 id="2-复制算法-Copying"><a href="#2-复制算法-Copying" class="headerlink" title="2.复制算法(Copying)"></a>2.复制算法(Copying)</h3><ul>
+<li>分为对象面和空闲面,对象创建在对象面,存活的对象存放在空闲面,将对象面中的所有对象从内存清除</li>
+<li>优点:解决碎片化,顺序分配简单高效,适用于对象存活率低的情况(适用于年轻代)</li>
+</ul>
+<p><img src="https://github.com/zljin/img_z/blob/master/cp.png?raw=true" alt="img"></p>
+<h3 id="3-标记整理算法-Compacting"><a href="#3-标记整理算法-Compacting" class="headerlink" title="3.标记整理算法(Compacting)"></a>3.标记整理算法(Compacting)</h3><ul>
+<li>标记:从根集合进行扫描,将存活对象标记</li>
+<li>清除:移动所有存活对象,按照内存依次排序,然后将末端内存地址以后的内存全部回收</li>
+<li>优点:1.避免内存的不连续性 2.不用设置两块内存互换 3.适用于对象存活率高的情况(适用于老年代)</li>
+</ul>
+<p><img src="https://github.com/zljin/img_z/blob/master/Compacting.png?raw=true" alt="img"></p>
+<h3 id="4-分代收集算法-Generational-Collector"><a href="#4-分代收集算法-Generational-Collector" class="headerlink" title="4.分代收集算法(Generational Collector)"></a>4.分代收集算法(Generational Collector)</h3><ul>
+<li>按照对象生命周期的不同划分区域进行不同的垃圾回收算法</li>
+</ul>
+<p><img src="https://github.com/zljin/img_z/blob/master/gc.png?raw=true" alt="img"></p>
+<h4 id="GC的分类"><a href="#GC的分类" class="headerlink" title="GC的分类"></a>GC的分类</h4><blockquote>
+<p>年轻代:尽可能快速地收集掉那些生命周期短的对象<br>由Eden区 和两个Survivor区(From区和To区,此两区顺序不是绝对)</p>
+</blockquote>
+<blockquote>
+<p>回收演示过程<br><img src="https://github.com/zljin/img_z/blob/master/gcp.png?raw=true" alt="img"></p>
+</blockquote>
+<ul>
+<li>对象如何晋升到老年代<ul>
+<li>经历一定Minor次数依然存活的对象(-XX:MaxTenuringThreshold)</li>
+<li>Survivor区中存放不下的对象</li>
+<li>新生代的大对象(-XX:+PretenuerSizeThreshold)</li>
+<li>-XX:SurvivorRatio:Eden和Survivor的比值</li>
+<li>-XX:NewRatio: 老年代和年轻代值的空间比值</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>老年代:存放生命周期较长的对象        </p>
+</blockquote>
+<ul>
+<li><p>Minor GC:回收新生代,因为新生代对象存活时间很短,会频繁执行,执行的速度快</p>
+<blockquote>
+<p>触发条件:当Eden空间满时,触发</p>
+</blockquote>
+</li>
+<li><p>Full GC:回收老年代和新生代,老年代对象其存活时间长,Full GC很少执行,且速度慢</p>
+<blockquote>
+<p>触发条件:<br>  1.老年代空间不足 2.永久代空间不足 3.调用System.gc() 4.Minor GC晋升老年代的平均大小大于剩余空间</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><h3 id="两个概念"><a href="#两个概念" class="headerlink" title="两个概念"></a>两个概念</h3><ul>
+<li>Stop-the-World:JVM执行GC要停止应用程序的执行,任何GC都会发生,通过优化stw的时间来提高程序性能</li>
+<li>Safepoint:分析过程中对象引用关系不会发生变化的点(一般出现在:方法调用,循环跳转,异常跳转)</li>
+<li>JVM的运行模式:分为Client运行模式和Server运行模式</li>
+</ul>
+<h3 id="垃圾收集器的关系图"><a href="#垃圾收集器的关系图" class="headerlink" title="垃圾收集器的关系图"></a>垃圾收集器的关系图</h3><p><img src="https://github.com/zljin/img_z/blob/master/gcmachine.png?raw=true" alt="img"></p>
+<ul>
+<li>单线程与多线程：垃圾收集器使用线程数.</li>
+<li>串行与并行：串行指垃圾收集器与用户程序交替执行(需要停顿用户程序),并行是同时执行(不需要停顿用户程序),除了CMS/G1都是串行。</li>
+</ul>
+<h3 id="年轻代常见垃圾收集器"><a href="#年轻代常见垃圾收集器" class="headerlink" title="年轻代常见垃圾收集器"></a>年轻代常见垃圾收集器</h3><blockquote>
+<p>Serial收集器(-XX:+UseSerialGC,复制算法,单线程,简单高效,JVM的Client模式下默认的年轻代收集器)</p>
+</blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/Serial.png?raw=true" alt="img"></p>
+<blockquote>
+<p>ParNew收集器(-XX:+UseParNewGC,复制算法,多线程,和前面类似,多核执行才比前面有优势)</p>
+</blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/ParNew.png?raw=true" alt="img"></p>
+<blockquote>
+<p>Parallel Scavenge收集器(-XX:+UserParallelGC,复制算法,多线程,吞吐量优先收集器,多核才有优势,JVM的Server模式下默认的年轻代收集器)</p>
+</blockquote>
+<ul>
+<li>吞吐量:运行用户代码时间/(运行用户代码时间+垃圾收集时间)</li>
+<li>其它收集器目标是尽可能缩短垃圾收集时用户线程的停顿时间(用户交互时间越短能提高用户体验)，而它的目标是达到一个可控制的吞吐量(可高效率利用CPU时间,快速完成程序运算任务)<br><img src="https://github.com/zljin/img_z/blob/master/Parallel.png?raw=true" alt="img"></li>
+</ul>
+<h3 id="老年代常见的垃圾收集器"><a href="#老年代常见的垃圾收集器" class="headerlink" title="老年代常见的垃圾收集器"></a>老年代常见的垃圾收集器</h3><blockquote>
+<p>Serial Old收集器(-XX:+UseSerialOldGC,标记整理算法,单线程,Client模式下默认老年代收集器)<br><img src="https://github.com/zljin/img_z/blob/master/Serialo.png?raw=true" alt="img"></p>
+</blockquote>
+<blockquote>
+<p>Parallel Old收集器(-XX:+UseParallelOldGC,标记整理算法,多线程,吞吐量优先)<br><img src="https://github.com/zljin/img_z/blob/master/Parallelo.png?raw=true" alt="img"></p>
+</blockquote>
+<blockquote>
+<p>CMS收集器(-XX:+UseConcMarkSweepGC,标记清除算法)</p>
+<ul>
+<li>流程:<ol>
+<li>初始标记:stop-the-World</li>
+<li>并发标记:并发追溯标记,程序不会停顿</li>
+<li>并发预处理:查找执行并发标记阶段从年轻代晋升到老年代的对象</li>
+<li>重新标记:暂停虚拟机,扫描CMS堆中的剩余对象  (需要端正stw)</li>
+<li>并发清理:清理垃圾对象.程序不会停顿</li>
+<li>并发重置:重置CMS收集器的数据结构</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/cms.png?raw=true" alt="img"></p>
+<ul>
+<li>特点:并发标记的过程就是和用户同时工作(边丢垃圾边打扫)</li>
+</ul>
+<blockquote>
+<p>G1收集器(-XX:+UseG1GC,复制+标记-整理算法)</p>
+</blockquote>
+<p><img src="https://github.com/zljin/img_z/blob/master/G1.png?raw=true" alt="img"></p>
+<ul>
+<li>特点:<ol>
+<li>并行并发,分代收集,空间整合,可预测停顿</li>
+<li>将整个Java堆内存划分成多个大小相等的Region,年轻代和老年代不再物理隔离</li>
+</ol>
+</li>
+</ul>
+<h2 id="GC常见面试题"><a href="#GC常见面试题" class="headerlink" title="GC常见面试题"></a>GC常见面试题</h2><h5 id="Object的finalize-方法的作用"><a href="#Object的finalize-方法的作用" class="headerlink" title="Object的finalize()方法的作用"></a>Object的finalize()方法的作用</h5><ol>
+<li>GC中宣告一个对象死亡时至少要标记两次</li>
+<li>将未被引用的对象放置于F-Queue队列中</li>
+<li>给予对象最后一次重生的机会</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 真正宣告一个对象的死亡,至少要经历两次标记过程</span></span><br><span class="line"><span class="comment"> * 3.2.4生存还是死亡?</span></span><br><span class="line"><span class="comment"> *  任何一个对象放入finalize()方法都会只调用一次,</span></span><br><span class="line"><span class="comment">	它的作用是给予对象最后一次重生的机会</span></span><br><span class="line"><span class="comment">	当面临下次回收,将不会调用,所以自救失败.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalizeEscapeGC</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FinalizeEscapeGC SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">isAlive</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"yes i am alive"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.finalize();</span><br><span class="line">        System.out.println(<span class="string">"finalize method is run"</span>);</span><br><span class="line">        FinalizeEscapeGC.SAVE_HOOK = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        SAVE_HOOK = <span class="keyword">new</span> FinalizeEscapeGC();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第一次对象成功的解救了自己</span></span><br><span class="line">        SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//因为Finalize方法优先级很低,暂停几秒</span></span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        <span class="keyword">if</span>(SAVE_HOOK!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            SAVE_HOOK.isAlive();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"dead "</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第二次自救失败</span></span><br><span class="line">        SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//因为Finalize方法优先级很低,暂停几秒</span></span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        <span class="keyword">if</span>(SAVE_HOOK!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            SAVE_HOOK.isAlive();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"dead "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Java中的四种引用"><a href="#Java中的四种引用" class="headerlink" title="Java中的四种引用"></a>Java中的四种引用</h5><p><a href="https://blog.csdn.net/u014532217/article/details/79184412" target="_blank" rel="noopener">Java 四种引用介绍及使用场景</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/19/深入理解JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/19/深入理解JVM/" itemprop="url">深入理解JVM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T15:52:45+08:00">
+                2019-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="你了解java内存模型吗"><a href="#你了解java内存模型吗" class="headerlink" title="你了解java内存模型吗?"></a>你了解java内存模型吗?</h1><p><img src="https://github.com/zljin/img_z/blob/master/model.png?raw=true" alt></p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><ul>
+<li>当前线程所执行的字节码行号指示器</li>
+<li>改变计数器的值来选取下一条需要执行的指令</li>
+<li>和线程是一对一的关系,线程私有</li>
+<li>不会发生内存泄露</li>
+<li>对Java方法计数,如果是Native方法测计数器值为Undefined</li>
+</ul>
+<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><ul>
+<li>Java方法执行的内存模型</li>
+<li>每个方法执行在执行的过程中都会创建一个栈帧(局部变量表,操作数栈,动态链接,返回地址)</li>
+<li>每一个方法从调用直至执行完成的过程就对应着一个栈帧在虚拟机栈中入栈到出栈的过程</li>
+<li>JVM中这个区域规定了2种异常:1.如果线程栈的深度大于虚拟机栈的深度:StackOverflowError2.如果虚拟栈动态扩展无法申请到足够内存:OutOfMemoryError</li>
+</ul>
+<p><img src="https://github.com/zljin/img_z/blob/master/zz.png?raw=true" alt></p>
+<h4 id="局部变量表和操作数栈"><a href="#局部变量表和操作数栈" class="headerlink" title="局部变量表和操作数栈"></a>局部变量表和操作数栈</h4><ul>
+<li>局部变量表:包含方法执行过程中所有的变量<br>其中64位的占用2个局部变量空间</li>
+<li>操作数栈:入栈,出栈,复制,交换,产生消费变量</li>
+<li>局部变量表和操作数栈的交互实例</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">       c = a+b;</span><br><span class="line">       <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/zljin/img_z/blob/master/test.png?raw=true" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*	先javac *.java 编译, </span><br><span class="line">	然后执行javap -verbose .class 反编译字节码信息</span><br><span class="line">	这是add方法的字节码信息</span><br><span class="line">*/</span><br><span class="line">public static int add(int, int);</span><br><span class="line">    descriptor: (II)I</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">	//locals:</span><br><span class="line">	//stack操作数栈  locals局部变量表  args_size入参个数</span><br><span class="line">      stack=2, locals=3, args_size=2</span><br><span class="line">	  //JVM 指令</span><br><span class="line">         0: iconst_0   //将int值0 压入操作栈中</span><br><span class="line">         1: istore_2   //将操作栈的栈顶数0出栈到局部变量表中第2个变量中</span><br><span class="line">         2: iload_0    //将局部变量表中第0个变量压栈到操作栈顶</span><br><span class="line">         3: iload_1    //将局部变量表中第1个变量压栈到操作栈顶</span><br><span class="line">         4: iadd	   //+操作</span><br><span class="line">         5: istore_2   //将结果存到局部变量表第2个变量中(0被替代)</span><br><span class="line">         6: iload_2	   //将第2个变量中的结果压栈道操作栈顶</span><br><span class="line">         7: ireturn	   //将操作栈顶元素返回出去得到结果</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 6: 0</span><br><span class="line">        line 7: 2</span><br><span class="line">        line 8: 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈和Java虚拟机栈类似,只不过此栈是为虚拟机提供Native本地方法服务的.A native method is a Java method<br>whose implementation is provided by non-java code本地方法一般是用其它语言（C、C++ 或汇编语言等）编写的</p>
+<h2 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h2><p>堆是JVM管理内存最大的一块,被所有线程锁共享,在JVM启动时创建,唯一目的是存放对象实例,堆还是GC管理的主要区域.</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>主要用于存储已被虚拟机加载的类信息(类镜像),常量,静态变量,即时编译器编译后的代码数据.<br>是各个线程所共享的内存区域.</p>
+<h4 id="元空间-MetaSpace-和永久代-PermGen-的区别"><a href="#元空间-MetaSpace-和永久代-PermGen-的区别" class="headerlink" title="元空间(MetaSpace)和永久代(PermGen)的区别"></a>元空间(MetaSpace)和永久代(PermGen)的区别</h4><ul>
+<li>元空间使用本地内存,永久代使用JVM内存</li>
+<li>在jdk7中,常量池从方法区移动到了堆区</li>
+<li>String.intern()产生的结果不同</li>
+</ul>
+<h2 id="运行时的常量池"><a href="#运行时的常量池" class="headerlink" title="运行时的常量池"></a>运行时的常量池</h2><p>在jdk7以前运行时的常量池是方法区的一部分,常量池用于存放编译器生成的各种字面量和符号引用<br>这部分内容在类加载后进入方法区的运行时常量池中存放.特征是具备动态性除了在编译期(预置入常<br>量池内容)能产生常量,运行期也能将新的常量放入池内.</p>
+<h2 id="常考问题"><a href="#常考问题" class="headerlink" title="常考问题?"></a>常考问题?</h2><h3 id="JVM三大性能调优参数含义"><a href="#JVM三大性能调优参数含义" class="headerlink" title="JVM三大性能调优参数含义"></a>JVM三大性能调优参数含义</h3><blockquote>
+<p>java -Xms128m -Xmx128m -Xss256k -jar xxx.jar</p>
+</blockquote>
+<ul>
+<li>-xss :每个线程虚拟机栈的大小</li>
+<li>-xms :堆的初始值</li>
+<li>-xmx :堆能达到的最大值</li>
+</ul>
+<h3 id="String-intern-在jdk6和jdk6-的区别"><a href="#String-intern-在jdk6和jdk6-的区别" class="headerlink" title="String.intern()在jdk6和jdk6+的区别"></a>String.intern()在jdk6和jdk6+的区别</h3><ul>
+<li><p>jdk6:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用<br>否则将字符串对象添加到常量池中,并返回常量池中的引用</p>
+</li>
+<li><p>jdk6+:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用,<br>否则如果字符串对象已经在堆中,那么将堆中引用添加到字符串常量池,并且返回<br>该引用(堆中的引用),若不存在则直接在常量池中创建该对象并返回其引用</p>
+</li>
+</ul>
+<h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
+<li>联系:引用对象,数组时,栈里定义变量保存堆中目标的首地址</li>
+<li>空间大小,效率,碎片相关</li>
+<li>管理方式:栈自动释放,堆要GC</li>
+<li>分配方式:堆仅支持动态分配</li>
+</ul>
+<h3 id="元空间-堆-线程独占部分间的联系–内存角度"><a href="#元空间-堆-线程独占部分间的联系–内存角度" class="headerlink" title="元空间,堆,线程独占部分间的联系–内存角度"></a>元空间,堆,线程独占部分间的联系–内存角度</h3><p><img src="https://github.com/zljin/img_z/blob/master/re.png?raw=true" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello "</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">        HelloWorld hw = <span class="keyword">new</span> HelloWorld();</span><br><span class="line">        hw.setName(<span class="string">"test"</span>);</span><br><span class="line">        hw.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/09/Redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/Redis/" itemprop="url">Redis</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T14:45:45+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  778 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Redis-Nosql内存数据库"><a href="#Redis-Nosql内存数据库" class="headerlink" title="Redis(Nosql内存数据库)"></a>Redis(Nosql内存数据库)</h2><blockquote>
+<p>Redis是用C语言开发的一个开源的高性能键值对数据库</p>
+</blockquote>
+<ul>
+<li><p>数据类型包括:字符串类型 ●散列类型 ●列表类型 ●集合类型 ●有序集合类型</p>
+</li>
+<li><p>内存持续和持久化<br>Redis的所有数据存储在内存,内存的读取速度比硬盘高很多,所以性能更占优<br>但程序退出后内存的数据会丢失,Redis提供持久化操作将内存数据异步存储到<br>硬盘不影响继续提供服务</p>
+</li>
+<li><p>多种功能<br>多用于缓存和队列系统:<br>  Redis可以为每个键设置生存时间（Time To Live，TTL），<br>  生存时间到期后键会自动被删除这个功能可作为缓存系统使用<br>Redis和Memcached优劣:<br>  在性能上Redis是 单线程模型，而Memcached支持多线程，所以在多核服务器上后者的性能更高<br>  如果需要用到高级的数据类型 或是持久化等功能，Redis是很好的替代品<br>  作为缓存系统，Redis还可以限定数据占用的最大内存空间，在数据达到空间限制后可以 按照一定的规则自动淘汰不需要的键<br>  Redis的列表类型键可以用来实现队列，并且支持阻塞式读取，可以很容易地 实现一个高性能的优先级队列。同时在更高层面上，<br>  Redis还支持“发布/订阅”的消息模式，可 以基于此构建聊天室等系统。</p>
+</li>
+</ul>
+<p>Redis持久化:<br>    RDB是Redis默认采用的持久化操作(通过快照文件,将数据从硬盘载入到内存)<br>    save 900 1 表示15分钟（900秒钟）内至少1个键被更改则进行快照<br>    AOF(手动配置,操作一次写入一次数据)</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ul>
+<li>ubuntu下载: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$sudo apt-get update</span><br><span class="line">$sudo apt-get install redis-server</span><br><span class="line">$redis-server --启动</span><br><span class="line">$redis-cli --登录后ping看是否pong通</span><br><span class="line">$redis-cli -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>Ubuntu下redis开放端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dpkg -L redis-server </span><br><span class="line">sudo vim /etc/redis/redis.conf </span><br><span class="line">bind 0.0.0.0</span><br><span class="line">service redis-server restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>String:最基本的数据类型,二进制安全</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set akey redis</span><br><span class="line">mset k1 v1 k2 v2 k3 v3//设置多个键值对用m</span><br><span class="line">mget k1 k3</span><br><span class="line">get akey del akey</span><br><span class="line">incr num  decr num</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hash:String元素组成的字典,适合用于存储对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hmset lilei name &quot;Lilei&quot; age 26 title &quot;Senior&quot;</span><br><span class="line">hget lilei age</span><br><span class="line">hget lilei title</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>List:列表,按照String元素插入顺序排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lpush mylist aaa</span><br><span class="line">lpush mylist bbb</span><br><span class="line">lpush mylist ccc</span><br><span class="line">lrange mylist 0 10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SortedSet:通过分数来为集合中的成员进行从小到大的排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zadd myzset 3 abc</span><br><span class="line">zadd myzset 1 abd</span><br><span class="line">zadd myzset 2 abb</span><br><span class="line">zadd myzset 1 bgg</span><br><span class="line">zrangebyscore myzset 0 10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis查询海量前缀key:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dbsize			//统计所有key的个数</span><br><span class="line">keys pattern	//查找所有pattern模式的key,一次返回所有若过大则使服务卡顿</span><br><span class="line">keys k1*</span><br><span class="line">SCAN cursor[MATCH pattern][COUNT count]</span><br><span class="line">scan 0 match k1* count 10</span><br><span class="line">scan 11534336 match k1* count 10</span><br><span class="line"></span><br><span class="line">whereis redis-server</span><br><span class="line">/usr/bin/redis-server /usr/share/man/man1/redis-server.1.gz</span><br><span class="line">vi /etc/redis/redis.conf	/not a filename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set:String元素组成的无序集合,通过哈希表实现,不允许重复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sadd myset 111</span><br><span class="line">sadd myset 222</span><br><span class="line">sadd myset 333</span><br><span class="line">smembers myset</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/08/数据库理论范式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/08/数据库理论范式/" itemprop="url">数据库理论</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T14:45:45+08:00">
+                2019-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  880 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h2><ol>
+<li>记A-&gt;B 表示A函数决定B(B依赖于A)</li>
+<li>对于 A-&gt;B，如果能找到 A 的真子集 ‘A’，使得’A’-&gt; B，那么 A-&gt;B 就是部分函数依赖，否则就是完全函数依赖。</li>
+<li>对于 A-&gt;B，B-&gt;C，则 A-&gt;C 是一个传递函数依赖。</li>
+<li>如果 {A1，A2，… ，An} 是关系的一个或多个属性的集合，该集合函数决定了关系的其它所有属性并且是最小的，那么该集合就称为键码。</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/08/数据库理论范式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/Mysql/" itemprop="url">MySql</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T14:45:45+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  888 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ul>
+<li>什么是索引?</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>索引是对数据库表中的一列或多列的值进行排序的数据结构<br>可加快对表中记录的查找或排序</p>
+</blockquote>
+</blockquote>
+<p><a href="https://juejin.im/entry/5a448726f265da43062b10f1#comment" target="_blank" rel="noopener">索引基操</a>   <a href="https://juejin.im/entry/59b6bf5a6fb9a00a496e3bbc" target="_blank" rel="noopener">mysql索引概要</a>   <a href="https://juejin.im/post/5b55b842f265da0f9e589e79" target="_blank" rel="noopener">索引和锁</a>  <a href="https://www.jianshu.com/p/1775b4ff123a" target="_blank" rel="noopener">索引的数据结构</a></p>
+<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><ul>
+<li>定义:事务处理用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行</li>
+<li>事务四大特性：ACID <ul>
+<li>原子性:操作要不全部成功,要不全部失败回滚</li>
+<li>一致性:事务执行前后都必须处于一致状态</li>
+<li>隔离性:并发事务互不干扰</li>
+<li>持久性；事务提交成功,对数据库的数据改变是永久的</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/07/Mysql/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/Sql/" itemprop="url">SQL</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T14:23:45+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="SQL操作基础"><a href="#SQL操作基础" class="headerlink" title="SQL操作基础"></a>SQL操作基础</h2><h3 id="DDL-数据定义语句"><a href="#DDL-数据定义语句" class="headerlink" title="DDL:数据定义语句"></a>DDL:数据定义语句</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">USE</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> mytable (</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">col1 <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">1</span>,</span><br><span class="line">col2 <span class="built_in">VARCHAR</span>(<span class="number">45</span>) <span class="literal">NULL</span>,</span><br><span class="line">col3 <span class="built_in">DATE</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>));</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> mytable</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">col</span> <span class="built_in">CHAR</span>(<span class="number">20</span>);</span><br><span class="line">	</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> mytable</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> <span class="keyword">col</span>;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> mytable; <span class="comment">#删除表结构</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/07/Sql/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/工具使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/05/工具使用/" itemprop="url">常用工具</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T16:00:45+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具教程/" itemprop="url" rel="index">
+                    <span itemprop="name">工具教程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  324 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="GIT"><a href="#GIT" class="headerlink" title="GIT"></a>GIT</h3><ul>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/Git.md" target="_blank" rel="noopener">git知识点大全</a></li>
+<li>基本操作<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//提交</span></span><br><span class="line">Git add .</span><br><span class="line">Git commit -m ‘提交’</span><br><span class="line">Git push origin master</span><br><span class="line"><span class="comment">//下载</span></span><br><span class="line">git clone *.git</span><br><span class="line">git remote add orgin git<span class="meta">@github</span>.com:zljin/miaoshaProjects.git</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="hexo-github"><a href="#hexo-github" class="headerlink" title="hexo+github"></a>hexo+github</h3><ul>
+<li><a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.htm" target="_blank" rel="noopener">hexo入门教程</a></li>
+<li>基本操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo s -g #生成并本地预览</span><br><span class="line">hexo d -g #生成并上传</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="idea使用"><a href="#idea使用" class="headerlink" title="idea使用"></a>idea使用</h3><ol>
+<li><p>Tomcat的热部署问题<br><a href="https://www.jianshu.com/p/5719458486ff" target="_blank" rel="noopener">war 和 war exploded的区别</a>  <a href="https://www.jianshu.com/p/d9ada3ba168c" target="_blank" rel="noopener">idea热部署</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">war:将web工程以war包的形式上传到服务器</span><br><span class="line">通俗来说:</span><br><span class="line">	工程先打成war包,然后再发布到Tomcat的ROOT下</span><br><span class="line">war explored模式：将web工程以当前文件夹的位置关系上传到服务器</span><br><span class="line">通俗来说:</span><br><span class="line">	只编译,生成target;然后把当前的target文件夹的位置关系上传到服务器</span><br><span class="line">	</span><br><span class="line">idea热部署:首先将项目变成explored的模式,然后update classes选项 切记!!! DEBUG模式启动</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>debug模式的使用<br><a href="https://www.jianshu.com/p/8a207da1b2d0" target="_blank" rel="noopener">idea 的debug</a></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">快捷键:</span><br><span class="line">	Alt+F10:show excute point</span><br><span class="line">	F8:Step over(步入)可以进入方法内部</span><br><span class="line">	Shift + F8：Step Out(步出)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>markdown基本命令</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">链接: [标题](网址)</span><br><span class="line">图片: ![标题](网址)</span><br><span class="line"></span><br><span class="line">分割线:----</span><br><span class="line"></span><br><span class="line">引用:&gt;</span><br><span class="line"></span><br><span class="line">表格:</span><br><span class="line">姓名|技能|排行</span><br><span class="line">--|:--:|--:</span><br><span class="line">刘备|哭|大哥</span><br><span class="line">关羽|打|二哥</span><br><span class="line">张飞|骂|三弟</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>md的流程图</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">op=&gt;operation: My Operation</span><br><span class="line">cond=&gt;condition: Yes or No?</span><br><span class="line">e=&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/Linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -817,1106 +2345,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/Javaee基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/Javaee基础/" itemprop="url">JavaEE</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.8k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="JavaEE基础"><a href="#JavaEE基础" class="headerlink" title="JavaEE基础"></a>JavaEE基础</h2><h3 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext:"></a>ServletContext:</h3><ol>
-<li>Context上下文,ServletContext代表整个应用</li>
-<li>一个应用只有一个ServletContext对象(单例对象)</li>
-<li>作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。</li>
-<li>其他域对象:session,request,page</li>
-<li>常用方法: <ul>
-<li>void setAttribute(String name,object value)</li>
-<li>Object getAttribute(String name)</li>
-<li>void rmoveAttribute(String name)    </li>
-</ul>
-</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/Javaee基础/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/集合/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/集合/" itemprop="url">集合</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.1k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="Java中的集合体系理论"><a href="#Java中的集合体系理论" class="headerlink" title="Java中的集合体系理论"></a>Java中的集合体系理论</h3><ul>
-<li>数组:存放数据的容器,同一个数组中只能存放同一种类型的数据(元素),可以存储是引用类型或者基本数据类型的数据.</li>
-<li>集合:存放数据的容器,只能存储引用数据类型,在无泛型规定时可以添加任意的引用数据.</li>
-<li>集合的分类:单列集合(collection),双列集合(map),单列集合分为list和set</li>
-<li>Iterator(java.util)是集合最顶层的接口,用于迭代访问集合中的元素<ul>
-<li>boolean hasNext()</li>
-<li>E next()</li>
-<li>void remove()</li>
-</ul>
-</li>
-<li>Iterable(java.lang)是集合的顶级接口之一,让该接口的子接口或者实现类具有可迭代性<ul>
-<li>Iterator<t> iterator()  返回一组T类型元素进行迭代的迭代器,用于迭代遍历集合中的元素</t></li>
-</ul>
-</li>
-</ul>
-<p>Iterable 和 Iterator 的区别和意义是什么呢?</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Iterator接口中的核心方法，都是依赖当前位置。如果这些集合直接实现Iterator接口，则势必导致集合对象中包含当前迭代位置的数据(指针)。</span><br><span class="line">当集合在不同方法间进行传递的时候，由于当前迭代位置不可知，所以next()的结果也不可知。</span><br><span class="line">除非再为Iterator接口添加一个reset()方法，用来重置当前迭代位置。</span><br><span class="line">而当实现Iterable则不然，每次调用都返回一个从头开始的迭代器，各个迭代器之间互不影响。</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/集合/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/article/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/article/" itemprop="url">文章</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  0 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/IO编程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/IO编程/" itemprop="url">IO编程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.1k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><ul>
-<li><p>1.什么是IO流? </p>
-<ul>
-<li>数据的传输可以看成数据的流动,按照流动的方向,以内存为基准,分为输入和输出,即流向内存为输入,留出内存为输出.</li>
-</ul>
-</li>
-<li><p>2.字节流</p></li></ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/IO编程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/jdk  新特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/jdk  新特性/" itemprop="url">JDK8新特性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.5k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="JDK8-新特性"><a href="#JDK8-新特性" class="headerlink" title="JDK8 新特性"></a>JDK8 新特性</h2><h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><ul>
-<li>lambda就是对匿名内部类的简化 (形参1…)-&gt; 返回值</li>
-<li>匿名内部类对象核心:是方法的重写,需要重写的方法有且只有一个</li>
-<li>方法的核心:形参列表和函数体语句</li>
-<li>lambda 表达式的局部变量可以不用声明为 final,默认final修饰</li>
-<li>lambda 表达式只能引用标记了 final 的外层局部变量</li>
-<li>lambda表达式可以自动匹配数据类型</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/jdk  新特性/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T08:42:06+08:00">
-                2019-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  73 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1964,7 +2397,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1975,7 +2408,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2037,7 +2470,7 @@
     
       <span class="post-meta-item-text">总字数&#58;</span>
     
-    <span title="总字数">21.3k</span>
+    <span title="总字数">27.3k</span>
   
 </div>
 
