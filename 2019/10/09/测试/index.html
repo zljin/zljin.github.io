@@ -79,17 +79,14 @@
 
 
 
-<meta name="description" content="resultMap用法 resultMap 可以将查询到的复杂数据（比如查询到几个表中数据）映射到结果集中  1234567891011121314&amp;lt;!--column不做限制，可以为任意表的字段，而property须为type 定义的pojo属性--&amp;gt;&amp;lt;resultMap id=&quot;唯一的标识&quot; type=&quot;映射的pojo对象&quot;&amp;gt;  &amp;lt;id column=&quot;表的主键字">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis">
-<meta property="og:url" content="http://yoursite.com/2019/09/27/mybatis/index.html">
+<meta property="og:title" content="测试">
+<meta property="og:url" content="http://yoursite.com/2019/10/09/测试/index.html">
 <meta property="og:site_name" content="心如止水">
-<meta property="og:description" content="resultMap用法 resultMap 可以将查询到的复杂数据（比如查询到几个表中数据）映射到结果集中  1234567891011121314&amp;lt;!--column不做限制，可以为任意表的字段，而property须为type 定义的pojo属性--&amp;gt;&amp;lt;resultMap id=&quot;唯一的标识&quot; type=&quot;映射的pojo对象&quot;&amp;gt;  &amp;lt;id column=&quot;表的主键字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-27T02:45:21.745Z">
+<meta property="og:updated_time" content="2019-10-09T01:46:58.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis">
-<meta name="twitter:description" content="resultMap用法 resultMap 可以将查询到的复杂数据（比如查询到几个表中数据）映射到结果集中  1234567891011121314&amp;lt;!--column不做限制，可以为任意表的字段，而property须为type 定义的pojo属性--&amp;gt;&amp;lt;resultMap id=&quot;唯一的标识&quot; type=&quot;映射的pojo对象&quot;&amp;gt;  &amp;lt;id column=&quot;表的主键字">
+<meta name="twitter:title" content="测试">
 
 
 
@@ -119,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/09/27/mybatis/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/09/测试/">
 
 
 
 
 
-  <title>Mybatis | 心如止水</title>
+  <title>测试 | 心如止水</title>
   
 
 
@@ -264,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/27/mybatis/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/测试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邹龄晋">
@@ -281,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Mybatis</h1>
+          <h1 class="post-title" itemprop="name headline">测试</h1>
         
 
         <div class="post-meta">
@@ -293,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-27T14:23:45+08:00">
-                2019-09-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T09:34:01+08:00">
+                2019-10-09
               </time>
             
 
@@ -316,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ORM/" itemprop="url" rel="index">
-                    <span itemprop="name">ORM</span>
+                  <a href="/categories/测试/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
                   </a>
                 </span>
 
@@ -352,7 +349,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  354 字
+                  0 字
                 </span>
               
 
@@ -389,10 +386,7 @@
       
 
       
-        <h3 id="resultMap用法"><a href="#resultMap用法" class="headerlink" title="resultMap用法"></a>resultMap用法</h3><blockquote>
-<p>resultMap 可以将查询到的复杂数据（比如查询到几个表中数据）映射到结果集中</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--column不做限制，可以为任意表的字段，而property须为type 定义的pojo属性--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"唯一的标识"</span> <span class="attr">type</span>=<span class="string">"映射的pojo对象"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"表的主键字段，或者可以为查询语句中的别名字段"</span> <span class="attr">jdbcType</span>=<span class="string">"字段类型"</span> <span class="attr">property</span>=<span class="string">"映射pojo对象的主键属性"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"表的一个字段（可以为任意表的一个字段）"</span> <span class="attr">jdbcType</span>=<span class="string">"字段类型"</span> <span class="attr">property</span>=<span class="string">"映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"pojo的一个对象属性"</span> <span class="attr">javaType</span>=<span class="string">"pojo关联的pojo对象"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"关联pojo对象对应表的主键字段"</span> <span class="attr">jdbcType</span>=<span class="string">"字段类型"</span> <span class="attr">property</span>=<span class="string">"关联pojo对象的主席属性"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span>  <span class="attr">column</span>=<span class="string">"任意表的字段"</span> <span class="attr">jdbcType</span>=<span class="string">"字段类型"</span> <span class="attr">property</span>=<span class="string">"关联pojo对象的属性"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 集合中的property须为oftype定义的pojo对象的属性--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"pojo的集合属性"</span> <span class="attr">ofType</span>=<span class="string">"集合中的pojo对象"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"集合中pojo对象对应的表的主键字段"</span> <span class="attr">jdbcType</span>=<span class="string">"字段类型"</span> <span class="attr">property</span>=<span class="string">"集合中pojo对象的主键属性"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"可以为任意表的字段"</span> <span class="attr">jdbcType</span>=<span class="string">"字段类型"</span> <span class="attr">property</span>=<span class="string">"集合中的pojo对象的属性"</span> /&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        
       
     </div>
     
@@ -447,8 +441,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/26/Spring/" rel="next" title="Spring">
-                <i class="fa fa-chevron-left"></i> Spring
+              <a href="/2019/09/06/多线程/" rel="next" title="多线程与并发">
+                <i class="fa fa-chevron-left"></i> 多线程与并发
               </a>
             
           </div>
@@ -456,10 +450,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/28/javascript/" rel="prev" title="JavaScript">
-                JavaScript <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -538,17 +528,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -565,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -576,7 +557,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -611,22 +592,6 @@
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#resultMap用法"><span class="nav-number">1.</span> <span class="nav-text">resultMap用法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
       
 
@@ -654,7 +619,7 @@
     
       <span class="post-meta-item-text">总字数&#58;</span>
     
-    <span title="总字数">27.3k</span>
+    <span title="总字数">22.1k</span>
   
 </div>
 
