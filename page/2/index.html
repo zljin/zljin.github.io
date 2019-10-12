@@ -261,832 +261,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/19/深入理解JVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/19/深入理解JVM/" itemprop="url">深入理解JVM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T15:52:45+08:00">
-                2019-08-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.2k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="你了解java内存模型吗"><a href="#你了解java内存模型吗" class="headerlink" title="你了解java内存模型吗?"></a>你了解java内存模型吗?</h1><p><img src="https://github.com/zljin/img_z/blob/master/model.png?raw=true" alt></p>
-<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><ul>
-<li>当前线程所执行的字节码行号指示器</li>
-<li>改变计数器的值来选取下一条需要执行的指令</li>
-<li>和线程是一对一的关系,线程私有</li>
-<li>不会发生内存泄露</li>
-<li>对Java方法计数,如果是Native方法测计数器值为Undefined</li>
-</ul>
-<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><ul>
-<li>Java方法执行的内存模型</li>
-<li>每个方法执行在执行的过程中都会创建一个栈帧(局部变量表,操作数栈,动态链接,返回地址)</li>
-<li>每一个方法从调用直至执行完成的过程就对应着一个栈帧在虚拟机栈中入栈到出栈的过程</li>
-<li>JVM中这个区域规定了2种异常:1.如果线程栈的深度大于虚拟机栈的深度:StackOverflowError2.如果虚拟栈动态扩展无法申请到足够内存:OutOfMemoryError</li>
-</ul>
-<p><img src="https://github.com/zljin/img_z/blob/master/zz.png?raw=true" alt></p>
-<h4 id="局部变量表和操作数栈"><a href="#局部变量表和操作数栈" class="headerlink" title="局部变量表和操作数栈"></a>局部变量表和操作数栈</h4><ul>
-<li>局部变量表:包含方法执行过程中所有的变量<br>其中64位的占用2个局部变量空间</li>
-<li>操作数栈:入栈,出栈,复制,交换,产生消费变量</li>
-<li>局部变量表和操作数栈的交互实例</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">       c = a+b;</span><br><span class="line">       <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://github.com/zljin/img_z/blob/master/test.png?raw=true" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*	先javac *.java 编译, </span><br><span class="line">	然后执行javap -verbose .class 反编译字节码信息</span><br><span class="line">	这是add方法的字节码信息</span><br><span class="line">*/</span><br><span class="line">public static int add(int, int);</span><br><span class="line">    descriptor: (II)I</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">	//locals:</span><br><span class="line">	//stack操作数栈  locals局部变量表  args_size入参个数</span><br><span class="line">      stack=2, locals=3, args_size=2</span><br><span class="line">	  //JVM 指令</span><br><span class="line">         0: iconst_0   //将int值0 压入操作栈中</span><br><span class="line">         1: istore_2   //将操作栈的栈顶数0出栈到局部变量表中第2个变量中</span><br><span class="line">         2: iload_0    //将局部变量表中第0个变量压栈到操作栈顶</span><br><span class="line">         3: iload_1    //将局部变量表中第1个变量压栈到操作栈顶</span><br><span class="line">         4: iadd	   //+操作</span><br><span class="line">         5: istore_2   //将结果存到局部变量表第2个变量中(0被替代)</span><br><span class="line">         6: iload_2	   //将第2个变量中的结果压栈道操作栈顶</span><br><span class="line">         7: ireturn	   //将操作栈顶元素返回出去得到结果</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 6: 0</span><br><span class="line">        line 7: 2</span><br><span class="line">        line 8: 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈和Java虚拟机栈类似,只不过此栈是为虚拟机提供Native本地方法服务的.A native method is a Java method<br>whose implementation is provided by non-java code本地方法一般是用其它语言（C、C++ 或汇编语言等）编写的</p>
-<h2 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h2><p>堆是JVM管理内存最大的一块,被所有线程锁共享,在JVM启动时创建,唯一目的是存放对象实例,堆还是GC管理的主要区域.</p>
-<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>主要用于存储已被虚拟机加载的类信息(类镜像),常量,静态变量,即时编译器编译后的代码数据.<br>是各个线程所共享的内存区域.</p>
-<h4 id="元空间-MetaSpace-和永久代-PermGen-的区别"><a href="#元空间-MetaSpace-和永久代-PermGen-的区别" class="headerlink" title="元空间(MetaSpace)和永久代(PermGen)的区别"></a>元空间(MetaSpace)和永久代(PermGen)的区别</h4><ul>
-<li>元空间使用本地内存,永久代使用JVM内存</li>
-<li>在jdk7中,常量池从方法区移动到了堆区</li>
-<li>String.intern()产生的结果不同</li>
-</ul>
-<h2 id="运行时的常量池"><a href="#运行时的常量池" class="headerlink" title="运行时的常量池"></a>运行时的常量池</h2><p>在jdk7以前运行时的常量池是方法区的一部分,常量池用于存放编译器生成的各种字面量和符号引用<br>这部分内容在类加载后进入方法区的运行时常量池中存放.特征是具备动态性除了在编译期(预置入常<br>量池内容)能产生常量,运行期也能将新的常量放入池内.</p>
-<h2 id="常考问题"><a href="#常考问题" class="headerlink" title="常考问题?"></a>常考问题?</h2><h3 id="JVM三大性能调优参数含义"><a href="#JVM三大性能调优参数含义" class="headerlink" title="JVM三大性能调优参数含义"></a>JVM三大性能调优参数含义</h3><blockquote>
-<p>java -Xms128m -Xmx128m -Xss256k -jar xxx.jar</p>
-</blockquote>
-<ul>
-<li>-xss :每个线程虚拟机栈的大小</li>
-<li>-xms :堆的初始值</li>
-<li>-xmx :堆能达到的最大值</li>
-</ul>
-<h3 id="String-intern-在jdk6和jdk6-的区别"><a href="#String-intern-在jdk6和jdk6-的区别" class="headerlink" title="String.intern()在jdk6和jdk6+的区别"></a>String.intern()在jdk6和jdk6+的区别</h3><ul>
-<li><p>jdk6:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用<br>否则将字符串对象添加到常量池中,并返回常量池中的引用</p>
-</li>
-<li><p>jdk6+:调用方法时,如果常量池先前已创建该字符串对象,则返回池中引用,<br>否则如果字符串对象已经在堆中,那么将堆中引用添加到字符串常量池,并且返回<br>该引用(堆中的引用),若不存在则直接在常量池中创建该对象并返回其引用</p>
-</li>
-</ul>
-<h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
-<li>联系:引用对象,数组时,栈里定义变量保存堆中目标的首地址</li>
-<li>空间大小,效率,碎片相关</li>
-<li>管理方式:栈自动释放,堆要GC</li>
-<li>分配方式:堆仅支持动态分配</li>
-</ul>
-<h3 id="元空间-堆-线程独占部分间的联系–内存角度"><a href="#元空间-堆-线程独占部分间的联系–内存角度" class="headerlink" title="元空间,堆,线程独占部分间的联系–内存角度"></a>元空间,堆,线程独占部分间的联系–内存角度</h3><p><img src="https://github.com/zljin/img_z/blob/master/re.png?raw=true" alt></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello "</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">        HelloWorld hw = <span class="keyword">new</span> HelloWorld();</span><br><span class="line">        hw.setName(<span class="string">"test"</span>);</span><br><span class="line">        hw.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/09/Redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/09/Redis/" itemprop="url">Redis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T14:45:45+08:00">
-                2019-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  778 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Redis-Nosql内存数据库"><a href="#Redis-Nosql内存数据库" class="headerlink" title="Redis(Nosql内存数据库)"></a>Redis(Nosql内存数据库)</h2><blockquote>
-<p>Redis是用C语言开发的一个开源的高性能键值对数据库</p>
-</blockquote>
-<ul>
-<li><p>数据类型包括:字符串类型 ●散列类型 ●列表类型 ●集合类型 ●有序集合类型</p>
-</li>
-<li><p>内存持续和持久化<br>Redis的所有数据存储在内存,内存的读取速度比硬盘高很多,所以性能更占优<br>但程序退出后内存的数据会丢失,Redis提供持久化操作将内存数据异步存储到<br>硬盘不影响继续提供服务</p>
-</li>
-<li><p>多种功能<br>多用于缓存和队列系统:<br>  Redis可以为每个键设置生存时间（Time To Live，TTL），<br>  生存时间到期后键会自动被删除这个功能可作为缓存系统使用<br>Redis和Memcached优劣:<br>  在性能上Redis是 单线程模型，而Memcached支持多线程，所以在多核服务器上后者的性能更高<br>  如果需要用到高级的数据类型 或是持久化等功能，Redis是很好的替代品<br>  作为缓存系统，Redis还可以限定数据占用的最大内存空间，在数据达到空间限制后可以 按照一定的规则自动淘汰不需要的键<br>  Redis的列表类型键可以用来实现队列，并且支持阻塞式读取，可以很容易地 实现一个高性能的优先级队列。同时在更高层面上，<br>  Redis还支持“发布/订阅”的消息模式，可 以基于此构建聊天室等系统。</p>
-</li>
-</ul>
-<p>Redis持久化:<br>    RDB是Redis默认采用的持久化操作(通过快照文件,将数据从硬盘载入到内存)<br>    save 900 1 表示15分钟（900秒钟）内至少1个键被更改则进行快照<br>    AOF(手动配置,操作一次写入一次数据)</p>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ul>
-<li>ubuntu下载: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$sudo apt-get update</span><br><span class="line">$sudo apt-get install redis-server</span><br><span class="line">$redis-server --启动</span><br><span class="line">$redis-cli --登录后ping看是否pong通</span><br><span class="line">$redis-cli -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<ul>
-<li><p>Ubuntu下redis开放端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dpkg -L redis-server </span><br><span class="line">sudo vim /etc/redis/redis.conf </span><br><span class="line">bind 0.0.0.0</span><br><span class="line">service redis-server restart</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>String:最基本的数据类型,二进制安全</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set akey redis</span><br><span class="line">mset k1 v1 k2 v2 k3 v3//设置多个键值对用m</span><br><span class="line">mget k1 k3</span><br><span class="line">get akey del akey</span><br><span class="line">incr num  decr num</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Hash:String元素组成的字典,适合用于存储对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hmset lilei name &quot;Lilei&quot; age 26 title &quot;Senior&quot;</span><br><span class="line">hget lilei age</span><br><span class="line">hget lilei title</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>List:列表,按照String元素插入顺序排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lpush mylist aaa</span><br><span class="line">lpush mylist bbb</span><br><span class="line">lpush mylist ccc</span><br><span class="line">lrange mylist 0 10</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>SortedSet:通过分数来为集合中的成员进行从小到大的排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zadd myzset 3 abc</span><br><span class="line">zadd myzset 1 abd</span><br><span class="line">zadd myzset 2 abb</span><br><span class="line">zadd myzset 1 bgg</span><br><span class="line">zrangebyscore myzset 0 10</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>redis查询海量前缀key:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dbsize			//统计所有key的个数</span><br><span class="line">keys pattern	//查找所有pattern模式的key,一次返回所有若过大则使服务卡顿</span><br><span class="line">keys k1*</span><br><span class="line">SCAN cursor[MATCH pattern][COUNT count]</span><br><span class="line">scan 0 match k1* count 10</span><br><span class="line">scan 11534336 match k1* count 10</span><br><span class="line"></span><br><span class="line">whereis redis-server</span><br><span class="line">/usr/bin/redis-server /usr/share/man/man1/redis-server.1.gz</span><br><span class="line">vi /etc/redis/redis.conf	/not a filename</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Set:String元素组成的无序集合,通过哈希表实现,不允许重复</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sadd myset 111</span><br><span class="line">sadd myset 222</span><br><span class="line">sadd myset 333</span><br><span class="line">smembers myset</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/08/数据库理论范式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/08/数据库理论范式/" itemprop="url">数据库理论</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T14:45:45+08:00">
-                2019-08-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  880 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h2><ol>
-<li>记A-&gt;B 表示A函数决定B(B依赖于A)</li>
-<li>对于 A-&gt;B，如果能找到 A 的真子集 ‘A’，使得’A’-&gt; B，那么 A-&gt;B 就是部分函数依赖，否则就是完全函数依赖。</li>
-<li>对于 A-&gt;B，B-&gt;C，则 A-&gt;C 是一个传递函数依赖。</li>
-<li>如果 {A1，A2，… ，An} 是关系的一个或多个属性的集合，该集合函数决定了关系的其它所有属性并且是最小的，那么该集合就称为键码。</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/08/数据库理论范式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Mysql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹龄晋">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心如止水">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/07/Mysql/" itemprop="url">MySql</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T14:45:45+08:00">
-                2019-08-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  888 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ul>
-<li>什么是索引?</li>
-</ul>
-<blockquote>
-<blockquote>
-<p>索引是对数据库表中的一列或多列的值进行排序的数据结构<br>可加快对表中记录的查找或排序</p>
-</blockquote>
-</blockquote>
-<p><a href="https://juejin.im/entry/5a448726f265da43062b10f1#comment" target="_blank" rel="noopener">索引基操</a>   <a href="https://juejin.im/entry/59b6bf5a6fb9a00a496e3bbc" target="_blank" rel="noopener">mysql索引概要</a>   <a href="https://juejin.im/post/5b55b842f265da0f9e589e79" target="_blank" rel="noopener">索引和锁</a>  <a href="https://www.jianshu.com/p/1775b4ff123a" target="_blank" rel="noopener">索引的数据结构</a></p>
-<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><ul>
-<li>定义:事务处理用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行</li>
-<li>事务四大特性：ACID <ul>
-<li>原子性:操作要不全部成功,要不全部失败回滚</li>
-<li>一致性:事务执行前后都必须处于一致状态</li>
-<li>隔离性:并发事务互不干扰</li>
-<li>持久性；事务提交成功,对数据库的数据改变是永久的</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/07/Mysql/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Sql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1958,7 +1132,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k 字
+                  1.8k 字
                 </span>
               
 
@@ -1974,7 +1148,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -2025,7 +1199,584 @@
 
 <h3 id="jquery的ajax规范写法"><a href="#jquery的ajax规范写法" class="headerlink" title="jquery的ajax规范写法"></a>jquery的ajax规范写法</h3><p>ajax的跨域问题?</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">"#login"</span>).on(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> telphone=$(<span class="string">"#telphone"</span>).val();</span><br><span class="line">		<span class="keyword">var</span> password=$(<span class="string">"#password"</span>).val();</span><br><span class="line">		</span><br><span class="line">		$.ajax(&#123;</span><br><span class="line">			type:<span class="string">"POST"</span>,</span><br><span class="line">			contentType:<span class="string">"application/x-www-form-urlencoded"</span>,</span><br><span class="line">			url:<span class="string">"http://localhost:8090/user/login"</span>,</span><br><span class="line">			data:&#123;</span><br><span class="line">				  <span class="string">"telphone"</span>:telphone,  </span><br><span class="line">				  <span class="string">"password"</span>:password</span><br><span class="line">			&#125;,</span><br><span class="line">			xhrFields:&#123;<span class="attr">withCredentials</span>:<span class="literal">true</span>&#125;,  <span class="comment">//允许跨域请求</span></span><br><span class="line">			success:<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (data.status==<span class="string">"success"</span>) &#123;</span><br><span class="line">					alert(<span class="string">"登录成功"</span>);</span><br><span class="line">					<span class="built_in">window</span>.location.href=<span class="string">"listitem.html"</span></span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					alert(<span class="string">"登录失败，原因为"</span> + data.data.errMsg);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;, <span class="comment">//响应成功的回调函数</span></span><br><span class="line">			error:<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">				alert(<span class="string">"登录失败，原因为"</span>+data.responseText);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="jquery在项目中的运用"><a href="#jquery在项目中的运用" class="headerlink" title="jquery在项目中的运用"></a>jquery在项目中的运用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    builderIndex();</span><br><span class="line">    calculateMoney();</span><br><span class="line">    setRemove();</span><br><span class="line"></span><br><span class="line">    $(<span class="string">"#addItemButton"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).last().after($(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).first().clone());</span><br><span class="line">        setRemove();</span><br><span class="line">        $(<span class="string">"#items"</span>).find(<span class="string">"button"</span>).attr(<span class="string">"disabled"</span>,<span class="literal">false</span>);</span><br><span class="line">        builderIndex();</span><br><span class="line">        $(<span class="string">".money"</span>).change(</span><br><span class="line">            <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                calculateMoney();</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line">        calculateMoney();</span><br><span class="line">    &#125;);</span><br><span class="line">    $(<span class="string">".money"</span>).change(</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            calculateMoney();</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">builderIndex</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $.each($(<span class="string">"#items"</span>).children(),<span class="function"><span class="keyword">function</span>(<span class="params">i,val</span>)</span>&#123;</span><br><span class="line">        $(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).eq(i).children().eq(<span class="number">0</span>).find(<span class="string">"select"</span>).attr(<span class="string">"name"</span>,<span class="string">"items["</span>+i+<span class="string">"].item"</span>);</span><br><span class="line">        $(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).eq(i).children().eq(<span class="number">1</span>).find(<span class="string">"input"</span>).attr(<span class="string">"name"</span>,<span class="string">"items["</span>+i+<span class="string">"].amount"</span>);</span><br><span class="line">        $(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).eq(i).children().eq(<span class="number">2</span>).find(<span class="string">"input"</span>).attr(<span class="string">"name"</span>,<span class="string">"items["</span>+i+<span class="string">"].comment"</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calculateMoney</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> totalmoney=<span class="number">0</span>;</span><br><span class="line">    $.each($(<span class="string">".money"</span>),<span class="function"><span class="keyword">function</span>(<span class="params">i,val</span>)</span>&#123;</span><br><span class="line">        totalmoney+=<span class="built_in">parseFloat</span>($(<span class="string">".money"</span>).eq(i).val());</span><br><span class="line">    &#125;);</span><br><span class="line">    $(<span class="string">"#totalMoney"</span>).attr(<span class="string">"value"</span>,totalmoney);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setRemove</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).length==<span class="number">1</span>)&#123;</span><br><span class="line">        $(<span class="string">"#items"</span>).find(<span class="string">"button"</span>).attr(<span class="string">"disabled"</span>,<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).find(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $(<span class="keyword">this</span>).parent().parent().remove();</span><br><span class="line">        <span class="keyword">if</span>($(<span class="string">"#items"</span>).children(<span class="string">"div"</span>).length==<span class="number">1</span>)&#123;</span><br><span class="line">            $(<span class="string">"#items"</span>).find(<span class="string">"button"</span>).attr(<span class="string">"disabled"</span>,<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        builderIndex();</span><br><span class="line">        calculateMoney();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form:form</span> <span class="attr">action</span>=<span class="string">"/claim_voucher/add"</span> <span class="attr">modelAttribute</span>=<span class="string">"info"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form:input</span> <span class="attr">path</span>=<span class="string">"claimVoucher.cause"</span> <span class="attr">cssClass</span>=<span class="string">"gui-input"</span> <span class="attr">placeholder</span>=<span class="string">"事由..."</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span> 费用明细 <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"items"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-3"</span> <span class="attr">style</span>=<span class="string">"float:left;"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">form:select</span> <span class="attr">path</span>=<span class="string">"items[0].item"</span> <span class="attr">placeholder</span>=<span class="string">"花销类型..."</span> <span class="attr">items</span>=<span class="string">"$&#123;items&#125;"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-3"</span> <span class="attr">style</span>=<span class="string">"float:left;"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">form:input</span> <span class="attr">path</span>=<span class="string">"items[0].amount"</span> <span class="attr">class</span>=<span class="string">"money"</span> <span class="attr">placeholder</span>=<span class="string">"金额..."</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-5"</span> <span class="attr">style</span>=<span class="string">"float:left;"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">form:input</span> <span class="attr">path</span>=<span class="string">"items[0].comment"</span>  <span class="attr">placeholder</span>=<span class="string">"备注..."</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-1"</span> <span class="attr">style</span>=<span class="string">"float:left;"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span> X <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form:input</span> <span class="attr">id</span>=<span class="string">"totalMoney"</span> <span class="attr">path</span>=<span class="string">"claimVoucher.totalAmount"</span> <span class="attr">placeholder</span>=<span class="string">"总金额..."</span> <span class="attr">readonly</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"addItemButton"</span>&gt;</span> + <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span> 保存 <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form:form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
           
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/集合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/集合/" itemprop="url">集合</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="Java中的集合体系理论"><a href="#Java中的集合体系理论" class="headerlink" title="Java中的集合体系理论"></a>Java中的集合体系理论</h3><ul>
+<li>数组:存放数据的容器,同一个数组中只能存放同一种类型的数据(元素),可以存储是引用类型或者基本数据类型的数据.</li>
+<li>集合:存放数据的容器,只能存储引用数据类型,在无泛型规定时可以添加任意的引用数据.</li>
+<li>集合的分类:单列集合(collection),双列集合(map),单列集合分为list和set</li>
+<li>Iterator(java.util)是集合最顶层的接口,用于迭代访问集合中的元素<ul>
+<li>boolean hasNext()</li>
+<li>E next()</li>
+<li>void remove()</li>
+</ul>
+</li>
+<li>Iterable(java.lang)是集合的顶级接口之一,让该接口的子接口或者实现类具有可迭代性<ul>
+<li>Iterator<t> iterator()  返回一组T类型元素进行迭代的迭代器,用于迭代遍历集合中的元素</t></li>
+</ul>
+</li>
+</ul>
+<p>Iterable 和 Iterator 的区别和意义是什么呢?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Iterator接口中的核心方法，都是依赖当前位置。如果这些集合直接实现Iterator接口，则势必导致集合对象中包含当前迭代位置的数据(指针)。</span><br><span class="line">当集合在不同方法间进行传递的时候，由于当前迭代位置不可知，所以next()的结果也不可知。</span><br><span class="line">除非再为Iterator接口添加一个reset()方法，用来重置当前迭代位置。</span><br><span class="line">而当实现Iterable则不然，每次调用都返回一个从头开始的迭代器，各个迭代器之间互不影响。</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/集合/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/jdk  新特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/jdk  新特性/" itemprop="url">JDK8新特性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="JDK8-新特性"><a href="#JDK8-新特性" class="headerlink" title="JDK8 新特性"></a>JDK8 新特性</h2><h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><ul>
+<li>lambda就是对匿名内部类的简化 (形参1…)-&gt; 返回值</li>
+<li>匿名内部类对象核心:是方法的重写,需要重写的方法有且只有一个</li>
+<li>方法的核心:形参列表和函数体语句</li>
+<li>lambda 表达式的局部变量可以不用声明为 final,默认final修饰</li>
+<li>lambda 表达式只能引用标记了 final 的外层局部变量</li>
+<li>lambda表达式可以自动匹配数据类型</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/jdk  新特性/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/Javaee基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/Javaee基础/" itemprop="url">JavaEE</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:00:45+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="JavaEE基础"><a href="#JavaEE基础" class="headerlink" title="JavaEE基础"></a>JavaEE基础</h2><h3 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext:"></a>ServletContext:</h3><ol>
+<li>Context上下文,ServletContext代表整个应用</li>
+<li>一个应用只有一个ServletContext对象(单例对象)</li>
+<li>作用:域对象：在一定范围内,区间内（当前应用），使多个Servlet共享数据。</li>
+<li>其他域对象:session,request,page</li>
+<li>常用方法: <ul>
+<li>void setAttribute(String name,object value)</li>
+<li>Object getAttribute(String name)</li>
+<li>void rmoveAttribute(String name)    </li>
+</ul>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/Javaee基础/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2246,6 +1997,260 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/javascript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心如止水">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/javascript/" itemprop="url">JavaScript</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T09:34:01+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="JavaScript简介"><a href="#JavaScript简介" class="headerlink" title="JavaScript简介"></a>JavaScript简介</h2><p>ECMAScript为js实现的基础<br>ECMAScript仅仅是一个描述,定义了脚本语言的所有属性,方法和对象,js以它来作为功能的基准.</p>
+<p>JavaScript组成=核心(Es)+DOM+BOM</p>
+<h2 id="JavaScript基础语法"><a href="#JavaScript基础语法" class="headerlink" title="JavaScript基础语法"></a>JavaScript基础语法</h2><ul>
+<li><p>变量声明: var</p>
+</li>
+<li><p>数据类型:</p>
+<ul>
+<li><p>原始类型(值类型,字面值):</p>
+<ul>
+<li>String,Number,Boolean,Undefined(未初始化的变量),Null(对象的占位符)</li>
+</ul>
+</li>
+<li><p>引用类型:(继承父类Object)</p>
+<ul>
+<li>var obj=new Object()</li>
+<li>Boolean,Number,Array,String,Date,Math,RegExp.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>类型转换:</p>
+<ul>
+<li>String,Number,Boolean的原始值为伪对象(有具体的属性和方法)</li>
+<li>toString() parseInt()/parseFloat()</li>
+<li>强转:Boolean(0) Number(“12”) String(true)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>运算符与表达式</p>
+<ul>
+<li><p>比较运算符</p>
+<ul>
+<li>===:全等:类型与值都要相等</li>
+</ul>
+</li>
+<li><p>空运算 a href=”javascript:void(0);”  </p>
+</li>
+<li><p>类型运算符</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typeof:判断数据类型 返回我的数据类型</span><br><span class="line">instanceof：判断数据类型 是否是某种类型</span><br><span class="line">var obj = new Object();</span><br><span class="line">alert(typeof obj);//object</span><br><span class="line">alert(obj instanceof Object);//true</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>正则</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var email = &quot;78_1234@qq.com&quot;</span><br><span class="line">var reg = /^[A-z0-9_]+@[A-z0-9]+\.[A-z]+$/</span><br><span class="line">console.log(reg.test(email));</span><br><span class="line"></span><br><span class="line">规则的写法：</span><br><span class="line">		[0-9] </span><br><span class="line">		[A-Z]</span><br><span class="line">		[a-z]</span><br><span class="line">		[A-z]</span><br><span class="line">		\d 代表数据</span><br><span class="line">		\D	非数字</span><br><span class="line">		\w	查找单词字符</span><br><span class="line">		\W	查找非单词字符</span><br><span class="line">		\s	查找空白字符</span><br><span class="line">		\S	查找非空白字符</span><br><span class="line">		n+	出现至少一次</span><br><span class="line">		n*	出现0次或多次</span><br><span class="line">		n?	出现0次或1次</span><br><span class="line">		&#123;5&#125; 出现5</span><br><span class="line">		&#123;2,8&#125; 2到8次</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="JavaScript函数"><a href="#JavaScript函数" class="headerlink" title="JavaScript函数"></a>JavaScript函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基础知识:1.函数的定义使用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//函数的几个定义</span></span><br><span class="line">		<span class="comment">//1.函数的声明方式</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="number">1</span>+<span class="number">3</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		sum();</span><br><span class="line">		<span class="comment">//2.函数表达式声明方式</span></span><br><span class="line">		<span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="number">1</span>+<span class="number">4</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		add();</span><br><span class="line">		<span class="comment">//前面两个的区别</span></span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * 在js中解析器首先会把当前作用域</span></span><br><span class="line"><span class="comment">		 * 的函数声明提前到整个作用域的最前面</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//3.使用Function构造函数</span></span><br><span class="line">		<span class="keyword">var</span> add2 = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'console.log(1+5);'</span>);</span><br><span class="line">        add2();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//arguments对象</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="comment">//arguments 对象(函数内置对象):获取外部所传的所有参数都会传到arguments数组中</span></span><br><span class="line">			<span class="comment">//arguments包含外部所有参数</span></span><br><span class="line">			<span class="comment">//console.log(arguments);</span></span><br><span class="line">			<span class="keyword">var</span> sum=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="built_in">arguments</span>.length;i++)&#123;</span><br><span class="line">				sum+=<span class="built_in">arguments</span>[i];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">console</span>.log(sum);</span><br><span class="line">		&#125;</span><br><span class="line">        sum(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//匿名函数:没有匿名的函数</span></span><br><span class="line">		<span class="comment">//作用:定时器,绑定事件,自调用函数</span></span><br><span class="line">		<span class="comment">//自调用函数</span></span><br><span class="line">		(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			alert(<span class="string">"真的会自动执行吗???"</span>);</span><br><span class="line">		&#125;)();</span><br><span class="line">		<span class="comment">//绑定事件</span></span><br><span class="line">		<span class="built_in">document</span>.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			alert(<span class="string">"点我干嘛?"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//定时器</span></span><br><span class="line">		setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"XXOO"</span>);</span><br><span class="line">		&#125;,<span class="number">1000</span>)</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		实现一个打点计时器，要求</span></span><br><span class="line"><span class="comment">		1、从 start 到 end（包含 start 和 end），每隔 100 毫秒 console.log 一个数字，每次数字增幅为 1</span></span><br><span class="line"><span class="comment">		2、返回的对象中需要包含一个 cancel 方法，用于停止定时操作</span></span><br><span class="line"><span class="comment">		3、第一个数需要立即输出</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">count</span>(<span class="params">start, end</span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(start++);</span><br><span class="line">			<span class="keyword">var</span> timer = setInterval (<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="keyword">if</span>(start&lt;=end)&#123;</span><br><span class="line">					<span class="built_in">console</span>.log(start++);</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					clearInterval(timer);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,<span class="number">100</span>);</span><br><span class="line">			<span class="keyword">return</span> &#123;</span><br><span class="line">				cancel : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">					clearInterval(timer);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//回调函数:通过一个函数去调用另一个函数(一般用于递归)</span></span><br><span class="line">		<span class="comment">//总控方法</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">num1,num2,func</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> func(num1,num2);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//加减乘除函数</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> a+b;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">sub</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> a-b;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">mul</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> a*b;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">divide</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> a/b;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">console</span>.log(fn(<span class="number">10</span>,<span class="number">20</span>,add));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//递归用法</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">fi</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(n==<span class="number">1</span>||n==<span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">return</span> fi(n<span class="number">-1</span>)+fi(n<span class="number">-2</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">console</span>.log(fi(<span class="number">9</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//求n个累加</span></span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">getSum</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="number">1</span>==n) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">return</span> n+<span class="built_in">arguments</span>.callee(n<span class="number">-1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">console</span>.log(getSum(<span class="number">100</span>));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//变量作用域,只有函数内部才有局部变量,其他都是全局</span></span><br><span class="line"><span class="comment">//1.变量提升;JS的函数定义有个特点，它会先扫描整个函数体的语句，把所有申明的变量“提升”到函数顶部：</span></span><br><span class="line"><span class="keyword">var</span> num=<span class="number">10</span>;</span><br><span class="line">fun();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//声明提前,就是var num提前了,但是num=20还在后面,所以最后输出undefine</span></span><br><span class="line">    <span class="built_in">console</span>.log(num);</span><br><span class="line">    <span class="keyword">var</span> num=<span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//2.局部作用域</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">    &#125;</span><br><span class="line">    i += <span class="number">100</span>; <span class="comment">// 仍然可以引用变量i:因为js没有块级作用域,i不会随着for循环的结束而销毁(区别于java,c)</span></span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//为了解决块级作用域，ES6引入了新的关键字let，用let替代var可以申明一个块级作用域的变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) &#123;               </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// SyntaxError:</span></span><br><span class="line">    i += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//foo1();</span></span><br><span class="line"><span class="comment">//3.常量,在ES6后使用</span></span><br><span class="line"><span class="keyword">const</span> PI = <span class="number">3.14</span>;<span class="comment">//const定义常量</span></span><br><span class="line"><span class="comment">//PI = 3; //报错</span></span><br><span class="line"><span class="built_in">console</span>.log(PI); <span class="comment">// 3.14</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//4.解构赋值:也可用于对象,也可以忽略某个值</span></span><br><span class="line"><span class="keyword">var</span> [x, y, z] = [<span class="string">'hello'</span>, <span class="string">'JavaScript'</span>, <span class="string">'ES6'</span>];</span><br><span class="line"><span class="built_in">console</span>.log(x+<span class="string">" -&gt; "</span>+y+<span class="string">"-&gt;"</span>+z);</span><br><span class="line"><span class="comment">//let [, , z] = ['hello', 'JavaScript', 'ES6'];</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript事件"><a href="#JavaScript事件" class="headerlink" title="JavaScript事件"></a>JavaScript事件</h2><h3 id="获取事件源的几种方法"><a href="#获取事件源的几种方法" class="headerlink" title="获取事件源的几种方法"></a>获取事件源的几种方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"my-btn"</span>&gt;<span class="number">1</span>&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;button id="btn" class="my-btn" name="btn"&gt;点我&lt;/</span>button&gt;</span><br><span class="line">    <span class="keyword">var</span> btn1 = <span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</span><br><span class="line">    <span class="keyword">var</span> btn2 = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"my-btn"</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> btn3 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> btn4 = <span class="built_in">document</span>.getElementsByName(<span class="string">"btn"</span>)[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="事件实例操作"><a href="#事件实例操作" class="headerlink" title="事件实例操作"></a>事件实例操作</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"box"</span>&gt;</span><br><span class="line">	&lt;img id=<span class="string">"icon"</span> src=<span class="string">"img/touxiang.jpg"</span>&gt;</span><br><span class="line">	&lt;img id=<span class="string">"close"</span> src=<span class="string">"img/anniu.jpg"</span> width=<span class="string">"20px"</span> height=<span class="string">"20px"</span>&gt; </span><br><span class="line">&lt;<span class="regexp">/div&gt;      </span></span><br><span class="line"><span class="regexp">window.onload=function()&#123;</span></span><br><span class="line"><span class="regexp">    var icon = document.getElementById("icon");</span></span><br><span class="line"><span class="regexp">    var close = document.getElementById("close");</span></span><br><span class="line"><span class="regexp">    var flag=0;</span></span><br><span class="line"><span class="regexp">    close.onclick=function()&#123;</span></span><br><span class="line"><span class="regexp">        if(flag==0)&#123;</span></span><br><span class="line"><span class="regexp">            icon.style.display="none";</span></span><br><span class="line"><span class="regexp">            flag=1;</span></span><br><span class="line"><span class="regexp">            console.log(flag);</span></span><br><span class="line"><span class="regexp">        &#125;else&#123;</span></span><br><span class="line"><span class="regexp">            flag=0;</span></span><br><span class="line"><span class="regexp">            icon.style.display="inline";</span></span><br><span class="line"><span class="regexp">            console.log(flag);</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;div id="logo" style="width:200px;height: 200px;background:aquamarine;"&gt;&lt;/</span>div&gt;</span><br><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> logo = <span class="built_in">document</span>.getElementById(<span class="string">"logo"</span>);</span><br><span class="line">    logo.onmouseover=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        logo.style.background=<span class="string">"red"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    logo.onmouseout=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        logo.style.background=<span class="string">"aquamarine"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    logo.onmousedown=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        logo.style.background=<span class="string">"green"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    logo.onmousemove=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        logo.style.background=<span class="string">"black"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript的DOM"><a href="#JavaScript的DOM" class="headerlink" title="JavaScript的DOM"></a>JavaScript的DOM</h2><h3 id="DOM设置属性"><a href="#DOM设置属性" class="headerlink" title="DOM设置属性"></a>DOM设置属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">        &lt;input type=<span class="string">"text"</span> value=<span class="string">"Java Gosling"</span> id=<span class="string">"username"</span>&gt;</span><br><span class="line"></span><br><span class="line">        &lt;ul id&gt;</span><br><span class="line">            &lt;li id=<span class="string">'cl'</span> dog=<span class="string">"泰迪"</span> name=<span class="string">"chengli"</span>&gt;陈粒&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">            &lt;li&gt;胡歌&lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;周杰伦&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/u</span>l&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &lt;li id=<span class="string">'ldh'</span>&gt;刘德华&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">            &lt;li&gt;古天乐&lt;/</span>li&gt;</span><br><span class="line">        &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button onclick="myClick()"&gt;点击&lt;/</span>button&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">	function myClick() &#123;</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/replaceChild </span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/1.获取节点</span></span><br><span class="line"><span class="regexp">		var clTag = document.getElementById('cl');</span></span><br><span class="line"><span class="regexp">		var ldhTag = document.getElementById('ldh');</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/2.替换</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/获取父节点</span></span><br><span class="line"><span class="regexp">		var ul = clTag.parentNode;</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/替换 : </span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/ul.replaceChild(ldhTag,clTag);</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/getAttribute/</span>setAttribute 属性</span><br><span class="line">		<span class="comment">//获取陈粒的一些属性</span></span><br><span class="line">		<span class="built_in">console</span>.log(cl.getAttribute(<span class="string">'dog'</span>));</span><br><span class="line">		<span class="built_in">console</span>.log(cl.getAttribute(<span class="string">'name'</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//给标签设置属性</span></span><br><span class="line">		cl.setAttribute(<span class="string">'dog'</span>,<span class="string">'笑天犬'</span>);</span><br><span class="line">		<span class="built_in">console</span>.log(cl.getAttribute(<span class="string">'dog'</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//加强：标签属性的获取</span></span><br><span class="line">		<span class="keyword">var</span> inputTag = <span class="built_in">document</span>.getElementById(<span class="string">'username'</span>);</span><br><span class="line">		<span class="built_in">console</span>.log(inputTag.type + <span class="string">'===='</span> + inputTag.value);</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">console</span>.log(inputTag.getAttribute(<span class="string">'type'</span>));</span><br><span class="line">		<span class="built_in">console</span>.log(inputTag.getAttribute(<span class="string">'value'</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="DOM的crud"><a href="#DOM的crud" class="headerlink" title="DOM的crud"></a>DOM的crud</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	document.createElement 创建HTML标签</span></span><br><span class="line"><span class="comment">	document.createTextNode 创建文本节点</span></span><br><span class="line"><span class="comment">	appendChild 添加子节点</span></span><br><span class="line"><span class="comment">	insertBefore 在前面添加节点</span></span><br><span class="line"><span class="comment">	insertAfter  在后面添加节点</span></span><br><span class="line"><span class="comment">	removeChild  移除节点</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">	</span><br><span class="line">&lt;body&gt;</span><br><span class="line"> &lt;ul id=<span class="string">"city"</span>&gt;</span><br><span class="line">	&lt;li&gt;北京&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">	&lt;li id="sh"&gt;上海&lt;/</span>li&gt;</span><br><span class="line">	&lt;li&gt;广州&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">&lt;/u</span>l&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;ul id=<span class="string">"city2"</span>&gt;</span><br><span class="line">	&lt;li&gt;广州&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">	&lt;li&gt;北京&lt;/</span>li&gt;</span><br><span class="line">&lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">&lt;button onclick="myClick3()"&gt;点击&lt;/</span>button&gt;   </span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/添加</span></span><br><span class="line"><span class="regexp">function myClick()&#123;</span></span><br><span class="line"><span class="regexp">    var addTag = document.createElement('li');</span></span><br><span class="line"><span class="regexp">    var addText = document.createTextNode('株洲');</span></span><br><span class="line"><span class="regexp">    addTag.appendChild(addText);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    var cityTag = document.getElementById('city');</span></span><br><span class="line"><span class="regexp">    cityTag.appendChild(addTag);</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/修改</span></span><br><span class="line"><span class="regexp">function myClick2() &#123;</span></span><br><span class="line"><span class="regexp">		var city2Tag = document.getElementById('city2');</span></span><br><span class="line"><span class="regexp">		city2Tag.innerHTML = '&lt;li&gt;北京&lt;/</span>li&gt;<span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><span class="string">';</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">function myClick3()&#123;</span></span><br><span class="line"><span class="string">    //获取上海的节点</span></span><br><span class="line"><span class="string">	var shTag = document.getElementById("sh");</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">	//创建深圳节点</span></span><br><span class="line"><span class="string">	var szTag = document.createElement('</span>li<span class="string">');</span></span><br><span class="line"><span class="string">	var txtTag = document.createTextNode('</span>深圳<span class="string">');</span></span><br><span class="line"><span class="string">	szTag.appendChild(txtTag);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    //获取父节点</span></span><br><span class="line"><span class="string">	var ul = document.getElementById('</span>city<span class="string">');</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">	//insertBefore 在前面添加节点</span></span><br><span class="line"><span class="string">	//ul.insertBefore(szTag,shTag);</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">	//insertAfter  在后面添加节点</span></span><br><span class="line"><span class="string">	//ul.insertAfter(szTag,shTag);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    //removeChild  移除节点</span></span><br><span class="line"><span class="string">	ul.removeChild(shTag);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript的BOM"><a href="#JavaScript的BOM" class="headerlink" title="JavaScript的BOM"></a>JavaScript的BOM</h2><blockquote>
+<p>包括:Window对象(Screen,History,Location),Navigator对象,弹窗,计时,Cookie</p>
+</blockquote>
+<h3 id="Window对象"><a href="#Window对象" class="headerlink" title="Window对象"></a>Window对象</h3><p>JavaScript的全局对象,函数即变量都为Window对象的成员</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.open() - 打开新窗口</span><br><span class="line"><span class="built_in">window</span>.close() - 关闭当前窗口</span><br><span class="line"><span class="built_in">window</span>.moveTo() - 移动当前窗口</span><br><span class="line"><span class="built_in">window</span>.resizeTo() - 调整当前窗口的尺寸</span><br></pre></td></tr></table></figure>
+
+<h4 id="Window-location"><a href="#Window-location" class="headerlink" title="Window.location"></a>Window.location</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.location.href=<span class="string">"./day1_bom.html"</span>;</span><br><span class="line"><span class="built_in">window</span>.location.assign(<span class="string">'http://www.baidu.com'</span>);<span class="comment">//跳转到指定的 URL</span></span><br><span class="line"><span class="built_in">window</span>.location.reload();<span class="comment">//最有效的重新加载，有可能从缓存加载</span></span><br><span class="line"><span class="built_in">window</span>.location.reload(<span class="literal">true</span>);<span class="comment">// 强制加载，从服务器源头重新加载 </span></span><br><span class="line"><span class="built_in">window</span>.location.replace(<span class="string">'http://www.baidu.com'</span>); <span class="comment">//可以避免产生跳转前的历史记录</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Window-history"><a href="#Window-history" class="headerlink" title="Window.history"></a>Window.history</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">history.back();</span><br><span class="line">history.forward();		</span><br><span class="line">history.go(<span class="number">1</span>);		</span><br><span class="line">history.go(<span class="number">-1</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Window-Navigator-访问者浏览器的信息"><a href="#Window-Navigator-访问者浏览器的信息" class="headerlink" title="Window.Navigator(访问者浏览器的信息)"></a>Window.Navigator(访问者浏览器的信息)</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">txt = "<span class="tag">&lt;<span class="name">p</span>&gt;</span>浏览器代号: " + navigator.appCodeName + "<span class="tag">&lt;/<span class="name">p</span>&gt;</span>";</span><br><span class="line">txt+= "<span class="tag">&lt;<span class="name">p</span>&gt;</span>浏览器名称: " + navigator.appName + "<span class="tag">&lt;/<span class="name">p</span>&gt;</span>";</span><br><span class="line">txt+= "<span class="tag">&lt;<span class="name">p</span>&gt;</span>浏览器版本: " + navigator.appVersion + "<span class="tag">&lt;/<span class="name">p</span>&gt;</span>";</span><br><span class="line">txt+= "<span class="tag">&lt;<span class="name">p</span>&gt;</span>启用Cookies: " + navigator.cookieEnabled + "<span class="tag">&lt;/<span class="name">p</span>&gt;</span>";</span><br><span class="line">txt+= "<span class="tag">&lt;<span class="name">p</span>&gt;</span>硬件平台: " + navigator.platform + "<span class="tag">&lt;/<span class="name">p</span>&gt;</span>";</span><br><span class="line">txt+= "<span class="tag">&lt;<span class="name">p</span>&gt;</span>用户代理: " + navigator.userAgent + "<span class="tag">&lt;/<span class="name">p</span>&gt;</span>";</span><br><span class="line">txt+= "<span class="tag">&lt;<span class="name">p</span>&gt;</span>用户代理语言: " + navigator.systemLanguage + "<span class="tag">&lt;/<span class="name">p</span>&gt;</span>";</span><br><span class="line">document.getElementById("example").innerHTML=txt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JavaScript弹窗"><a href="#JavaScript弹窗" class="headerlink" title="JavaScript弹窗"></a>JavaScript弹窗</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"click1();"</span>&gt;</span>点击1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"click2();"</span>&gt;</span>点击2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"click3();"</span>&gt;</span>点击3<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">	<span class="function"><span class="keyword">function</span> <span class="title">click1</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="built_in">window</span>.alert(<span class="string">"党的十九大招开了"</span>);</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"><span class="javascript">	<span class="function"><span class="keyword">function</span> <span class="title">click2</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="comment">//显示带有一段消息以及确认按钮和取消按钮的对话框。</span></span></span><br><span class="line"><span class="javascript">		<span class="comment">//用户选择后，会返回true或者false</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> rsl = <span class="built_in">window</span>.confirm(<span class="string">"你确定要分手吗？"</span>);</span></span><br><span class="line">		alert(rsl);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"><span class="javascript">	<span class="function"><span class="keyword">function</span> <span class="title">click3</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="comment">//显示可提示用户输入的对话框,点确定后，返回用户输入的密码，点取消，返回null</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> rsl = prompt(<span class="string">"请输入你的银行卡密码"</span>);</span></span><br><span class="line"><span class="javascript">		alert(<span class="string">"你输入的密码是:"</span> + rsl)</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="JavaScript计时"><a href="#JavaScript计时" class="headerlink" title="JavaScript计时"></a>JavaScript计时</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"start2()"</span>&gt;</span>开始.<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"stop()"</span>&gt;</span>停止<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p"</span>&gt;</span>iii<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> timer; </span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> i=<span class="number">0</span>;</span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//定时器(每隔一定时间执行任务)</span></span></span><br><span class="line">        i++;</span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> addTag = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> addText = <span class="built_in">document</span>.createTextNode(<span class="string">"呵呵"</span>+i);</span></span><br><span class="line">        addTag.appendChild(addText);</span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> p = <span class="built_in">document</span>.getElementById(<span class="string">"p"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> father = p.parentNode;</span></span><br><span class="line">        father.appendChild(addTag);</span><br><span class="line">    &#125;,1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">stop</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line">    clearInterval(timer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line">    start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> time2;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">start2</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    time2=setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//定时器(指定时间执行任务)</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"全军出击"</span>);</span></span><br><span class="line">    &#125;,2000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">myClear</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line">    clearTimeout(time2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2298,7 +2303,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
