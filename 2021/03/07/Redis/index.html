@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简单介绍 C语言编写的高性能分布式内存数据库，基于内存并支持持久化的Nosql 用途：提升读取速度性能，分布式计算领域，降低数据库查询压力，跨服务器缓存，内存式缓存  三种缓存中间件的对比： Redis:优点：丰富的数据类型/持久化/主从同步,故障转移/内存数据库   缺点：单线程，单核 Memcache:优点：多核多线程，内存使用率高，简单的k-v存储 缺点：不能持久化，不能容灾 Ehcache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="http://yoursite.com/2021/03/07/Redis/index.html">
+<meta property="og:site_name" content="勇气的赞歌">
+<meta property="og:description" content="简单介绍 C语言编写的高性能分布式内存数据库，基于内存并支持持久化的Nosql 用途：提升读取速度性能，分布式计算领域，降低数据库查询压力，跨服务器缓存，内存式缓存  三种缓存中间件的对比： Redis:优点：丰富的数据类型/持久化/主从同步,故障转移/内存数据库   缺点：单线程，单核 Memcache:优点：多核多线程，内存使用率高，简单的k-v存储 缺点：不能持久化，不能容灾 Ehcache">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1652302/202005/1652302-20200510160050474-1143514940.png">
+<meta property="og:updated_time" content="2021-03-07T10:29:08.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis">
+<meta name="twitter:description" content="简单介绍 C语言编写的高性能分布式内存数据库，基于内存并支持持久化的Nosql 用途：提升读取速度性能，分布式计算领域，降低数据库查询压力，跨服务器缓存，内存式缓存  三种缓存中间件的对比： Redis:优点：丰富的数据类型/持久化/主从同步,故障转移/内存数据库   缺点：单线程，单核 Memcache:优点：多核多线程，内存使用率高，简单的k-v存储 缺点：不能持久化，不能容灾 Ehcache">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1652302/202005/1652302-20200510160050474-1143514940.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/07/Redis/">
+
+
+
+
+
+  <title>Redis | 勇气的赞歌</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/zljin"><img style="position: absolute; top: 500; left: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">勇气的赞歌</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">积水成渊,蛟龙生焉</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/07/Redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="勇气的赞歌">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-07T14:29:45+08:00">
+                2021-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><ol>
+<li>C语言编写的高性能分布式内存数据库，基于内存并支持持久化的Nosql</li>
+<li>用途：提升读取速度性能，分布式计算领域，降低数据库查询压力，跨服务器缓存，内存式缓存</li>
+</ol>
+<h2 id="三种缓存中间件的对比："><a href="#三种缓存中间件的对比：" class="headerlink" title="三种缓存中间件的对比："></a>三种缓存中间件的对比：</h2><ol>
+<li>Redis:优点：丰富的数据类型/持久化/主从同步,故障转移/内存数据库   缺点：单线程，单核</li>
+<li>Memcache:优点：多核多线程，内存使用率高，简单的k-v存储 缺点：不能持久化，不能容灾</li>
+<li>Ehcache优点：基于java开发和JVM缓存(广泛使用于mybatis和hiberate)，简单轻巧方便 缺点：JVM为单体不能使用集群和分布式</li>
+</ol>
+<h2 id="五大数据类型"><a href="#五大数据类型" class="headerlink" title="五大数据类型"></a>五大数据类型</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>可存储的值</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>字符串、整数或者浮点数</td>
+<td>对整个字符串或者字符串的其中一部分执行操作对整数和浮点数执行自增或者自减操作</td>
+</tr>
+<tr>
+<td>list</td>
+<td>列表</td>
+<td>从两端压入或者弹出元素对单个或者多个元素进行修剪，只保留一个范围内的元素</td>
+</tr>
+<tr>
+<td>set</td>
+<td>无序集合</td>
+<td>添加、获取、移除单个元素检查一个元素是否存在于集合中计算交集、并集、差集从集合里面随机获取元素</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>包含键值对的无序散列表</td>
+<td>添加、获取、移除单个键值对获取所有键值对检查某个键是否存在</td>
+</tr>
+<tr>
+<td>zset</td>
+<td>有序集合</td>
+<td>添加、获取、删除元素根据分值范围或者成员来获取元素计算一个键的排名</td>
+</tr>
+</tbody></table>
+<h2 id="数据类型的基本命令操作"><a href="#数据类型的基本命令操作" class="headerlink" title="数据类型的基本命令操作"></a>数据类型的基本命令操作</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">String---------存string or double or <span class="built_in">integer</span></span><br><span class="line"><span class="built_in">set</span> k v     setnx k v</span><br><span class="line">mset k,v../mget k..</span><br><span class="line">incr/decr stock   incrby/decrby by age 20</span><br><span class="line">expire vip 30  （<span class="built_in">set</span> vip yes ex 30) ttl vip   (-1代表无穷,-2代表失效)</span><br><span class="line"><span class="built_in">type</span> vip</span><br><span class="line">getrange name 0 -1 (2 4)) setrange name 1 abc</span><br><span class="line">keys *</span><br><span class="line">flushdb/flushall</span><br><span class="line">select 1--redis默认16个库，彼此独立,不同的项目可以不同的库</span><br><span class="line">Hash-----------存k-&gt;Map(k,v) 这样我们就可以存一个pojo类的这种对象</span><br><span class="line">hmset user age 18 sex man</span><br><span class="line">hmget user name age sex /hgetall user/hlen user /hkeys user </span><br><span class="line">hincrby user age 3 / hincrbyfloat user age 3</span><br><span class="line">hexists user age/(hdel user name/age/sex)</span><br><span class="line">List------------数组(可看成队列)</span><br><span class="line">lpush/rpush foodList Beef Milk coffee pig chiken 从左往里面放</span><br><span class="line">lrange foodList 0 -1</span><br><span class="line">Set-------------可去重，随机数，集合计算</span><br><span class="line">sadd animalSet duck pig cow sheep sheep tiger sheep</span><br><span class="line">smembers animalSet       --展示所有成员</span><br><span class="line">sismember animalSet pig  --判断存不存在</span><br><span class="line">srem animalSet pig /spop animalSet  --删除/出栈</span><br><span class="line">--随机数(活动抽奖)</span><br><span class="line">sadd set1 1 2 3 4 5 6 7 8 9 0 10</span><br><span class="line">srandmember set1 3(随机获取三个数)</span><br><span class="line">sdiff set1 set2 --差集  sinter set1 set2 --交集 sunion set1 set2 --并集</span><br><span class="line">zset--------------可将元素设置一个分值的属性</span><br><span class="line">zadd zset 10 fish 20 pig 3 meet 4 beef</span><br><span class="line">zrange zset 0 -1 withscores</span><br><span class="line">zrank zset pig     --分数等级</span><br><span class="line">zscore zset beef   --具体分数</span><br><span class="line">zcount zset 20 40  --20-40的个数</span><br><span class="line">zrangebyscore zset 20 40  20)(40  --20&gt;= and &lt;=40分数的元素</span><br></pre></td></tr></table></figure>
+
+<h2 id="java-Redis-API-Util"><a href="#java-Redis-API-Util" class="headerlink" title="java Redis API Util"></a>java Redis API Util</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisOperator</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate redisTemplate;</span><br><span class="line">    <span class="comment">// Key（键），简单的key-value操作</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：TTL key，以秒为单位，返回给定 key的剩余生存时间(TTL, time to live)。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">ttl</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.getExpire(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：expire 设置过期时间，单位秒</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">expire</span><span class="params">(String key, <span class="keyword">long</span> timeout)</span> </span>&#123;</span><br><span class="line">        redisTemplate.expire(key, timeout, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：INCR key，增加key一次</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">incr</span><span class="params">(String key, <span class="keyword">long</span> delta)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.opsForValue().increment(key, delta);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实现命令：KEYS pattern，查找所有符合给定模式 pattern的 key</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">keys</span><span class="params">(String pattern)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.keys(pattern);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：DEL key，删除一个key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        redisTemplate.delete(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// String（字符串）</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：SET key value，设置一个key-value（将字符串值 value关联到 key）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(key, value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：SET key value EX seconds，设置key-value和超时时间（秒）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeout</span></span><br><span class="line"><span class="comment">     * （以秒为单位）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, String value, <span class="keyword">long</span> timeout)</span> </span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：GET key，返回 key所关联的字符串值。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (String)redisTemplate.opsForValue().get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 批量查询对应mget</span></span><br><span class="line"><span class="comment">     * 实现命令：mget keys</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> keys</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">mget</span><span class="params">(List&lt;String&gt; keys)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.opsForValue().multiGet(keys);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 批量查询,管道pipeline</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> keys</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">batchGet</span><span class="params">(List&lt;String&gt; keys)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.opsForValue().multiGet(keys);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Hash（哈希表）</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：HSET key field value，将哈希表 key中的域 field的值设为 value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> field</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hset</span><span class="params">(String key, String field, Object value)</span> </span>&#123;</span><br><span class="line">        redisTemplate.opsForHash().put(key, field, value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：HGET key field，返回哈希表 key中给定域 field的值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> field</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hget</span><span class="params">(String key, String field)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (String) redisTemplate.opsForHash().get(key, field);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：HDEL key field [field ...]，删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fields</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hdel</span><span class="params">(String key, Object... fields)</span> </span>&#123;</span><br><span class="line">        redisTemplate.opsForHash().delete(key, fields);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：HGETALL key，返回哈希表 key中，所有的域和值。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;Object, Object&gt; <span class="title">hgetall</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.opsForHash().entries(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// List（列表）</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：LPUSH key value，将一个值 value插入到列表 key的表头</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 执行 LPUSH命令后，列表的长度。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">lpush</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.opsForList().leftPush(key, value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：LPOP key，移除并返回列表 key的头元素。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 列表key的头元素。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">lpop</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (String)redisTemplate.opsForList().leftPop(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现命令：RPUSH key value，将一个值 value插入到列表 key的表尾(最右边)。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 执行 LPUSH命令后，列表的长度。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">rpush</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate.opsForList().rightPush(key, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h2><h3 id="RDB-Redis-DataBase"><a href="#RDB-Redis-DataBase" class="headerlink" title="RDB :Redis DataBase"></a>RDB :Redis DataBase</h3><p>1.什么是RDB?<br>每隔一段时间把内存中的数据写入到磁盘的临时文件，作为快照，恢复的时候把快照文件读进内存，如果宕机重启，<br>内存数据丢失，再次启动redis可从快照文件中恢复(以快照的形式每隔具体时间间隔备份)<br>2.备份与回复?<br>内存备份-&gt;磁盘临时文件  临时文件-&gt;恢复到内存中<br>3.优势和缺点<br>–优点<br>1.每隔一段时间全量备份   2.灾备简单可远程传播<br>3.相对于AOF,当有更大文件的时候可以快速重启恢复4.子进程备份时主线程不会有任何io操作,保证备份数据的完整性<br>–缺点<br>1.最后一次保存异常会对数据的完整性和一致性造成一定影响，会丢失最后一次的数据<br>2.子进程占用内存和父进程一样，会造成cpu负担<br>3.由于是定时全量备份为重量级操作，所以对于实时备份就无法处理了<br>4.RDB保存位置和配置文件<br>C:\Program Files\Redis\dump.rdb<br>C:\Program Files\Redis\redis.windows.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 时间策略 save 900 1 save 300 10 save 60 10000 </span><br><span class="line"># 文件名称 dbfilename dump.rdb </span><br><span class="line"># 文件保存路径 dir /home/work/app/redis/data/ </span><br><span class="line"># 如果持久化出错，主进程是否停止写入 stop-writes-on-bgsave-error yes </span><br><span class="line"># 是否压缩 rdbcompression yes # 导入时是否检查 rdbchecksum yes</span><br></pre></td></tr></table></figure>
+
+<p>AOF<br>记录每次对服务器写的操作,当服务器重启的时候会重新执行这些命令来恢复原始的数据。<br>两个步骤：第一步命令的实时写入 第二步aof文件的重写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 是否开启 aof appendonly yes </span><br><span class="line"># 文件名称  appendfilename &quot;appendonly.aof&quot; </span><br><span class="line"># 同步方式  appendfsync everysec </span><br><span class="line"># aof重写期间是否同步 no-appendfsync-on-rewrite no </span><br><span class="line"># 重写触发配置 auto-aof-rewrite-percentage 100 auto-aof-rewrite-min-size 64mb </span><br><span class="line"># 加载aof时如果有错如何处理 aof-load-truncated yes </span><br><span class="line"># 文件重写策略 aof-rewrite-incremental-fsync yes</span><br></pre></td></tr></table></figure>
+
+<h2 id="哨兵机制"><a href="#哨兵机制" class="headerlink" title="哨兵机制"></a>哨兵机制</h2><p>Sentinel（哨兵）可以监听集群中的服务器，并在主服务器进入下线状态时，自动从从服务器中选举出新的主服务器</p>
+<h2 id="Redis缓存雪崩和穿透"><a href="#Redis缓存雪崩和穿透" class="headerlink" title="Redis缓存雪崩和穿透"></a>Redis缓存雪崩和穿透</h2><ol>
+<li>什么是缓存穿透？com.imooc.controller.IndexController#subCat<blockquote>
+<p>查询的key在redis不存在,对应的id在数据库也不存在,此时被非法用户进行攻击,大量的请求会直接打在db上,造成宕机从而影响整个系统。,这个现象称之为缓存穿透</p>
+</blockquote>
+</li>
+</ol>
+<p>解决方案一：把空的数据缓存起来,比如空字符串,空对象,空数组或list<br>解决方案二：使用布隆过滤器</p>
+<blockquote>
+<p><a href="https://bbs.huaweicloud.com/blogs/163662" target="_blank" rel="noopener">https://bbs.huaweicloud.com/blogs/163662</a><br>布隆过滤器用来迅速判断一个元素是否在一个集合中，不存在则为0。原理为：将一个值分成三个hash值，存为1可能有误差，比如可能有相同的值放入相同hash值发生误判还有删除的时候如果两个值用了同一个hash，删除一个可能会影响另外一个在Redis之前做一个拦截来防止缓冲穿透，相当于一层拦截器</p>
+</blockquote>
+<p><img src="https://img2020.cnblogs.com/blog/1652302/202005/1652302-20200510160050474-1143514940.png" alt="img"></p>
+<ol start="2">
+<li><p>对雪崩的预防措施：</p>
+<blockquote>
+<p>雪崩：Redis里面的Key值大面积失效，此时又有大流量访问系统，导致大量流量直接访问数据库从而导致数据库宕机</p>
+</blockquote>
+<ol>
+<li>永不过期，之后手动让他们失效</li>
+<li>过期时间错开</li>
+<li>多缓存结合：Redis-&gt;memcache-&gt;database  二次缓冲</li>
+<li>采购第三方Redis  健壮性和可靠性很强</li>
+</ol>
+</li>
+</ol>
+<h2 id="Redis常见应用"><a href="#Redis常见应用" class="headerlink" title="Redis常见应用"></a>Redis常见应用</h2><h3 id="分布式锁-setnx"><a href="#分布式锁-setnx" class="headerlink" title="分布式锁 setnx"></a>分布式锁 setnx</h3><h3 id="分布式会话SSO"><a href="#分布式会话SSO" class="headerlink" title="分布式会话SSO"></a>分布式会话SSO</h3><blockquote>
+<p>将用户登录的token信息存储在Redis和Cookie中，退出时需要删除Redis的key值，在更新用户信息的时候需要同步Redis的token值</p>
+</blockquote>
+<h3 id="拦截器-权限的拦截"><a href="#拦截器-权限的拦截" class="headerlink" title="拦截器(权限的拦截)"></a>拦截器(权限的拦截)</h3><blockquote>
+<p>通过用户的会话去判断操作的权限，基于token的判断，通过Redis去存和拿数据</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="邹龄晋 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="邹龄晋 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/07/sql/" rel="next" title="SQL">
+                <i class="fa fa-chevron-left"></i> SQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4" alt="邹龄晋">
+            
+              <p class="site-author-name" itemprop="name">邹龄晋</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍"><span class="nav-number">1.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三种缓存中间件的对比："><span class="nav-number">2.</span> <span class="nav-text">三种缓存中间件的对比：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五大数据类型"><span class="nav-number">3.</span> <span class="nav-text">五大数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型的基本命令操作"><span class="nav-number">4.</span> <span class="nav-text">数据类型的基本命令操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-Redis-API-Util"><span class="nav-number">5.</span> <span class="nav-text">java Redis API Util</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis持久化"><span class="nav-number">6.</span> <span class="nav-text">Redis持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB-Redis-DataBase"><span class="nav-number">6.1.</span> <span class="nav-text">RDB :Redis DataBase</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哨兵机制"><span class="nav-number">7.</span> <span class="nav-text">哨兵机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis缓存雪崩和穿透"><span class="nav-number">8.</span> <span class="nav-text">Redis缓存雪崩和穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis常见应用"><span class="nav-number">9.</span> <span class="nav-text">Redis常见应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁-setnx"><span class="nav-number">9.1.</span> <span class="nav-text">分布式锁 setnx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式会话SSO"><span class="nav-number">9.2.</span> <span class="nav-text">分布式会话SSO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截器-权限的拦截"><span class="nav-number">9.3.</span> <span class="nav-text">拦截器(权限的拦截)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹龄晋</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">总字数&#58;</span>
+    
+    <span title="总字数">16.6k</span>
+  
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
