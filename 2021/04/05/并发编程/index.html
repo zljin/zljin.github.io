@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="理论部分 java多线程 各种锁介绍 并发工具类  理论部分 并发编程的定义：一台处理器同时处理多个任务。并发是指在一个时间间隔内同一个实体产生多个事件。  意义：充分利用CPU的每一个核,提高服务器的资源利用率核数据处理效率  操作系统与进程线程的关系  JMM  并发,串行,并行,进程,线程,阻塞,非阻塞,同步,异步概念  多线程的原则：原子性atomic,可见性volatile,有序性(代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程">
+<meta property="og:url" content="http://yoursite.com/2021/04/05/并发编程/index.html">
+<meta property="og:site_name" content="勇气的赞歌">
+<meta property="og:description" content="理论部分 java多线程 各种锁介绍 并发工具类  理论部分 并发编程的定义：一台处理器同时处理多个任务。并发是指在一个时间间隔内同一个实体产生多个事件。  意义：充分利用CPU的每一个核,提高服务器的资源利用率核数据处理效率  操作系统与进程线程的关系  JMM  并发,串行,并行,进程,线程,阻塞,非阻塞,同步,异步概念  多线程的原则：原子性atomic,可见性volatile,有序性(代">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5efc3cf1093ad6c707000253.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5efc8887097f2fbc07000226.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5f33551109c87e9d07000357.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5efd6aba0936e20b07000262.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5efe09930935e95707000307.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5f004c5e098e43c707000331.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5f68197e0955bfb210800620.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5f6880a0099f817208900282.jpg">
+<meta property="og:image" content="http://img.mukewang.com/wiki/5f6994cd09922ad008220455.jpg">
+<meta property="og:updated_time" content="2021-04-05T06:02:02.825Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发编程">
+<meta name="twitter:description" content="理论部分 java多线程 各种锁介绍 并发工具类  理论部分 并发编程的定义：一台处理器同时处理多个任务。并发是指在一个时间间隔内同一个实体产生多个事件。  意义：充分利用CPU的每一个核,提高服务器的资源利用率核数据处理效率  操作系统与进程线程的关系  JMM  并发,串行,并行,进程,线程,阻塞,非阻塞,同步,异步概念  多线程的原则：原子性atomic,可见性volatile,有序性(代">
+<meta name="twitter:image" content="http://img.mukewang.com/wiki/5efc3cf1093ad6c707000253.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/05/并发编程/">
+
+
+
+
+
+  <title>并发编程 | 勇气的赞歌</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/zljin"><img style="position: absolute; top: 500; left: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">勇气的赞歌</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">积水成渊,蛟龙生焉</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/05/并发编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹龄晋">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="勇气的赞歌">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">并发编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-05T12:00:45+08:00">
+                2021-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><a href="#理论部分">理论部分</a></li>
+<li><a href="#java多线程">java多线程</a></li>
+<li><a href="#各种锁介绍">各种锁介绍</a></li>
+<li><a href="#并发工具类">并发工具类</a></li>
+</ul>
+<h3 id="理论部分"><a href="#理论部分" class="headerlink" title="理论部分"></a>理论部分</h3><ol>
+<li><p>并发编程的定义：一台处理器同时处理多个任务。并发是指在一个时间间隔内同一个实体产生多个事件。</p>
+</li>
+<li><p>意义：充分利用CPU的每一个核,提高服务器的资源利用率核数据处理效率</p>
+</li>
+<li><p>操作系统与进程线程的关系<br><img src="http://img.mukewang.com/wiki/5efc3cf1093ad6c707000253.jpg" alt></p>
+</li>
+<li><p>JMM<br><img src="http://img.mukewang.com/wiki/5efc8887097f2fbc07000226.jpg" alt></p>
+</li>
+<li><p>并发,串行,并行,进程,线程,阻塞,非阻塞,同步,异步概念</p>
+</li>
+<li><p>多线程的原则：原子性atomic,可见性volatile,有序性(代码执行顺序编译前和编译后不变)</p>
+</li>
+<li><p>线程的生命周期和其状态<br><img src="http://img.mukewang.com/wiki/5f33551109c87e9d07000357.jpg" alt></p>
+</li>
+</ol>
+<h3 id="java多线程"><a href="#java多线程" class="headerlink" title="java多线程"></a>java多线程</h3><ol>
+<li><p>创建方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// extends Thread</span><br><span class="line">// implements Runnable</span><br><span class="line">// implements Callable 有返回值</span><br><span class="line">FutureTask future=拿到Callable返回的值,start完之后,get即可</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>join</p>
+<blockquote>
+<p>保证多条线程一起执行完后才可执行后续代码</p>
+</blockquote>
+</li>
+<li><p>yield</p>
+<blockquote>
+<p>一个线程调用此方法,让出自己CPU的使用权</p>
+</blockquote>
+</li>
+<li><p>守护线程与用户线程</p>
+<blockquote>
+<p>守护线程指的是后台服务线程,主要服务于用户进程(main),当用户进程结束后,守护线程自然结束。如垃圾回收机制。</p>
+</blockquote>
+</li>
+</ol>
+<ol start="5">
+<li>ThreadLocal<blockquote>
+<p>为每一个线程提供一个本地变量,专属于这个线程,通过这种方式,避免资源在多线程间共享,是解决线程安全的好思路</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="http://img.mukewang.com/wiki/5efd6aba0936e20b07000262.jpg" alt></p>
+<ol start="6">
+<li>synchronized<blockquote>
+<p>一种悲观策略的同步锁,认为线程会修改同步数据,开始就把持有锁的线程锁住,其他线程挂起,虽然安全但有时间效率问题</p>
+</blockquote>
+</li>
+</ol>
+<p>注意锁的是对象还是类<br>Object的wait/notify 消息通知机制实现生成和消费者</p>
+<ol start="7">
+<li>lock = new ReentrantLock() lock() unlock()<blockquote>
+<p>比synchronized更灵活,通过Condition接口实现生成者和消费者，<br>condition里面有await方法和signal方法<br>Condition p = new lock.newCondition();</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//todo demo代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoTest</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">            ProductFactory productFactory = <span class="keyword">new</span> ProductFactory();</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer(productFactory),<span class="string">"1号生产者"</span>). start();</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Producer(productFactory),<span class="string">"2号生产者"</span>). start();</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer(productFactory),<span class="string">"1号消费者"</span>). start();</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer(productFactory),<span class="string">"2号消费者"</span>). start();</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Consumer(productFactory),<span class="string">"3号消费者"</span>). start();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;String&gt; products; <span class="comment">//根据需求定义库存，用 LinkedList 实现</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity = <span class="number">10</span>; <span class="comment">// 根据需求：定义最大库存 10</span></span><br><span class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">false</span>);</span><br><span class="line">    <span class="keyword">private</span> Condition p = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> Condition c = lock.newCondition();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProductFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        products = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 根据需求：produce 方法创建</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">(String product)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">while</span> (capacity == products.size()) &#123; <span class="comment">//根据需求：如果达到 10 库存，停止生产</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">"警告：线程("</span>+Thread.currentThread().getName() + <span class="string">")准备生产产品，但产品池已满"</span>);</span><br><span class="line">                    p.await(); <span class="comment">// 库存达到 10 ，生产线程进入 wait 状态</span></span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            products.add(product); <span class="comment">//如果没有到 10 库存，进行产品添加</span></span><br><span class="line">            System.out.println(<span class="string">"线程("</span>+Thread.currentThread().getName() + <span class="string">")生产了一件产品:"</span> + product+<span class="string">";当前剩余商品"</span>+products.size()+<span class="string">"个"</span>);</span><br><span class="line">            c.signalAll(); <span class="comment">//生产了产品，通知消费者线程从 wait 状态唤醒，进行消费</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据需求：consume 方法创建</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">consume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">while</span> (products.size()==<span class="number">0</span>) &#123; <span class="comment">//根据需求：没有库存消费者进入wait状态</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">"警告：线程("</span>+Thread.currentThread().getName() + <span class="string">")准备消费产品，但当前没有产品"</span>);</span><br><span class="line">                    c.await(); <span class="comment">//库存为 0 ，无法消费，进入 wait ，等待生产者线程唤醒</span></span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            String product = products.remove(<span class="number">0</span>) ; <span class="comment">//如果有库存则消费，并移除消费掉的产品</span></span><br><span class="line">            System.out.println(<span class="string">"线程("</span>+Thread.currentThread().getName() + <span class="string">")消费了一件产品:"</span> + product+<span class="string">";当前剩余商品"</span>+products.size()+<span class="string">"个"</span>);</span><br><span class="line">            p.signalAll();<span class="comment">// 通知生产者继续生产</span></span><br><span class="line">            <span class="keyword">return</span> product;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ProductFactory productFactory; <span class="comment">//关联工厂类，调用 produce 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer</span><span class="params">(ProductFactory productFactory)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.productFactory = productFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span> ; <span class="comment">// 根据需求，对产品进行编号</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            productFactory.produce(String.valueOf(i)); <span class="comment">//根据需求 ，调用 productFactory 的 produce 方法</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ProductFactory productFactory;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer</span><span class="params">(ProductFactory productFactory)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.productFactory = productFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            productFactory.consume();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>volatile<blockquote>
+<p>设置变量的可见性,线程中的变量直接从内存拿去,不经过缓存<br><img src="http://img.mukewang.com/wiki/5efe09930935e95707000307.jpg" alt></p>
+</blockquote>
+</li>
+</ol>
+<p>非阻塞机制在多个线程同一个资源的时候不会发生阻塞,保证线程间的内存可见性,但无法解决i++的原子性问题</p>
+<ol start="9">
+<li>CAS <blockquote>
+<p>比较与交换,一种乐观锁的同步锁,被修改的值和主内存的值相互比较,若相同则允许进行修改。ABA问题版本号解决</p>
+</blockquote>
+</li>
+</ol>
+<p>JUC基于CAS的一种非阻塞算法,CAS每一次只准一个线程修改共享数据,区别是竞争的失败进程不会挂起,下次可继续竞争</p>
+<ol start="10">
+<li><p>Unsafe类</p>
+<blockquote>
+<p>java的native方法,基于c++实现,越过JVM所以垃圾回收要自己回收</p>
+</blockquote>
+</li>
+<li><p>AQS(AbstactQueuedSynchronizer)</p>
+<blockquote>
+<p>一种构建锁和同步容器的框架,JUC的大部分工具类都是基于此数据结构,是一种双向链表的FIFO结构<br><img src="http://img.mukewang.com/wiki/5f004c5e098e43c707000331.jpg" alt></p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>ReentrantLock 有三个内部类：Sync，NonfairSync，FairSync是根据 AQS 实现的独占锁</p>
+</blockquote>
+<h3 id="各种锁介绍"><a href="#各种锁介绍" class="headerlink" title="各种锁介绍"></a>各种锁介绍</h3><h4 id="悲观锁乐观锁"><a href="#悲观锁乐观锁" class="headerlink" title="悲观锁乐观锁"></a>悲观锁乐观锁</h4><p>悲观锁假设最坏的情况,每次有线程访问时都会更改共享数据,所以每次访问的时候都要加锁。<br>乐观锁假设每次线程访问都不会更改数据,所以不会上锁,但更新时通过CAS算法+版本号进行判断更新。</p>
+<p>Atomic 基于CAS 可以完全替代synchronized实现多线程相加</p>
+<h4 id="公平锁非公平锁"><a href="#公平锁非公平锁" class="headerlink" title="公平锁非公平锁"></a>公平锁非公平锁</h4><blockquote>
+<p>最早请求锁的线程将最早获取到锁 ReentrantLock(true)</p>
+</blockquote>
+<h4 id="独占锁-共享锁"><a href="#独占锁-共享锁" class="headerlink" title="独占锁,共享锁"></a>独占锁,共享锁</h4><blockquote>
+<p>即是否可被多个线程持有</p>
+</blockquote>
+<ol>
+<li>独占锁如ReentrantLock</li>
+<li>共享锁如ReentrantReadWriteLock锁,可以允许多个线程进行读操作</li>
+</ol>
+<h4 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h4><p>当前线程在获取锁时，如果发现锁已经被其他线程占有，它不马上阻塞自己，在不放弃 CPU 使用权的情况下，多次尝试获取</p>
+<h4 id="锁的可重入性"><a href="#锁的可重入性" class="headerlink" title="锁的可重入性"></a>锁的可重入性</h4><blockquote>
+<p>可重入锁是指在同一个线程在外层方法获取锁的时候，再进入该线程的内层方法会自动获取锁（前提锁对象得是同一个对象或者 class），不会因为之前已经获取过还没释放而阻塞</p>
+</blockquote>
+<h3 id="并发工具类"><a href="#并发工具类" class="headerlink" title="并发工具类"></a>并发工具类</h3><blockquote>
+<p>重点在于理解常见并发工具的种类、应用场景、以及使用方法</p>
+</blockquote>
+<p><img src="http://img.mukewang.com/wiki/5f68197e0955bfb210800620.jpg" alt></p>
+<h3 id="原子操作类"><a href="#原子操作类" class="headerlink" title="原子操作类"></a>原子操作类</h3><p>应用场景：</p>
+<ol>
+<li>AtomicInteger 可用作与i++类型的原子操作，如多线程够票，如果是i++,我们需要synchronized或者lock保证i++的院子类，但有了原子类后，在原子类操作即可，不需要sync操作。原子类主要是进行多线程的计算</li>
+</ol>
+<h3 id="同步工具"><a href="#同步工具" class="headerlink" title="同步工具"></a>同步工具</h3><ol>
+<li>CountDownLatch<br>倒计数器，每次执行一个多线程，计数器减去1,当减为0的时候,主线程开始执行</li>
+</ol>
+<ol start="2">
+<li>CyclicBarrier<br>循环屏障,允许一组线程相互等待,直到所有线程到达一个公共的屏障点,这些进程再一起执行后续的逻辑,此屏障和重复使用</li>
+</ol>
+<blockquote>
+<p>适合多个线程协作完成任务的场合<br><img src="http://img.mukewang.com/wiki/5f6880a0099f817208900282.jpg" alt></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CyclicBarrierTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个 Runnable 对象，用于屏障解除时处理全局逻辑，在此例子中代表大巴司机</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Runnable driver = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"所有同学已经集合完毕，开始启动车辆出发。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 CyclicBarrier 对象，初始化为 5, 代表需要控制同步的线程个数，在此例子中代表 5 位同学</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> threadCount = <span class="number">5</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//CyclicBarrier (int parties, Runnable barrierAction)屏障点到达后的其他动作</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> CyclicBarrier cyclicBarrier = <span class="keyword">new</span> CyclicBarrier(threadCount, driver);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// 模拟同学</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=threadCount; i++) &#123;</span><br><span class="line">            <span class="comment">// 模拟某个同学的动作</span></span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@SneakyThrows</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    System.out.println( Thread.currentThread().getName() + <span class="string">"已经开始出门..."</span>);</span><br><span class="line">                    <span class="comment">// 模拟同学出门赶往集合点的用时</span></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>));</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;&#125;</span><br><span class="line">                    System.out.println( Thread.currentThread().getName() + <span class="string">"已经到达集合点"</span>);</span><br><span class="line">                    <span class="comment">// 等待其他同学到达集合点（等待其他线程到达屏障点）</span></span><br><span class="line">                    cyclicBarrier.await();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, i + <span class="string">"号同学"</span>).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="并发容器"><a href="#并发容器" class="headerlink" title="并发容器"></a>并发容器</h3><ol>
+<li><p>BlockingQueue</p>
+<blockquote>
+<p>阻塞队列。先入先出不允许插队</p>
+</blockquote>
+</li>
+<li><p>ConcurrentHashMap<br>统计文本的字母出现的次数<br>采用map结构进行存储,为了提高效率，我们用4个线程去处理提高效率。多个线程去操作同一个map统计,最好使用ConcurrentHashMap</p>
+</li>
+</ol>
+<ol start="2">
+<li>CopyOnWriteArrayList<br>先拷贝一份数组,在拷贝的数组中写数据,写完后丢弃原来的数组,指向拷贝后的数组</li>
+</ol>
+<p>适用于读多写少的场景,因为读取过多会导致拷贝数组的量过多,最后导致栈溢出,此集合只能保证最终一致性,因为整个是需要时间过程的,所以不能保证实时性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CopyOnWriteArrayListTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 CopyOnWriteArrayList 对象，代表黑名单列表</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> CopyOnWriteArrayList&lt;String&gt; copyOnWriteArrayList = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">    <span class="comment">// 模拟初始化的黑名单数据</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        copyOnWriteArrayList.add(<span class="string">"ipAddr0"</span>);</span><br><span class="line">        copyOnWriteArrayList.add(<span class="string">"ipAddr1"</span>);</span><br><span class="line">        copyOnWriteArrayList.add(<span class="string">"ipAddr2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主线程</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Runnable task = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 模拟接入用时</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">5000</span>));</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;&#125;</span><br><span class="line"></span><br><span class="line">                String currentIP = <span class="string">"ipAddr"</span> + <span class="keyword">new</span> Random().nextInt(<span class="number">5</span>);</span><br><span class="line">                <span class="keyword">if</span> (copyOnWriteArrayList.contains(currentIP)) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">" IP "</span> + currentIP + <span class="string">"命中黑名单，拒绝接入处理"</span>);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" IP "</span> + currentIP + <span class="string">"接入处理..."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">new</span> Thread(task, <span class="string">"请求1"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(task, <span class="string">"请求2"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(task, <span class="string">"请求3"</span>).start();</span><br><span class="line"></span><br><span class="line">        Runnable updateTask = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 模拟用时</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">2000</span>));</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;&#125;</span><br><span class="line"></span><br><span class="line">                String newBlackIP = <span class="string">"ipAddr3"</span>;</span><br><span class="line">                copyOnWriteArrayList.add(newBlackIP);</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" 添加了新的非法IP "</span> + newBlackIP);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">new</span> Thread(updateTask, <span class="string">"IP黑名单更新"</span>).start();</span><br><span class="line"></span><br><span class="line">        Thread.sleep(<span class="number">1000000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="并发框架Executor"><a href="#并发框架Executor" class="headerlink" title="并发框架Executor"></a>并发框架Executor</h3><blockquote>
+<p>对工作单元、以及工作单元的执行做了高度抽象</p>
+</blockquote>
+<p>由三部分组成：</p>
+<ol>
+<li>工作单元(任务)：Runnable,Callable</li>
+<li>工作单元执行：Executor,ExecutorService</li>
+<li>工作单元执行结果：Future,FutureTask</li>
+</ol>
+<p><img src="http://img.mukewang.com/wiki/5f6994cd09922ad008220455.jpg" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExecutorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟待处理的文件列表</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> fileListSize = <span class="keyword">new</span> Random().nextInt(<span class="number">6</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String[] fileList = <span class="keyword">new</span> String[fileListSize];</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;fileListSize; i++) &#123;</span><br><span class="line">            fileList[i] = <span class="string">"fileName"</span> + i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主线程</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 创建用于处理任务的线程池</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">/*Executors 是 Executor 框架体系中的一个独立的工具类，用于快速创建各类线程池</span></span><br><span class="line"><span class="comment">        ，可自定义线程池的各个参数*/</span></span><br><span class="line">        ExecutorService executorService = Executors.newFixedThreadPool(<span class="number">10</span>);</span><br><span class="line">        <span class="comment">// 任务提交，每一个任务处理一个文件</span></span><br><span class="line">        List&lt;FileDealTask&gt; tasks = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;fileListSize; i++) &#123;</span><br><span class="line">            tasks.add(<span class="keyword">new</span> FileDealTask(<span class="number">0</span>, fileListSize, fileList[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 等待异步处理结果返回</span></span><br><span class="line">        List&lt;Future&lt;Integer&gt;&gt; results = executorService.invokeAll(tasks);</span><br><span class="line">        <span class="comment">// 获取任务执行结果</span></span><br><span class="line">        Integer total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Future&lt;Integer&gt; result : results) &#123;</span><br><span class="line">            total = total + result.get();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"预备处理的文件个数"</span> + fileListSize + <span class="string">"，总共处理的文件个数："</span> + total);</span><br><span class="line">        <span class="comment">// 关闭线程池</span></span><br><span class="line">        executorService.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileDealTask</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String fileName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileDealTask</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> last, String fileName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">2000</span>));</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"：文件"</span> + fileName + <span class="string">"已处理完毕"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ReentrantReadWriteLock"><a href="#ReentrantReadWriteLock" class="headerlink" title="ReentrantReadWriteLock"></a>ReentrantReadWriteLock</h3><p>读写锁：用于读多写少的场景,电商网站商品，回复写是频繁的，浏览和读是频繁的，可用此锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadWriteLockTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建读写锁对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReadWriteLock readWriteLock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line">    <span class="comment">// 获取读锁对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock readlock = readWriteLock.readLock();</span><br><span class="line">    <span class="comment">// 获取写锁对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock writelock = readWriteLock.writeLock();</span><br><span class="line">    <span class="comment">// 待控制的资源</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> account = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReadWriteLockTest readWriteLockTest = <span class="keyword">new</span> ReadWriteLockTest();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@SneakyThrows</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    <span class="keyword">int</span> tmp = readWriteLockTest.get();</span><br><span class="line">                    System.out.println(<span class="string">"读操作:"</span> + tmp);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@SneakyThrows</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">                    readWriteLockTest.add(<span class="number">10</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 加写锁</span></span><br><span class="line">        writelock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            account += <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// 释放写锁</span></span><br><span class="line">            writelock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 加读锁</span></span><br><span class="line">        readlock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> account;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// 释放读锁</span></span><br><span class="line">            readlock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="邹龄晋 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="邹龄晋 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/14/影视/" rel="next" title="观剧后感">
+                <i class="fa fa-chevron-left"></i> 观剧后感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/05/2021plan/" rel="prev" title="2021计划">
+                2021计划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/35893246?s=460&v=4" alt="邹龄晋">
+            
+              <p class="site-author-name" itemprop="name">邹龄晋</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#理论部分"><span class="nav-number">1.</span> <span class="nav-text">理论部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java多线程"><span class="nav-number">2.</span> <span class="nav-text">java多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种锁介绍"><span class="nav-number">3.</span> <span class="nav-text">各种锁介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#悲观锁乐观锁"><span class="nav-number">3.1.</span> <span class="nav-text">悲观锁乐观锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公平锁非公平锁"><span class="nav-number">3.2.</span> <span class="nav-text">公平锁非公平锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#独占锁-共享锁"><span class="nav-number">3.3.</span> <span class="nav-text">独占锁,共享锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自旋锁"><span class="nav-number">3.4.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁的可重入性"><span class="nav-number">3.5.</span> <span class="nav-text">锁的可重入性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发工具类"><span class="nav-number">4.</span> <span class="nav-text">并发工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子操作类"><span class="nav-number">5.</span> <span class="nav-text">原子操作类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步工具"><span class="nav-number">6.</span> <span class="nav-text">同步工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发容器"><span class="nav-number">7.</span> <span class="nav-text">并发容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发框架Executor"><span class="nav-number">8.</span> <span class="nav-text">并发框架Executor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantReadWriteLock"><span class="nav-number">9.</span> <span class="nav-text">ReentrantReadWriteLock</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹龄晋</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">总字数&#58;</span>
+    
+    <span title="总字数">25.3k</span>
+  
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
