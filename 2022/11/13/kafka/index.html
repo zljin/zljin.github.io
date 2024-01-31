@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="技术笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Kafka是一款分布式消息队列中间件,需要依赖zk保存metedata,如comsumer register msg等  springboot整合kafkahttps:&#x2F;&#x2F;github.com&#x2F;zljin&#x2F;kafka-boot&#x2F;blob&#x2F;master&#x2F;src&#x2F;main&#x2F;resources&#x2F;application.yml Application scenarios 解耦 削峰 缓冲 异步通信  f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka">
+<meta property="og:url" content="http://yoursite.com/2022/11/13/kafka/index.html">
+<meta property="og:site_name" content="leonard">
+<meta property="og:description" content="Kafka是一款分布式消息队列中间件,需要依赖zk保存metedata,如comsumer register msg等  springboot整合kafkahttps:&#x2F;&#x2F;github.com&#x2F;zljin&#x2F;kafka-boot&#x2F;blob&#x2F;master&#x2F;src&#x2F;main&#x2F;resources&#x2F;application.yml Application scenarios 解耦 削峰 缓冲 异步通信  f">
+<meta property="og:locale">
+<meta property="og:image" content="https://github.com/zljin/hexo/blob/master/image_address/kafka3.png?raw=true">
+<meta property="og:image" content="https://github.com/zljin/hexo/blob/master/image_address/kafka1.png?raw=true">
+<meta property="og:image" content="https://github.com/zljin/hexo/blob/master/image_address/kafka2.png?raw=true">
+<meta property="article:published_time" content="2022-11-13T04:00:45.000Z">
+<meta property="article:modified_time" content="2024-01-31T09:20:39.764Z">
+<meta property="article:author" content="邹龄晋">
+<meta property="article:tag" content="技术笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/zljin/hexo/blob/master/image_address/kafka3.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/11/13/kafka/"/>
+
+
+
+
+
+  <title>kafka | leonard</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a target="_blank" rel="noopener" href="https://github.com/zljin"><img style="position: absolute; top: 500; left: 0; border: 0;" 
+src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" 
+data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leonard</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">落霞与孤鹜齐飞,秋水共长天一色</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/13/kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kafka</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-13T12:00:45+08:00">
+                2022-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">消息队列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Kafka是一款分布式消息队列中间件,需要依赖zk保存metedata,如comsumer register msg等</p>
+</blockquote>
+<h2 id="springboot整合kafka"><a href="#springboot整合kafka" class="headerlink" title="springboot整合kafka"></a>springboot整合kafka</h2><p><a target="_blank" rel="noopener" href="https://github.com/zljin/kafka-boot/blob/master/src/main/resources/application.yml">https://github.com/zljin/kafka-boot/blob/master/src/main/resources/application.yml</a></p>
+<h2 id="Application-scenarios"><a href="#Application-scenarios" class="headerlink" title="Application scenarios"></a>Application scenarios</h2><ol>
+<li>解耦</li>
+<li>削峰</li>
+<li>缓冲</li>
+<li>异步通信</li>
+</ol>
+<h2 id="feature"><a href="#feature" class="headerlink" title="feature"></a>feature</h2><ol>
+<li>通过Partition实现高吞吐量</li>
+<li>通过replication-factors实现消费者的HA</li>
+<li>能够持久化</li>
+<li>能够批量处理消息</li>
+<li>分布式，松耦合</li>
+</ol>
+<h2 id="技术选型对比"><a href="#技术选型对比" class="headerlink" title="技术选型对比"></a>技术选型对比</h2><p><img src="https://github.com/zljin/hexo/blob/master/image_address/kafka3.png?raw=true"></p>
+<h2 id="core-concept"><a href="#core-concept" class="headerlink" title="core concept"></a>core concept</h2><p><img src="https://github.com/zljin/hexo/blob/master/image_address/kafka1.png?raw=true"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Producer：消息生产者，就是向 Kafka broker 发消息的客户端；</span><br><span class="line">Consumer：消息消费者，向 Kafka broker 取消息的客户端；</span><br><span class="line">broker：一个kafka服务器,接受生产者发送消息并存入磁盘,服务消费者拉取分区消息的请求,返回目前已经提交的消息</span><br><span class="line">cluster：若干个broker组成cluster,其中某个broker作为leader管理集群</span><br><span class="line">Topic：topic就是逻辑上了的消息队列名称，一个topic的物理存储是由多个Partition组成（保证扩展性），</span><br><span class="line">partition就是topic物理存储的队列，通过offset进行存储(存储文件的命名：offset:kafka)</span><br><span class="line">Partition：Topic的存储，支持水平扩展</span><br><span class="line">Offset：offset 是消息在分区中的唯一标识，Kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，</span><br><span class="line">也就是说，Kafka 保证的是分区有序性而不是主题有序性</span><br><span class="line">Replication：同一 partition可能会有多个replication，需要在这些 replication 之间选出一个leader，</span><br><span class="line">producer 和 consumer 只与这个 leader 交互，其它 replication 作为 follower 从 leader 中复制数据</span><br></pre></td></tr></table></figure>
+
+<h3 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h3><p>消息发送时都被发送到一个 topic，其本质就是一个目录，而 topic 是由一些 Partition Logs(分区日志)组成<br>每个 Partition 中的消息都是 「有序」 的，生产的消息被不断追加到 Partition log 上，其中的每一个消息都被赋予了一个唯一的 「offset」 值</p>
+<p><img src="https://github.com/zljin/hexo/blob/master/image_address/kafka2.png?raw=true"></p>
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><blockquote>
+<p>安装失败有有可能内存不够的原因,kill掉不用的进程即可</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mkdir kafka_zk</span><br><span class="line">cd kafka_zk</span><br><span class="line">vi docker-compose.yml</span><br><span class="line"></span><br><span class="line">version: &#x27;3&#x27;</span><br><span class="line">services:</span><br><span class="line">  zookeeper:</span><br><span class="line">    image: wurstmeister/zookeeper:latest</span><br><span class="line">    container_name: zookeeper</span><br><span class="line">    # always restart</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">      - 2181:2181</span><br><span class="line"></span><br><span class="line">  kafka:</span><br><span class="line">    image: wurstmeister/kafka:latest</span><br><span class="line">    container_name: kafka</span><br><span class="line">    ports:</span><br><span class="line">      - 9092:9092</span><br><span class="line">    # host ip</span><br><span class="line">    environment:</span><br><span class="line">      KAFKA_ADVERTISED_HOST_NAME: kafka</span><br><span class="line">      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181</span><br><span class="line">    # always restart</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - ./docker.sock:/var/run/docker.sock</span><br><span class="line"></span><br><span class="line">wq docker-compose.yml</span><br><span class="line">docker-compose up -d</span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose ps</span><br><span class="line">docker-compose h</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="cheetsheet"><a href="#cheetsheet" class="headerlink" title="cheetsheet"></a>cheetsheet</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 进入容器</span><br><span class="line">docker exec -it kafka /bin/bash</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># topic相关</span><br><span class="line">kafka-topics.sh --help</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 创建topic</span><br><span class="line">kafka-topics.sh --create --topic topicA \</span><br><span class="line">--zookeeper zookeeper:2181 --replication-factor 1 \</span><br><span class="line">--partitions 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 查看topic基本信息</span><br><span class="line">kafka-topics.sh --zookeeper zookeeper:2181 \</span><br><span class="line">--describe --topic topicA</span><br><span class="line"></span><br><span class="line">## 查看其他topic信息</span><br><span class="line">kafka-topics.sh --zookeeper zookeeper:2181 --list</span><br><span class="line"></span><br><span class="line"># 生产消息 </span><br><span class="line">kafka-console-producer.sh --topic=topicA \</span><br><span class="line">--broker-list kafka:9092</span><br><span class="line"></span><br><span class="line"># 消费消息</span><br><span class="line">kafka-console-consumer.sh \</span><br><span class="line">--bootstrap-server kafka:9092 \</span><br><span class="line">--from-beginning --topic topicA</span><br><span class="line"></span><br><span class="line">/data/kafka_2.11-1.1.0/bin/kafka-console-consumer.sh --bootstrap-server </span><br><span class="line">platform-kafka.rootcloud.name:9092 --property print.key=true --topic new_device_from_global</span><br><span class="line"></span><br><span class="line">-- 6. 查看消费进度</span><br><span class="line">kafka-consumer-groups.sh --bootstrap-server kafka:9092 --describe --group group1</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="springboot-kafka"><a href="#springboot-kafka" class="headerlink" title="springboot+kafka"></a>springboot+kafka</h1><blockquote>
+<p>idea kafka plugins:kafkalytic<br>kafka批量消费：kafka默认是一条条消费，想要批量消费，需要单独配置batchFactory<br><a target="_blank" rel="noopener" href="https://github.com/zljin/surge/tree/kafka/src/main/java/com/zou">https://github.com/zljin/surge/tree/kafka/src/main/java/com/zou</a><br><a target="_blank" rel="noopener" href="https://github.com/zljin/surge/blob/kafka/src/main/java/com/zou/config/KafkaConfig.java">https://github.com/zljin/surge/blob/kafka/src/main/java/com/zou/config/KafkaConfig.java</a></p>
+</blockquote>
+<h1 id="如何保证kafka不丢消息"><a href="#如何保证kafka不丢消息" class="headerlink" title="如何保证kafka不丢消息"></a>如何保证kafka不丢消息</h1><h2 id="生产者丢消息"><a href="#生产者丢消息" class="headerlink" title="生产者丢消息"></a>生产者丢消息</h2><ol>
+<li>添加异步回调函数，知道发送成功还是失败</li>
+<li>网络不可达，添加重试次数 spring.kafka.producer.retries:3</li>
+</ol>
+<h2 id="队列丢消息"><a href="#队列丢消息" class="headerlink" title="队列丢消息"></a>队列丢消息</h2><ol>
+<li>partition添加多个replication&gt;&#x3D;3</li>
+<li>设置接收策略,至少写入两个副本才算发送成功</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.kafka.producer.acks:all  # 所有副本都接收消息才算发送成功</span><br><span class="line">spring.kafka.producer.acks:1  # 只有leader接收就算发送成功</span><br><span class="line">spring.kafka.producer.acks:0  # 不管,发送就代表成功</span><br><span class="line"></span><br><span class="line">replication.factor &gt;= 3(分区一主多从，保证高可用)</span><br><span class="line">min.insync.replicas &gt; 1（消息至少要被写入到 2 个副本才算是被成功发送）</span><br></pre></td></tr></table></figure>
+
+<h2 id="消费者丢消息"><a href="#消费者丢消息" class="headerlink" title="消费者丢消息"></a>消费者丢消息</h2><ol>
+<li>设置手动提交，关闭自动提交，当消息真正消费后，返回给kafka一个确认标识</li>
+</ol>
+<h1 id="消费信息的顺序性"><a href="#消费信息的顺序性" class="headerlink" title="消费信息的顺序性"></a>消费信息的顺序性</h1><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><ol>
+<li>一个topic对应一个partition对应一个consumer,且consumer单线程消费</li>
+</ol>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ol>
+<li>给消息指定一个key如订单id,相同key的消息进入一个partition,同一个partition一定是有序的</li>
+<li>消费者拿到消息先不直接消费，而是根据key进行哈希操作，将key相同的数据发送到相同的内存队列中</li>
+<li>消费者线程直接从内存队列消费即可保证顺序性</li>
+</ol>
+<h1 id="如何防止消息重复消费"><a href="#如何防止消息重复消费" class="headerlink" title="如何防止消息重复消费"></a>如何防止消息重复消费</h1><p>消费端处理消息的业务逻辑保持幂等性</p>
+<p>如何保持幂等性？<br>1.在内存中维护一个Set集合<br>2.数据库设置唯一键<br>3.先拿唯一键进行查询,查询成功丢弃，不存在则写入</p>
+<h1 id="如何解决消息积压"><a href="#如何解决消息积压" class="headerlink" title="如何解决消息积压"></a>如何解决消息积压</h1><ol>
+<li><p>实时消费任务宕机导致的消息积压<br>创建新的topic并配置更多数量的分区，将积压消息的topic消费者逻辑改为直接把消息打入新的topic，将消费逻辑写在新的topic的消费者中</p>
+</li>
+<li><p>kafka分区设置不合理和消费者消费能力不足优化</p>
+</li>
+</ol>
+<p>数据量大，可添加topic的partition(提高consumer的吞吐量)，同事提升消费组的消费者数量</p>
+<ol start="3">
+<li>kafka消息key设置优化<br>使用Kafka Producer消息时，可以为消息指定key，但是要求key要均匀，否则会出现Kafka分区间数据不均衡。<br>所以根据业务，合理修改Producer处的key设置规则，解决数据倾斜问题。</li>
+</ol>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a target="_blank" rel="noopener" href="https://kafka.apache.org/documentation/">https://kafka.apache.org/documentation/</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" rel="tag"># 技术笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/16/ms-app/" rel="next" title="ms-app">
+                <i class="fa fa-chevron-left"></i> ms-app
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/03/11/redis/" rel="prev" title="redis">
+                redis <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#springboot%E6%95%B4%E5%90%88kafka"><span class="nav-number">1.</span> <span class="nav-text">springboot整合kafka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-scenarios"><span class="nav-number">2.</span> <span class="nav-text">Application scenarios</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feature"><span class="nav-number">3.</span> <span class="nav-text">feature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94"><span class="nav-number">4.</span> <span class="nav-text">技术选型对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core-concept"><span class="nav-number">5.</span> <span class="nav-text">core concept</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Partition"><span class="nav-number">5.1.</span> <span class="nav-text">Partition</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install"><span class="nav-number"></span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cheetsheet"><span class="nav-number"></span> <span class="nav-text">cheetsheet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#springboot-kafka"><span class="nav-number"></span> <span class="nav-text">springboot+kafka</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81kafka%E4%B8%8D%E4%B8%A2%E6%B6%88%E6%81%AF"><span class="nav-number"></span> <span class="nav-text">如何保证kafka不丢消息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%A2%E6%B6%88%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">生产者丢消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E4%B8%A2%E6%B6%88%E6%81%AF"><span class="nav-number">2.</span> <span class="nav-text">队列丢消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E4%B8%A2%E6%B6%88%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">消费者丢消息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E4%BF%A1%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7"><span class="nav-number"></span> <span class="nav-text">消费信息的顺序性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%B6%88%E6%81%AF%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-number"></span> <span class="nav-text">如何防止消息重复消费</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B"><span class="nav-number"></span> <span class="nav-text">如何解决消息积压</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹龄晋</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">总字数&#58;</span>
+    
+    <span title="总字数">14.9k</span>
+  
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>

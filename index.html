@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="leonard">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="leonard">
+<meta property="og:locale">
+<meta property="article:author" content="邹龄晋">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+
+
+
+  <title>leonard</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+	
+	<a target="_blank" rel="noopener" href="https://github.com/zljin"><img style="position: absolute; top: 500; left: 0; border: 0;" 
+src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" 
+data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leonard</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">落霞与孤鹜齐飞,秋水共长天一色</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/31/jvm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/01/31/jvm/" itemprop="url">jvm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-01-31T08:00:45+08:00">
+                2024-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">线程共享区:</span><br><span class="line">方法区：存放类信息、常量、静态变量、即时编译器编译后的代码等数据</span><br><span class="line">有永久代和元空间(使用本地内存)两种实现方法</span><br><span class="line"></span><br><span class="line">堆：内存最大的区域，存放实例对象，gc的主要区域</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">线程独占区:</span><br><span class="line">虚拟机栈：存放方法运行时所需要的数据,里面包含局部变量表（八大原始数据类型，对象引用,returnAddrss）</span><br><span class="line">，操作数栈，动态连接和返回地址等信息,称为栈帧</span><br><span class="line">如果线程栈的深度大于虚拟机栈则会Stackoverflow,如果虚拟机栈无法动态申请足够的空间则会OutOfMemory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">程序计数器：记录当前执行到字节码的行号，通过改变计数器的值来选取下一条需要执行的命令</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">本地方法栈：调用native代码，主要是非java代码部分(C++实现)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/zljin/hexo/blob/master/image_address/jvm1.png?raw=true"><br><img src="https://github.com/zljin/hexo/blob/master/image_address/jvm2.png?raw=true"></p>
+<h1 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h1><h2 id="判断垃圾回收的标准"><a href="#判断垃圾回收的标准" class="headerlink" title="判断垃圾回收的标准"></a>判断垃圾回收的标准</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">a. 引用计数算法(无法处理循环引用)</span><br><span class="line">通过判读对象的引用数量来决定是否gc</span><br><span class="line">b. 可达性算法</span><br><span class="line">GCRoot是可达性算法的一个起点，所有线程当前活跃的栈帧都会指向GCRoot,</span><br><span class="line">通过GCRoot找出所有存活的对象，剩下的对象就是被回收的对象</span><br><span class="line"></span><br><span class="line">c. 可作为GCRoot的对象</span><br><span class="line">方法区的静态属性和常量引用</span><br><span class="line">虚拟机栈帧引用的对象</span><br><span class="line">本地方法引用的对象</span><br><span class="line">所有线程活跃的对象</span><br><span class="line"></span><br><span class="line">d. 不同的引用类型</span><br><span class="line">强引用 通过new出来的对象就是强引用，任何时候都不会gc</span><br><span class="line">软引用  JVM堆空间不足就会gc，有SoftReference持有</span><br><span class="line">弱引用  只要有gc，就会回收</span><br><span class="line">虚引用  随时都可回收</span><br></pre></td></tr></table></figure>
+
+<h2 id="GC-回收过程"><a href="#GC-回收过程" class="headerlink" title="GC 回收过程"></a>GC 回收过程</h2><p><img src="https://github.com/zljin/hexo/blob/master/image_address/jvm5.png?raw=true"></p>
+<p>首先new出来的对象都会放在堆中，堆分为新生代和老年代，新的对象先放入新生代，之后通过一系列时间存活下来的为老年代</p>
+<h3 id="年轻代：快速收集生命周期较短的对象"><a href="#年轻代：快速收集生命周期较短的对象" class="headerlink" title="年轻代：快速收集生命周期较短的对象"></a>年轻代：快速收集生命周期较短的对象</h3><blockquote>
+<p>年轻代的gc叫做minor GC,速度快,执行频率高</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Minor GC回收过程：</span><br><span class="line">(1) 首先创建的新对象存放在年轻代的eden区</span><br><span class="line">(2) 第一次minor GC,将所有的存活对象存放到to区,标记年龄+1,eden和from区清空</span><br><span class="line">(3) 第二次minor GC,将eden区的存活对象和to区的存活对象存放到from区,</span><br><span class="line">此时to区变成from,from区变成to区,标记年龄+1,清空from和eden区</span><br><span class="line">(4) 经过多次minor GC,满足一定条件,则晋升老年代</span><br><span class="line">从上述可知Minor GC采用的时复制算法,适合存活对象较少的场景</span><br><span class="line"></span><br><span class="line">对象如何进行老年代：</span><br><span class="line">(1) 经历一定Minor GC次数依然存活的对象 (-XX:MaxTenuringThreshold) 调整次数 默认15次</span><br><span class="line">(2) Survior区存放不下的对象</span><br><span class="line">(3) 新生成的大对象直接进入</span><br></pre></td></tr></table></figure>
+
+<h3 id="老年代：存放生命周期较长的对象"><a href="#老年代：存放生命周期较长的对象" class="headerlink" title="老年代：存放生命周期较长的对象"></a>老年代：存放生命周期较长的对象</h3><blockquote>
+<p>Full GC:比minor gc慢,执行频率低。采用标记清除or标记整理算法<br>其中jvm调优的核心之一就是减少FullGC 的频率</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">触发场景：</span><br><span class="line">1. 老年代空间不足</span><br><span class="line">2. minor GC晋升老年代的平均大小大于老年代的剩余空间</span><br><span class="line">3. System.gc()</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="常用的垃圾回收算法"><a href="#常用的垃圾回收算法" class="headerlink" title="常用的垃圾回收算法"></a>常用的垃圾回收算法</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">1. 标记清除算法</span><br><span class="line">标记：从GcRoot 根节点扫描，对存活对象进行标记</span><br><span class="line">清除：将没标记的对象一次性全部回收</span><br><span class="line">特点：碎片化</span><br><span class="line"></span><br><span class="line">2. 复制算法</span><br><span class="line">分对象面和空闲面</span><br><span class="line">将所有存活对象复制到空闲面，然后对象面全部清除</span><br><span class="line">特点：适合少量存活的对象，减少复制位移的开销</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3. 标记整理算法</span><br><span class="line">标记：从GCRoot根节点扫描,对存活对象进行标记</span><br><span class="line">清除：移动所有存活对象，按照内存地址顺序排序，将末端地址全部回收</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4. 分代收集算法(组合拳)</span><br><span class="line">按照对象的生命周期的不同划分采用以上不同的垃圾回收算法，提高垃圾回收的效率</span><br><span class="line"></span><br><span class="line">年轻代选择复制算法</span><br><span class="line">老年代选择标记整理或者清除算法</span><br></pre></td></tr></table></figure>
+
+<h1 id="垃圾回收器选择"><a href="#垃圾回收器选择" class="headerlink" title="垃圾回收器选择"></a>垃圾回收器选择</h1><blockquote>
+<p>GC优化必须建立各种垃圾回收器的基础上</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>GC Type</th>
+<th>CPUs</th>
+<th>memory</th>
+<th>remark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Serial GC</td>
+<td>&lt;&#x3D;1</td>
+<td>&lt;2000mi</td>
+<td>单核，串行运行，gc时暂停所用应用</td>
+</tr>
+<tr>
+<td>G1GC</td>
+<td>&gt;&#x3D;2</td>
+<td>&gt;2000mi</td>
+<td>多核大内存,并发并行运行，响应速度优先，面向服务端应用</td>
+</tr>
+</tbody></table>
+<p>G1收集器|复制算法和标记整理算法<br>特点：并发和并行,分代收集,空间整合,可预测停顿<br>将整个java堆内存分成大小相同的Region,年轻代和老年代不再物理隔离</p>
+<h1 id="jvm参数"><a href="#jvm参数" class="headerlink" title="jvm参数"></a>jvm参数</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS: &gt;</span><br><span class="line">-Xms1300m -Xmx1300m       //堆的初始值和最大值</span><br><span class="line">-XX:+UseG1GC </span><br><span class="line">-XX:MaxRAMPercentage=70.0   //设置 JVM 可用的最大内存占系统总内存的百分比为70%</span><br><span class="line">-XX:NewRatio=1   //设置新生代与老年代的比例为1:1</span><br><span class="line">-XX:SurvivorRatio=8  //from:to:eden = 4:4:2</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/zljin/hexo/blob/master/image_address/jvm4.png?raw=true"></p>
+<h1 id="jvm性能调优"><a href="#jvm性能调优" class="headerlink" title="jvm性能调优"></a>jvm性能调优</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">调优的原则</span><br><span class="line">1. 在应用上线前，先考虑JVM参数设置到最优</span><br><span class="line">2. 先要确认项目架构和代码有没有优化空间</span><br><span class="line">3. 在吞吐量，延迟，内存中选择两个进行JVM调优</span><br><span class="line">4. 遵循GC内存最大化原则：处理吞吐量和延迟问题，垃圾处理器能使用内存越大，即堆内存越大，gc效果越好，应用更流畅</span><br><span class="line">5. GC优化必须建立各种垃圾回收器的基础上</span><br><span class="line"></span><br><span class="line">什么情况需要调优</span><br><span class="line">1. 频繁full gc</span><br><span class="line">2. 老年代持续上涨达到设置的最大内存</span><br><span class="line">3. gc停顿(stop-the-word)过长，超过1秒</span><br><span class="line">4. oom</span><br><span class="line">5. 应用占用的CPU和内存过高</span><br><span class="line"></span><br><span class="line">调优的一些概念：</span><br><span class="line">1. 吞吐量高：用户代码时间/(用户代码时间+gc时间) </span><br><span class="line">2. 低延迟:减少stw的时间，响应越快</span><br><span class="line">3. 设置gc算法时，选择空间如最大吞吐量还是时间最小延迟，由具体场景决定</span><br><span class="line">4. 减少full gc，增加minorgc</span><br><span class="line">5. 堆大小调整的分析点：</span><br><span class="line">    5.1 统计minor gc的次数和持续时间</span><br><span class="line">    5.2 统计full gc的最长持续时间</span><br><span class="line">    5.3 统计最差情况下full gc的频率</span><br><span class="line">    5.4 按照具体业务重新设计各个区的大小</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="线上排查问题的一般流程"><a href="#线上排查问题的一般流程" class="headerlink" title="线上排查问题的一般流程"></a>线上排查问题的一般流程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">CPU过高排查流程</span><br><span class="line">1. top # 找到cpu最高占用率的java进程pid,如4741</span><br><span class="line">2. top -Hp pid # 查看某个进程的线程信息,找到进程中耗时最大的线程tid，如4742</span><br><span class="line">3. 将tid转换为16进制 printf &#x27;0x%x&#x27; 4742 =  0x1286</span><br><span class="line">4. jstack 4741 | grep 0x1286 -A 30 # 打印出调用链栈</span><br><span class="line">&quot;main&quot; #1 prio=5 os_prio=0 tid=0x00007f3a8c009000 nid=0x1286 runnable [0x00007f3a932a3000]</span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line">        at ch.qos.logback.classic.Logger.callAppenders(Logger.java:256)</span><br><span class="line">        at ch.qos.logback.classic.Logger.info(Logger.java:583)</span><br><span class="line">        at com.zoulj.infrastructure.schedule.CpuReaper.cpuReaper(CpuReaper.java:35)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">内存泄露排查</span><br><span class="line">jcmd &lt;pid&gt; GC.heap_dump &lt;file to save&gt;</span><br><span class="line">open dump in visualvm or MAT</span><br><span class="line"></span><br><span class="line">how2use MAT?</span><br><span class="line">https://juejin.cn/post/6844903501269729288#heading-4</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/11/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/03/11/redis/" itemprop="url">redis</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-03-11T12:00:45+08:00">
+                2023-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="springboot集成redis和应用场景"><a href="#springboot集成redis和应用场景" class="headerlink" title="springboot集成redis和应用场景"></a>springboot集成redis和应用场景</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/zljin/redis-boot/blob/master/README.md">https://github.com/zljin/redis-boot/blob/master/README.md</a></p>
+</blockquote>
+<h2 id="datatype"><a href="#datatype" class="headerlink" title="datatype"></a>datatype</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>可以存储的值</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>STRING</td>
+<td>字符串或数值</td>
+<td>字符串操作,数字类型的自增自减</td>
+</tr>
+<tr>
+<td>LIST</td>
+<td>列表</td>
+<td>就是队列</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>无序集合</td>
+<td>去重，集合计算，是否存在某元素判断</td>
+</tr>
+<tr>
+<td>HASH</td>
+<td>包含键值对的无序散列表</td>
+<td>存k-&gt;Map(k,v) 可存一个java bean类的对象</td>
+</tr>
+<tr>
+<td>ZSET</td>
+<td>有序集合</td>
+<td>可为元素设置分值，根据分值进行排序，查询分数范围的对象</td>
+</tr>
+<tr>
+<td>Geospatial</td>
+<td>地理位置</td>
+<td>通过Java将经纬度数据导入redis，之后即可通过经纬度计算距离等</td>
+</tr>
+<tr>
+<td>Hyperloglog</td>
+<td>基数(两个数据集中不重复的元素)</td>
+<td>适用于快速合并数据去重，允许一定误差值，效率很高(网站访问量)</td>
+</tr>
+<tr>
+<td>Bitmap</td>
+<td>位存储</td>
+<td>二进制记录，适用于统计员工打卡</td>
+</tr>
+</tbody></table>
+<h2 id="cheatsheet"><a href="#cheatsheet" class="headerlink" title="cheatsheet"></a>cheatsheet</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br></pre></td><td class="code"><pre><span class="line">## 安装redis</span><br><span class="line">docker run -di --name=myredis -p 6379:6379 redis:latest</span><br><span class="line"></span><br><span class="line">## 安装redis容器,进入容器后通过redis-cli连接到数据库</span><br><span class="line">docker exec -it d224fc538b7f /bin/bash</span><br><span class="line">## 默认直接输入redis-cli即可</span><br><span class="line">redis-cli -h 127.0.0.1 -p 6379 -a password</span><br><span class="line"></span><br><span class="line">## 密码设置</span><br><span class="line">redis-cli</span><br><span class="line">config set requirepass newPassword</span><br><span class="line">config get requirepass</span><br><span class="line">auth newPassword</span><br><span class="line"></span><br><span class="line">## 基础命令</span><br><span class="line">127.0.0.1:6379&gt; ping  #查看当前连接是否正常，正常返回PONG</span><br><span class="line">127.0.0.1:6379&gt; keys *  #查看当前库里所有的key</span><br><span class="line">127.0.0.1:6379&gt; select 1 #redis默认16个库，彼此独立,不同的项目可以不同的库</span><br><span class="line">flushdb/flushall # 清空所有数据</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># String---------存字符串或数值 </span><br><span class="line">set vip yesyydsyes</span><br><span class="line">type vip</span><br><span class="line">expire vip 30</span><br><span class="line">ttl vip(-1代表无穷,-2代表失效)</span><br><span class="line"></span><br><span class="line">set count 100</span><br><span class="line">incr count</span><br><span class="line">decr count</span><br><span class="line">incrby by count 20</span><br><span class="line"></span><br><span class="line">getrange vip 2 4  # 截取</span><br><span class="line">setrange vip 1 abc # 插入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; mset s1 v1 s2 v2 s3 v3</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; mget s1 s2 s3</span><br><span class="line">1) &quot;v1&quot;</span><br><span class="line">2) &quot;v2&quot;</span><br><span class="line">3) &quot;v3&quot;</span><br><span class="line"></span><br><span class="line"># List------------(可看成队列)</span><br><span class="line">127.0.0.1:6379&gt; lpush list s1 s2 s3 s4 s5</span><br><span class="line">(integer) 5</span><br><span class="line">127.0.0.1:6379&gt; lrange list 0 -1</span><br><span class="line">1) &quot;s5&quot;</span><br><span class="line">2) &quot;s4&quot;</span><br><span class="line">3) &quot;s3&quot;</span><br><span class="line">4) &quot;s2&quot;</span><br><span class="line">5) &quot;s1&quot;</span><br><span class="line">127.0.0.1:6379&gt; lpop list</span><br><span class="line">&quot;s5&quot;</span><br><span class="line">127.0.0.1:6379&gt; rpop list</span><br><span class="line">&quot;s1&quot;</span><br><span class="line">127.0.0.1:6379&gt; lrange list 0 -1</span><br><span class="line">1) &quot;s4&quot;</span><br><span class="line">2) &quot;s3&quot;</span><br><span class="line">3) &quot;s2&quot;</span><br><span class="line">127.0.0.1:6379&gt; lindex list 2</span><br><span class="line">&quot;s2&quot;</span><br><span class="line">127.0.0.1:6379&gt; llen list</span><br><span class="line">(integer) 3</span><br><span class="line"></span><br><span class="line"># Set-------------无序集合，随机数，集合计算</span><br><span class="line"></span><br><span class="line">--随机数(活动抽奖)</span><br><span class="line">sadd set1 1 2 3 4 5 6 7 8 9 0 10</span><br><span class="line">sadd set1 1 2 3 4 5 6 11 12 13 14 15</span><br><span class="line">spop set1</span><br><span class="line">srem set1 0</span><br><span class="line">smembers set1</span><br><span class="line">srandmember set1 3(随机获取三个数)</span><br><span class="line">sdiff set1 set2 --差集  </span><br><span class="line">sinter set1 set2 --交集 </span><br><span class="line">sunion set1 set2 --并集</span><br><span class="line"></span><br><span class="line"># Hash-----------存k-&gt;Map(k,v) </span><br><span class="line">127.0.0.1:6379&gt; hmset student name mike age 22 major computer</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; hmget student name</span><br><span class="line">1) &quot;mike&quot;</span><br><span class="line"></span><br><span class="line"># ZSet--------------可将元素设置一个分值的属性，进行排行榜的操作</span><br><span class="line">127.0.0.1:6379&gt; zadd score 100 math 95 english 80 chinese</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; zrange score 0 -1</span><br><span class="line">1) &quot;chinese&quot;</span><br><span class="line">2) &quot;english&quot;</span><br><span class="line">3) &quot;math&quot;</span><br><span class="line">127.0.0.1:6379&gt; zrange score 0 -1 withscores</span><br><span class="line">1) &quot;chinese&quot;</span><br><span class="line">2) &quot;80&quot;</span><br><span class="line">3) &quot;english&quot;</span><br><span class="line">4) &quot;95&quot;</span><br><span class="line">5) &quot;math&quot;</span><br><span class="line">6) &quot;100&quot;</span><br><span class="line">127.0.0.1:6379&gt; zrank score english  # 分数成绩排名</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zrank score chinese</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; zscore score math</span><br><span class="line">&quot;100&quot;</span><br><span class="line">127.0.0.1:6379&gt; zrank score math</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; zrangebyscore score 95 100</span><br><span class="line">1) &quot;english&quot;</span><br><span class="line">2) &quot;math&quot;</span><br><span class="line"></span><br><span class="line"># Geospatial:地理位置</span><br><span class="line">127.0.0.1:6379&gt; geoadd city 118.8921 31.32751 nanjing 117.30794 31.79322 hefei 102.82147 24.88554 \</span><br><span class="line">kunming 91.13775 29.65262 lasa 116.23128 40.22077 beijing 106.54041 29.40268 chongqing</span><br><span class="line">(integer) 6</span><br><span class="line">127.0.0.1:6379&gt; zrange city 0 -1  # 遍历和zset一样</span><br><span class="line">1) &quot;lasa&quot;</span><br><span class="line">2) &quot;kunming&quot;</span><br><span class="line">3) &quot;chongqing&quot;</span><br><span class="line">4) &quot;hefei&quot;</span><br><span class="line">5) &quot;nanjing&quot;</span><br><span class="line">6) &quot;beijing&quot;</span><br><span class="line">127.0.0.1:6379&gt; geopos city nanjing beijing</span><br><span class="line">1) 1) &quot;118.89209836721420288&quot;</span><br><span class="line">   2) &quot;31.32750976275760735&quot;</span><br><span class="line">2) 1) &quot;116.23128265142440796&quot;</span><br><span class="line">   2) &quot;40.22076905438526495&quot;</span><br><span class="line"></span><br><span class="line">## 查距离 geodist</span><br><span class="line">127.0.0.1:6379&gt; geodist city nanjing beijing </span><br><span class="line">&quot;1017743.1413&quot;</span><br><span class="line">127.0.0.1:6379&gt; geodist city nanjing beijing km</span><br><span class="line">&quot;1017.7431&quot;</span><br><span class="line"></span><br><span class="line">## 查指定范围的城市 georadius</span><br><span class="line">### withcoord：指定返回城市的name</span><br><span class="line">### withdist：指定返回城市的经纬度值</span><br><span class="line">### withhash：指定返回城市的经纬度的hash值 #如果两个城市的hash值越像，证明城市距离越近</span><br><span class="line">### count 2：返回几个城市</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; georadius city 120 38 1000 km withcoord withdist withhash</span><br><span class="line">1) 1) &quot;beijing&quot;</span><br><span class="line">   2) &quot;408.3496&quot;</span><br><span class="line">   3) (integer) 4069896088584598</span><br><span class="line">   4) 1) &quot;116.23128265142440796&quot;</span><br><span class="line">      2) &quot;40.22076905438526495&quot;</span><br><span class="line">2) 1) &quot;hefei&quot;</span><br><span class="line">   2) &quot;732.6371&quot;</span><br><span class="line">   3) (integer) 4052763834193093</span><br><span class="line">   4) 1) &quot;117.30793744325637817&quot;</span><br><span class="line">      2) &quot;31.79321915080526395&quot;</span><br><span class="line">3) 1) &quot;nanjing&quot;</span><br><span class="line">   2) &quot;749.0265&quot;</span><br><span class="line">   3) (integer) 4054278565840695</span><br><span class="line">   4) 1) &quot;118.89209836721420288&quot;</span><br><span class="line">      2) &quot;31.32750976275760735&quot;</span><br><span class="line"></span><br><span class="line">## 查找指定元素指定范围内的元素 georadiusbymember</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; georadiusbymember city nanjing 500 km</span><br><span class="line">1) &quot;hefei&quot;</span><br><span class="line">2) &quot;nanjing&quot;</span><br><span class="line"></span><br><span class="line">## 返回北京和南京的经纬度的hash值 geohash（如果两个城市的hash值越像，证明城市距离越近）</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; geohash city beijing nanjing</span><br><span class="line">1) &quot;wx4sucvncn0&quot;</span><br><span class="line">2) &quot;wtsd1qyxfx0&quot;</span><br><span class="line"></span><br><span class="line">## zrange、zrem（使用zset命令操作geo）</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; ZRANGE city 0 -1</span><br><span class="line">1) &quot;lasa&quot;</span><br><span class="line">2) &quot;kunming&quot;</span><br><span class="line">3) &quot;chongqing&quot;</span><br><span class="line">4) &quot;hefei&quot;</span><br><span class="line">5) &quot;nanjing&quot;</span><br><span class="line">6) &quot;beijing&quot;</span><br><span class="line">127.0.0.1:6379&gt; ZREM city lasa</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE city 0 -1</span><br><span class="line">1) &quot;kunming&quot;</span><br><span class="line">2) &quot;chongqing&quot;</span><br><span class="line">3) &quot;hefei&quot;</span><br><span class="line">4) &quot;nanjing&quot;</span><br><span class="line">5) &quot;beijing&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Hyperloglog 网站的访问量，就可以利用Hyperloglog来进行计算统计！</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; pfadd datalist 1 2 3 4 5 6 7</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; pfcount datalist</span><br><span class="line">(integer) 7</span><br><span class="line">127.0.0.1:6379&gt; pfadd datalist1 4 5 6 7 8 9</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; pfmerge newdata datalist datalist1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; pfcount newdata</span><br><span class="line">(integer) 9</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Bitmap</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; setbit login 1 1</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; setbit login 2 1</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; setbit login 3 0</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; setbit login 4 0</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; setbit login 5 0</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; getbit login 4</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; bitcount login //打卡了几天</span><br><span class="line">(integer) 2</span><br><span class="line"></span><br><span class="line"># 查容量</span><br><span class="line">keys * # 会阻塞!!!</span><br><span class="line">memory usage [key] # 查询占用多少字节，不建议在程序中使用</span><br><span class="line">LLEN/STRLEN [key] # 集合可通过判断元素数量方式</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 如何发现bigKeys</span><br><span class="line">redis-cli --bigkeys</span><br><span class="line"></span><br><span class="line">SCAN cursor [MATCH pattern] [COUNT count]</span><br><span class="line">https://github.com/zljin/surge/blob/redis/src/test/java/com/zou/JedisTest.java</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="TIP"><a href="#TIP" class="headerlink" title="TIP"></a>TIP</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">key的结构设计</span><br><span class="line">1. 遵循基本格式：[业务名称]:[数据名]:[id] eg: login:user:10</span><br><span class="line">2. 长度不超过44个字节 (embstr)</span><br><span class="line">3. 不包含特殊字节</span><br><span class="line">4. 单key的value小于10kb</span><br><span class="line">5. 集合类型的key,建议元素数量小于1000</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h1><p><a target="_blank" rel="noopener" href="https://redis.io/resources/clients/">https://redis.io/resources/clients/</a></p>
+<p><a target="_blank" rel="noopener" href="https://spring.io/projects/spring-data-redis">https://spring.io/projects/spring-data-redis</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/column/6963184822332325919">https://juejin.cn/column/6963184822332325919</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903982066827277">https://juejin.cn/post/6844903982066827277</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/13/kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/11/13/kafka/" itemprop="url">kafka</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-13T12:00:45+08:00">
+                2022-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" itemprop="url" rel="index">
+                    <span itemprop="name">消息队列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>Kafka是一款分布式消息队列中间件,需要依赖zk保存metedata,如comsumer register msg等</p>
+</blockquote>
+<h2 id="springboot整合kafka"><a href="#springboot整合kafka" class="headerlink" title="springboot整合kafka"></a>springboot整合kafka</h2><p><a target="_blank" rel="noopener" href="https://github.com/zljin/kafka-boot/blob/master/src/main/resources/application.yml">https://github.com/zljin/kafka-boot/blob/master/src/main/resources/application.yml</a></p>
+<h2 id="Application-scenarios"><a href="#Application-scenarios" class="headerlink" title="Application scenarios"></a>Application scenarios</h2><ol>
+<li>解耦</li>
+<li>削峰</li>
+<li>缓冲</li>
+<li>异步通信</li>
+</ol>
+<h2 id="feature"><a href="#feature" class="headerlink" title="feature"></a>feature</h2><ol>
+<li>通过Partition实现高吞吐量</li>
+<li>通过replication-factors实现消费者的HA</li>
+<li>能够持久化</li>
+<li>能够批量处理消息</li>
+<li>分布式，松耦合</li>
+</ol>
+<h2 id="技术选型对比"><a href="#技术选型对比" class="headerlink" title="技术选型对比"></a>技术选型对比</h2><p><img src="https://github.com/zljin/hexo/blob/master/image_address/kafka3.png?raw=true"></p>
+<h2 id="core-concept"><a href="#core-concept" class="headerlink" title="core concept"></a>core concept</h2><p><img src="https://github.com/zljin/hexo/blob/master/image_address/kafka1.png?raw=true"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Producer：消息生产者，就是向 Kafka broker 发消息的客户端；</span><br><span class="line">Consumer：消息消费者，向 Kafka broker 取消息的客户端；</span><br><span class="line">broker：一个kafka服务器,接受生产者发送消息并存入磁盘,服务消费者拉取分区消息的请求,返回目前已经提交的消息</span><br><span class="line">cluster：若干个broker组成cluster,其中某个broker作为leader管理集群</span><br><span class="line">Topic：topic就是逻辑上了的消息队列名称，一个topic的物理存储是由多个Partition组成（保证扩展性），</span><br><span class="line">partition就是topic物理存储的队列，通过offset进行存储(存储文件的命名：offset:kafka)</span><br><span class="line">Partition：Topic的存储，支持水平扩展</span><br><span class="line">Offset：offset 是消息在分区中的唯一标识，Kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，</span><br><span class="line">也就是说，Kafka 保证的是分区有序性而不是主题有序性</span><br><span class="line">Replication：同一 partition可能会有多个replication，需要在这些 replication 之间选出一个leader，</span><br><span class="line">producer 和 consumer 只与这个 leader 交互，其它 replication 作为 follower 从 leader 中复制数据</span><br></pre></td></tr></table></figure>
+
+<h3 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h3><p>消息发送时都被发送到一个 topic，其本质就是一个目录，而 topic 是由一些 Partition Logs(分区日志)组成<br>每个 Partition 中的消息都是 「有序」 的，生产的消息被不断追加到 Partition log 上，其中的每一个消息都被赋予了一个唯一的 「offset」 值</p>
+<p><img src="https://github.com/zljin/hexo/blob/master/image_address/kafka2.png?raw=true"></p>
+<h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><blockquote>
+<p>安装失败有有可能内存不够的原因,kill掉不用的进程即可</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mkdir kafka_zk</span><br><span class="line">cd kafka_zk</span><br><span class="line">vi docker-compose.yml</span><br><span class="line"></span><br><span class="line">version: &#x27;3&#x27;</span><br><span class="line">services:</span><br><span class="line">  zookeeper:</span><br><span class="line">    image: wurstmeister/zookeeper:latest</span><br><span class="line">    container_name: zookeeper</span><br><span class="line">    # always restart</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">      - 2181:2181</span><br><span class="line"></span><br><span class="line">  kafka:</span><br><span class="line">    image: wurstmeister/kafka:latest</span><br><span class="line">    container_name: kafka</span><br><span class="line">    ports:</span><br><span class="line">      - 9092:9092</span><br><span class="line">    # host ip</span><br><span class="line">    environment:</span><br><span class="line">      KAFKA_ADVERTISED_HOST_NAME: kafka</span><br><span class="line">      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181</span><br><span class="line">    # always restart</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - ./docker.sock:/var/run/docker.sock</span><br><span class="line"></span><br><span class="line">wq docker-compose.yml</span><br><span class="line">docker-compose up -d</span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose ps</span><br><span class="line">docker-compose h</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="cheetsheet"><a href="#cheetsheet" class="headerlink" title="cheetsheet"></a>cheetsheet</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 进入容器</span><br><span class="line">docker exec -it kafka /bin/bash</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># topic相关</span><br><span class="line">kafka-topics.sh --help</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 创建topic</span><br><span class="line">kafka-topics.sh --create --topic topicA \</span><br><span class="line">--zookeeper zookeeper:2181 --replication-factor 1 \</span><br><span class="line">--partitions 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 查看topic基本信息</span><br><span class="line">kafka-topics.sh --zookeeper zookeeper:2181 \</span><br><span class="line">--describe --topic topicA</span><br><span class="line"></span><br><span class="line">## 查看其他topic信息</span><br><span class="line">kafka-topics.sh --zookeeper zookeeper:2181 --list</span><br><span class="line"></span><br><span class="line"># 生产消息 </span><br><span class="line">kafka-console-producer.sh --topic=topicA \</span><br><span class="line">--broker-list kafka:9092</span><br><span class="line"></span><br><span class="line"># 消费消息</span><br><span class="line">kafka-console-consumer.sh \</span><br><span class="line">--bootstrap-server kafka:9092 \</span><br><span class="line">--from-beginning --topic topicA</span><br><span class="line"></span><br><span class="line">/data/kafka_2.11-1.1.0/bin/kafka-console-consumer.sh --bootstrap-server </span><br><span class="line">platform-kafka.rootcloud.name:9092 --property print.key=true --topic new_device_from_global</span><br><span class="line"></span><br><span class="line">-- 6. 查看消费进度</span><br><span class="line">kafka-consumer-groups.sh --bootstrap-server kafka:9092 --describe --group group1</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="springboot-kafka"><a href="#springboot-kafka" class="headerlink" title="springboot+kafka"></a>springboot+kafka</h1><blockquote>
+<p>idea kafka plugins:kafkalytic<br>kafka批量消费：kafka默认是一条条消费，想要批量消费，需要单独配置batchFactory<br><a target="_blank" rel="noopener" href="https://github.com/zljin/surge/tree/kafka/src/main/java/com/zou">https://github.com/zljin/surge/tree/kafka/src/main/java/com/zou</a><br><a target="_blank" rel="noopener" href="https://github.com/zljin/surge/blob/kafka/src/main/java/com/zou/config/KafkaConfig.java">https://github.com/zljin/surge/blob/kafka/src/main/java/com/zou/config/KafkaConfig.java</a></p>
+</blockquote>
+<h1 id="如何保证kafka不丢消息"><a href="#如何保证kafka不丢消息" class="headerlink" title="如何保证kafka不丢消息"></a>如何保证kafka不丢消息</h1><h2 id="生产者丢消息"><a href="#生产者丢消息" class="headerlink" title="生产者丢消息"></a>生产者丢消息</h2><ol>
+<li>添加异步回调函数，知道发送成功还是失败</li>
+<li>网络不可达，添加重试次数 spring.kafka.producer.retries:3</li>
+</ol>
+<h2 id="队列丢消息"><a href="#队列丢消息" class="headerlink" title="队列丢消息"></a>队列丢消息</h2><ol>
+<li>partition添加多个replication&gt;&#x3D;3</li>
+<li>设置接收策略,至少写入两个副本才算发送成功</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.kafka.producer.acks:all  # 所有副本都接收消息才算发送成功</span><br><span class="line">spring.kafka.producer.acks:1  # 只有leader接收就算发送成功</span><br><span class="line">spring.kafka.producer.acks:0  # 不管,发送就代表成功</span><br><span class="line"></span><br><span class="line">replication.factor &gt;= 3(分区一主多从，保证高可用)</span><br><span class="line">min.insync.replicas &gt; 1（消息至少要被写入到 2 个副本才算是被成功发送）</span><br></pre></td></tr></table></figure>
+
+<h2 id="消费者丢消息"><a href="#消费者丢消息" class="headerlink" title="消费者丢消息"></a>消费者丢消息</h2><ol>
+<li>设置手动提交，关闭自动提交，当消息真正消费后，返回给kafka一个确认标识</li>
+</ol>
+<h1 id="消费信息的顺序性"><a href="#消费信息的顺序性" class="headerlink" title="消费信息的顺序性"></a>消费信息的顺序性</h1><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><ol>
+<li>一个topic对应一个partition对应一个consumer,且consumer单线程消费</li>
+</ol>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ol>
+<li>给消息指定一个key如订单id,相同key的消息进入一个partition,同一个partition一定是有序的</li>
+<li>消费者拿到消息先不直接消费，而是根据key进行哈希操作，将key相同的数据发送到相同的内存队列中</li>
+<li>消费者线程直接从内存队列消费即可保证顺序性</li>
+</ol>
+<h1 id="如何防止消息重复消费"><a href="#如何防止消息重复消费" class="headerlink" title="如何防止消息重复消费"></a>如何防止消息重复消费</h1><p>消费端处理消息的业务逻辑保持幂等性</p>
+<p>如何保持幂等性？<br>1.在内存中维护一个Set集合<br>2.数据库设置唯一键<br>3.先拿唯一键进行查询,查询成功丢弃，不存在则写入</p>
+<h1 id="如何解决消息积压"><a href="#如何解决消息积压" class="headerlink" title="如何解决消息积压"></a>如何解决消息积压</h1><ol>
+<li><p>实时消费任务宕机导致的消息积压<br>创建新的topic并配置更多数量的分区，将积压消息的topic消费者逻辑改为直接把消息打入新的topic，将消费逻辑写在新的topic的消费者中</p>
+</li>
+<li><p>kafka分区设置不合理和消费者消费能力不足优化</p>
+</li>
+</ol>
+<p>数据量大，可添加topic的partition(提高consumer的吞吐量)，同事提升消费组的消费者数量</p>
+<ol start="3">
+<li>kafka消息key设置优化<br>使用Kafka Producer消息时，可以为消息指定key，但是要求key要均匀，否则会出现Kafka分区间数据不均衡。<br>所以根据业务，合理修改Producer处的key设置规则，解决数据倾斜问题。</li>
+</ol>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a target="_blank" rel="noopener" href="https://kafka.apache.org/documentation/">https://kafka.apache.org/documentation/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/16/ms-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/09/16/ms-app/" itemprop="url">ms-app</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-09-16T12:00:45+08:00">
+                2022-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/project/" itemprop="url" rel="index">
+                    <span itemprop="name">project</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  638 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>前端源码：<a target="_blank" rel="noopener" href="https://github.com/zljin/ms-ui-app">https://github.com/zljin/ms-ui-app</a><br>后端源码：<a target="_blank" rel="noopener" href="https://github.com/zljin/ms-app">https://github.com/zljin/ms-app</a></p>
+</blockquote>
+<h3 id="创作初衷"><a href="#创作初衷" class="headerlink" title="创作初衷"></a>创作初衷</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">创作此项目是开发项目的回顾和复习，通过四年前学习的秒杀项目https://www.imooc.com/learn/1079的业务为基础进行重构</span><br><span class="line">后端部分，通过在公司工作了2年的沉淀，将后端设计完全重构，主要包括新工具的使用，新中间件的使用，新的模型设计等</span><br><span class="line">前端部分：四年前用的还是jquery写的一套前端模板，现在采用uni-app进行完全重构</span><br><span class="line">部署部分：采用目前学习的jenkins pipleline+docker+kubernetes进行部署(做了一些简化),</span><br><span class="line">kubernetes主要创建了deployment,service,ingress等资源</span><br><span class="line">用到的技术栈和具体细节请详看git repo readme</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何下载启动"><a href="#如何下载启动" class="headerlink" title="如何下载启动"></a>如何下载启动</h3><h4 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h4><ol>
+<li>下载jdk8,redis,mysql,maven,git</li>
+<li>下载Intelij idea</li>
+<li>git clone <a target="_blank" rel="noopener" href="https://github.com/zljin/ms-app">https://github.com/zljin/ms-app</a></li>
+<li>进入db目录,将表创建到mysql中</li>
+<li>修改application.yml的数据源配置文件</li>
+<li>后端启动，访问<a target="_blank" rel="noopener" href="http://localhost:8090/swagger-ui.html">http://localhost:8090/swagger-ui.html</a></li>
+</ol>
+<h4 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h4><ol>
+<li><a target="_blank" rel="noopener" href="https://m.imooc.com/wiki/uniapp-createframework">https://m.imooc.com/wiki/uniapp-createframework</a> 通过这个指引下载uni-app的基本环境，开发工具HBuilderX</li>
+<li><a target="_blank" rel="noopener" href="https://m.imooc.com/wiki/uniapp-directorystructure">https://m.imooc.com/wiki/uniapp-directorystructure</a> 通过这个指引下载uni-ui的模板</li>
+<li>git clone <a target="_blank" rel="noopener" href="https://github.com/zljin/ms-ui-app">https://github.com/zljin/ms-ui-app</a></li>
+<li>导入到HBuilderX运行，注意提前启动后端项目</li>
+</ol>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>业务规则可以看下此课程的第一章，项目效果，知道如何项目如何操作即可。<br><a target="_blank" rel="noopener" href="https://www.imooc.com/learn/1079">https://www.imooc.com/learn/1079</a></p>
+<p>和他的项目操作对比：<br>本项目在UI和功能上得到了加强，且必须登录后才能下单，登录后5分钟内失效否则继续登录即可</p>
+<h3 id="如何阅读源码"><a href="#如何阅读源码" class="headerlink" title="如何阅读源码"></a>如何阅读源码</h3><p>打开谷歌浏览器启动前端，点击按钮和操作时，可以看调用了那些后端接口，debug看细节即可，UserInterceptor为拦截器，可以看看如何拦截请求的，这是每个请求的入口。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>作为springboot项目开发，这套后端模板算是企业比较标准的写法，大家可以通过这个模板快速开发自己的应用，上家公司可能还没我这标准，汗。<br>麻雀虽小，五脏俱全。业务虽然简单，且这个秒杀的方案还有更多更好的设计。但胜在整套项目整体闭环，帮助同学入门是挺不错的素材。<br>最近在弄devops，也是对之前学习的复习了，借此机会，分享给大家。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/08/09/k8s/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/08/09/k8s/" itemprop="url">k8s</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-08-09T12:00:45+08:00">
+                2022-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/devops/" itemprop="url" rel="index">
+                    <span itemprop="name">devops</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>提供给容器化应用的集群部署和管理工具，容器编排引擎.可通过yaml配置文件定义集群架构的规范和最终状态，使k8s始终维持这个状态</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://k8s.easydoc.net/docs/dRiQjyTY/28366845/6GiNOzyZ/9EX8Cp45">3小时光速入门</a></p>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><h3 id="vagrant快速搭建k8s"><a href="#vagrant快速搭建k8s" class="headerlink" title="vagrant快速搭建k8s"></a>vagrant快速搭建k8s</h3><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1np4y1C7Yf?p=6">https://www.bilibili.com/video/BV1np4y1C7Yf?p=6</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1np4y1C7Yf?p=342&vd_source=88f2d67f21120fbed5f365a6638870f5">https://www.bilibili.com/video/BV1np4y1C7Yf?p=342&amp;vd_source=88f2d67f21120fbed5f365a6638870f5</a></p>
+<h3 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h3><p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/">https://kubernetes.io/zh-cn/docs/concepts/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/leifengyang/oncloud/ghnb83">https://www.yuque.com/leifengyang/oncloud/ghnb83</a></p>
+<p><a target="_blank" rel="noopener" href="https://jimmysong.io/kubernetes-handbook/cloud-native/cloud-native-definition.html">https://jimmysong.io/kubernetes-handbook/cloud-native/cloud-native-definition.html</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">pod: 1.k8s集群中运行部署应用的最小单位 2. 里面可包含多个容器，多个容器共享网络地址和文件系统</span><br><span class="line">deployment: 对k8s集群的一次更新操作</span><br><span class="line">service: 1. 给相同服务的pod  提供集群外部的访问端口 2. 提供了负载均衡功能，自动转发流量到不同 Pod</span><br><span class="line">volume: 存储卷，声明在 Pod 容器中可访问的文件目录，有pvc.pv,vc的yaml进行编写,常用于有状态的服务stateful</span><br><span class="line">,用于数据库的创建挂载在磁盘中</span><br><span class="line">ingress: </span><br><span class="line">    1. ingress可以实现通过域名和路径去访问service，避免对外暴露端口，并进行负载均衡</span><br><span class="line">    2. 以域名加端口的形式访问不同的service</span><br><span class="line"></span><br><span class="line">StatefulSet:和deployment不同，他是用来管理有状态的应用，如数据库服务,将数据持久化操作</span><br><span class="line"></span><br><span class="line">port targetport nodeport的区别?</span><br><span class="line">TargetPort - </span><br><span class="line">    is the port on which the service will send requests to, </span><br><span class="line">    that your pod will be listening on. Your application in the container will need to be listening </span><br><span class="line">    on this port also.</span><br><span class="line">Port -</span><br><span class="line">    exposes the Kubernetes service on the specified port within the cluster.</span><br><span class="line">    Other pods within the cluster can communicate with this server on the specified port.</span><br><span class="line">NodePort -</span><br><span class="line">    exposes a service externally to the cluster by means of the target nodes IP address and the NodePort. </span><br><span class="line">    NodePort is the default setting if the port field is not specified.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">k8s yaml sample:</span><br><span class="line">https://github.com/zljin/ms-app/blob/master/yaml/deploy-template.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="cheat-sheet"><a href="#cheat-sheet" class="headerlink" title="cheat sheet"></a>cheat sheet</h2><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/kubectl/quick-reference/">https://kubernetes.io/docs/reference/kubectl/quick-reference/</a></p>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-output-verbosity-and-debugging">https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-output-verbosity-and-debugging</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 应用部署,-v=8 debug模式</span><br><span class="line">kubectl apply/delete -f deployment.yaml -v=8</span><br><span class="line"># 删除部署</span><br><span class="line">kubectl delete deployment/service name</span><br><span class="line"># 查看日志</span><br><span class="line"># -f实时 -n指定namespace</span><br><span class="line">kubectl logs nginx-ingress-controller-4f2h4 -n ingress-nginx -f</span><br><span class="line"></span><br><span class="line"># 查看所有命名空间的所有部署内容</span><br><span class="line">kubectl get all -o wide -A</span><br><span class="line"># 查看所有命名空间的pod结点</span><br><span class="line">kubectl get pods --all-namespaces</span><br><span class="line"></span><br><span class="line"># 进入pod的某一个容器中,如果该pod只有一个容器，则可以不输入-c</span><br><span class="line">kubectl exec -it pod-name -c contain-name -- /bin/bash</span><br><span class="line"></span><br><span class="line"># 输出为yaml</span><br><span class="line">kubectl get deployment tomcat6 -o yaml &gt;&gt; tomcat6.yaml</span><br><span class="line"># 测试执行并输出为yaml</span><br><span class="line">kubectl create deployment tomcat6 --image=tomcat:6.0.53-jre8 --dry-run -o yaml &gt; tomcat6-deploy.yaml</span><br><span class="line"></span><br><span class="line"># 查看集群所有节点</span><br><span class="line">kubectl get nodes</span><br><span class="line"># 监控 pod 进度</span><br><span class="line">watch kubectl get pod -n kube-system -o wide</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="helm-chart"><a href="#helm-chart" class="headerlink" title="helm chart"></a>helm chart</h2><blockquote>
+<p>helm通过打包的方式，支持发布的版本控制，简化k8s资源应用部署<br><a target="_blank" rel="noopener" href="https://artifacthub.io/">https://artifacthub.io/</a><br><a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/intro/quickstart/">https://helm.sh/zh/docs/intro/quickstart/</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lyc94620/p/10945430.html">https://www.cnblogs.com/lyc94620/p/10945430.html</a></p>
+</blockquote>
+<ol>
+<li><p>helm可以类似于rpm的yum工具包，用户快速创建k8s资源，基于template的方式管理，将资源的具体spec value抽离出来</p>
+</li>
+<li><p>helm有网络仓库，在线安装直接链接安装，离线安装，通过下载源码然后连接公司局域网安装镜像</p>
+</li>
+<li><p>helm和k8s版本要兼容，helm run时，会自动读取kubectl的配置连接到你的eks (只推荐helm3)</p>
+</li>
+<li><p>chart安装包，release为安装后的实例</p>
+</li>
+</ol>
+<h3 id="helm-cheat-sheet"><a href="#helm-cheat-sheet" class="headerlink" title="helm cheat sheet"></a>helm cheat sheet</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">### 离线安装用的局域网镜像</span><br><span class="line">helm install --debug coredns C:\java_idea\helm\coredns --namespace=kube-system -f C:\java_idea\helm\coredns\value.yaml</span><br><span class="line">helm ls --all-namespaces</span><br><span class="line">helm uninstall coredns -n=kube-system</span><br><span class="line"></span><br><span class="line">## 在线安装</span><br><span class="line">helm repo add coredns https://coredns.github.io/helm</span><br><span class="line">helm --namespace=kube-system install coredns coredns/coredns</span><br></pre></td></tr></table></figure>
+
+<h2 id="service-mesh"><a href="#service-mesh" class="headerlink" title="service mesh"></a>service mesh</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://jimmysong.io/kubernetes-handbook/usecases/service-mesh.html">https://jimmysong.io/kubernetes-handbook/usecases/service-mesh.html</a></p>
+</blockquote>
+<h3 id="feature"><a href="#feature" class="headerlink" title="feature"></a>feature</h3><ol>
+<li>统一:采用一套服务治理机制,实现网格大统一</li>
+<li>简化:服务治理外置到边车处理(sidecar) (基础设施下沉—业务逻辑和逻辑治理框架解耦) (减少版本碎片和升级困扰)</li>
+<li>专注:只关心业务逻辑核心</li>
+</ol>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB7fbc2f4146191053ffdc96dc87882b70?method=download&shareKey=9a8bcce2d53d9ea8b50d0a0020661340"></p>
+<h3 id="如何理解sidecar"><a href="#如何理解sidecar" class="headerlink" title="如何理解sidecar?"></a>如何理解sidecar?</h3><blockquote>
+<p>边车为逻辑治理框架，下面是特性</p>
+</blockquote>
+<ol>
+<li>可用性：故障注入,数据重放,重试,重定向,熔断,灰度发布(canary deploy)</li>
+<li>安全性: 传输加密,用户认证,服务授权</li>
+<li>可控性：前置检查,限流管理,遥测报告</li>
+</ol>
+<h3 id="实现可用性–Istio-Envoy-Proxy组件"><a href="#实现可用性–Istio-Envoy-Proxy组件" class="headerlink" title="实现可用性–Istio Envoy Proxy组件"></a>实现可用性–Istio Envoy Proxy组件</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/istio/istio">https://github.com/istio/istio</a><br><a target="_blank" rel="noopener" href="https://github.com/istio/istio/tree/master/samples/bookinfo">https://github.com/istio/istio/tree/master/samples/bookinfo</a><br><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/examples/bookinfo/">https://istio.io/latest/docs/examples/bookinfo/</a></p>
+</blockquote>
+<h4 id="灰度发布-服务发布的可用性"><a href="#灰度发布-服务发布的可用性" class="headerlink" title="灰度发布(服务发布的可用性)"></a>灰度发布(服务发布的可用性)</h4><p><img src="https://note.youdao.com/yws/api/personal/file/WEB6460eb71d83e16740f60dde2c23caef1?method=download&shareKey=e5e6ed01d85f8b53287d9adca2ce08ef"></p>
+<p>绿色为新上线的服务,蓝色为一上线的服务,可以配置Istio负载管理,控制流量流向的比例,分配到新上线的服务中,若1%分配后正常,则继续加大比例。<br>这样上线用户就会无感知</p>
+<h4 id="Istio负载管理"><a href="#Istio负载管理" class="headerlink" title="Istio负载管理"></a>Istio负载管理</h4><ol>
+<li>Virtual Service 虚拟服务 — 客户视角</li>
+<li>Destination Rule 目标规则  — 资源视角</li>
+<li>两者结合形成内部网络管理</li>
+</ol>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBb2c3d1c6fc9930881932c4d872445f84?method=download&shareKey=31a501243fc885a3fce92ac9ed0cd159"></p>
+<h4 id="源码-from-bookInfo"><a href="#源码-from-bookInfo" class="headerlink" title="源码(from bookInfo)"></a>源码(from bookInfo)</h4><blockquote>
+<p>设置目标规则</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.istio.io/v1alpha3</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">DestinationRule</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">reviews</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="string">reviews</span></span><br><span class="line">  <span class="attr">trafficPolicy:</span></span><br><span class="line">    <span class="attr">loadBalancer:</span></span><br><span class="line">      <span class="attr">simple:</span> <span class="string">RANDOM</span></span><br><span class="line">  <span class="attr">subsets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">v1</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">version:</span> <span class="string">v1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">v2</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">version:</span> <span class="string">v2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">v3</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">version:</span> <span class="string">v3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>设置虚拟服务并确定流量比例90:10</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.istio.io/v1alpha3</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">VirtualService</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">reviews</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">hosts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">reviews</span></span><br><span class="line">  <span class="attr">http:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">route:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">destination:</span></span><br><span class="line">        <span class="attr">host:</span> <span class="string">reviews</span></span><br><span class="line">        <span class="attr">subset:</span> <span class="string">v1</span></span><br><span class="line">      <span class="attr">weight:</span> <span class="number">90</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">destination:</span></span><br><span class="line">        <span class="attr">host:</span> <span class="string">reviews</span></span><br><span class="line">        <span class="attr">subset:</span> <span class="string">v2</span></span><br><span class="line">      <span class="attr">weight:</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/spring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/06/07/spring/" itemprop="url">Spring</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-07T17:00:45+08:00">
+                2022-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>spring以bean为中心提供IOC和AOP功能<br>springmvc是mvc框架,相当于增强版的servlet,主要处理web开发的路径映射和视图渲染<br>springboot以application为中心提供自动配置(约定大于配置)和监控,特点是快速开发,开箱即用<br>springcloud以service为中心提供服务的注册与发现和服务调用和负载均衡等分布式系统框架</p>
+</blockquote>
+<h1 id="How-to-use-in-your-project"><a href="#How-to-use-in-your-project" class="headerlink" title="How to use in your project"></a>How to use in your project</h1><p><a target="_blank" rel="noopener" href="https://github.com/zljin/ms-app/blob/master/doc/how2boot.md">https://github.com/zljin/ms-app/blob/master/doc/how2boot.md</a></p>
+<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">一. 什么是spring?</span><br><span class="line">Spring是轻量级的Java应用开发框架,帮助简化企业级开发而存在</span><br><span class="line"></span><br><span class="line">二. 核心思想?</span><br><span class="line">IOC：将创建对象的权力交给Spring工厂,其中涉及到对象属性的依赖注入问题和循环依赖问题,通过DI来实现</span><br><span class="line">DI：依赖注入,在程序运行期间动态的将依赖对象注入到组件中,一般通过构造函数注入(不支持循环依赖)</span><br><span class="line">    和setter注入</span><br><span class="line">AOP：面向切面编程，动态封装一些可重用性，非业务性代码(切面：封装用于横向插入方法的功能类)，</span><br><span class="line">    通过动态代理的方式，对目标类进行加强，动态生成这目标类的代理对象。</span><br><span class="line"></span><br><span class="line">    AOP的相关概念：</span><br><span class="line">        Target(目标)：被增强的对象</span><br><span class="line">        Advice(通知)：切面具体的任务，即拦截后要做的事情</span><br><span class="line">        Joinpoint(连接点)：指的是可以拦截的点(方法)</span><br><span class="line">        Pointcut(切入点)：指的是真正被拦截到的点</span><br><span class="line">        Weaving(织入)：将Advice的应用到Target的过程</span><br><span class="line">        Proxy(代理)：被Advice增强后动态生成的代理对象</span><br><span class="line">    </span><br><span class="line">    AOP与AspectJ的区别：</span><br><span class="line">        AOP基于动态代理,属于运行期的增强</span><br><span class="line">        JDK代理基于接口创建代理类,cglib基于类创建代理类</span><br><span class="line">        AspectJ基于字节码操作属于编译期增强,效率更高</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">三. 优势?</span><br><span class="line">    1. IOC降低对象替换复杂性,降耦</span><br><span class="line">    2. AOP更好的复用功能切面(非业务代码),消除样板式代码</span><br><span class="line">    3. 方便集成其他框架使用如mybatis</span><br><span class="line">    </span><br><span class="line">四. spring事务传播机制?</span><br><span class="line">REQUIRED：使用当前事务,若无则新建一个事务否则加入当前事务,子方法必须运行在一个事务中</span><br><span class="line">SUPPORTS：当前有事务，则使用事务，否则不使用事务</span><br><span class="line">MANDATORY：该传播属性强制必须存在一个事务，不存在就抛出异常</span><br><span class="line">REQUIRES_NEW: 当前有事务，则挂起该事务，并且自己创建一个新的事务给自己使用；</span><br><span class="line">    如果当前无事务同 REQUIRED</span><br><span class="line">NOT_SUPPORTED: 当前有事务-&gt;事务挂起</span><br><span class="line">NEVER: 当前有事务 -&gt;抛出异常</span><br><span class="line">NESTED:</span><br><span class="line">    如果当前有事务，则开启子事务（嵌套事务），嵌套事务是独立提交或者回滚；</span><br><span class="line">    如果当前没有事务，则同 REQUIRED。</span><br><span class="line">    但是如果主事务提交，则会携带子事务一起提交。</span><br><span class="line">    如果主事务回滚，则子事务会一起回滚。相反，子事务异常，则父事务可以回滚或不回滚。</span><br><span class="line">    举例：领导决策不对，老板怪罪，领导带着小弟一同受罪。小弟出了差错，领导可以推卸责任。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">五. 事务实现原理?</span><br><span class="line"></span><br><span class="line">spring的事务隔离级别和数据库事务一样,是为了方便业务逻辑控制所以我们采用spring来控制</span><br><span class="line">本质还是依赖数据库的事务</span><br><span class="line"></span><br><span class="line">事务有两种实现方式,一是编程式事务(手动开启事务commit事务,不常用)</span><br><span class="line">二是声明式事务(@Transactional,有spring框架内部控制)</span><br><span class="line"></span><br><span class="line">实现原理就是AOP,Spring会扫描注解,基于这个类生成代理对象</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">六. 事务失效的场景?</span><br><span class="line">1. 方法修饰符不为public</span><br><span class="line">2. 异常被捕获</span><br><span class="line">3. bean对象没被spring管理</span><br><span class="line">4. 数据库不支持事务</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">七. 单例bean是线程安全的吗?</span><br><span class="line"></span><br><span class="line">不是,spring bean的默认scope(作用域)是singleton(单例),可修改为prototype(原型),</span><br><span class="line">请求一次就创建一次新实例,这样保证线程安全</span><br><span class="line"></span><br><span class="line">那spring是如何保证单例bean线程安全的呢？</span><br><span class="line">使用ThreadLocal将各个线程的局部变量私有化</span><br><span class="line">如果是类变量就需要加锁控制并发</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">the advantage of setup default scope as singleton in Spring.</span><br><span class="line"></span><br><span class="line">减少新实例的创建，减轻JVM垃圾回收的压力，由于是单例Bean，第一次访问之外都是从缓存获取，可以快速获取</span><br><span class="line"></span><br><span class="line">the shortcoming of setup default scope as singleton in Spring.</span><br><span class="line"></span><br><span class="line">并发压力下的线程不安全</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">八. bean的作用域</span><br><span class="line">singleton : bean在每个Spring ioc 容器中只有一个实例。</span><br><span class="line">prototype：一个bean的定义可以有多个实例。</span><br><span class="line">request：每次http请求都会创建一个bean,在webApplicationContext情形下有效</span><br><span class="line">session：基于Http session,一个session共享一个bean实例,在webApplicationContext情形下有效</span><br><span class="line">global-session：基于Http session,多个session共享一个bean实例,在webApplicationContext情形下有效</span><br><span class="line"></span><br><span class="line">九. Spring的 Controller是单例还是多例？怎么保证并发安全</span><br><span class="line">Controller默认是单例的，不要使用非静态的成员变量，否则会发生数据逻辑混乱。正因为单例所以不是线程安全的</span><br><span class="line"></span><br><span class="line">1、不要在controller中定义成员变量。</span><br><span class="line">2、万一必须要定义一个非静态成员变量时候，则通过注解@Scope(“prototype”)，将其设置为多例模式。</span><br><span class="line">3、在Controller中使用ThreadLocal变量</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring的生命周期"><a href="#Spring的生命周期" class="headerlink" title="Spring的生命周期"></a>Spring的生命周期</h2><p><img src="https://note.youdao.com/yws/api/personal/file/A04C0A294D7E4FE38BE60009597C48B7?method=download&shareKey=4987bb6477fbc35bd99fb3b607a51707" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/D3D6A4A03D9B468A9254CC2B4B4C1BEB?method=download&shareKey=5f9c04675181889521ad9f43bd39ab86" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext构造方法中有refresh()方法,是spring启动方法</span><br><span class="line"></span><br><span class="line">1. BeanDefinitionReader读取bean.xml的配置定义信息,</span><br><span class="line">将这些信息以k为beanName,v为BeanDefinition的形式存储到ConcurrentHashMap中</span><br><span class="line"></span><br><span class="line">2. BeanFactory读取BeanDefinition信息,开始进行bean的创建的销毁</span><br><span class="line"></span><br><span class="line">3. 通过反射的newInstance实例化此bean(未初始化,只是开辟一个空间)</span><br><span class="line"></span><br><span class="line">4. 通过populateBean()方法填充baen属性(如Autowired,Setter等)</span><br><span class="line"></span><br><span class="line">5. 之后通过initializeBean()初始化bean</span><br><span class="line">	a. 通过invokeAwareMethods()方法,处理aware接口</span><br><span class="line">	(aware的作用是让bean获得Spring容器的某个服务，如实现ApplicationContextAware接口，</span><br><span class="line">则调用setApplicationContext(ApplicationContext)方法,传入Spring上下文，可对spring上下文进行操作)</span><br><span class="line">	b. 调用BeanPostprocessor的前置后置方法,相当于一种插件,可以自定义bean的一些操作</span><br><span class="line">	c. 调用@PostConstuct注解修饰的方法</span><br><span class="line">	d. 调用init-method方法</span><br><span class="line">	e. 之后初始化完成</span><br><span class="line"></span><br><span class="line">6. 当bean使用后调用销毁方法进行清除</span><br><span class="line">	a. @PreDestory</span><br><span class="line">	b. destory-method</span><br><span class="line">	c. finalize</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="如何解决循环依赖"><a href="#如何解决循环依赖" class="headerlink" title="如何解决循环依赖"></a>如何解决循环依赖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">依赖三级缓存</span><br><span class="line">第一级缓存：用来保存初始化都完成的对象</span><br><span class="line">第二级缓存：用来保存实例化完成的对象</span><br><span class="line">第三级缓存：用来保存一个对象工厂,用于创建二级缓存中的对象</span><br><span class="line"></span><br><span class="line">实例化对象：只是开辟一个空间，没有初始化bean，如一些属性setup等</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如A与B循环依赖</span><br><span class="line"></span><br><span class="line">1. 创建A对象是先把A的BeanFactory存放在三级缓存</span><br><span class="line">2. 发现依赖B对象，则先去实例化B对象</span><br><span class="line">3. 同样实例化B对象是依赖A对象，则查询三级缓存(所有缓存都会查)，拿到A的对象工厂，从而拿到实例化的A放到二级缓存中</span><br><span class="line">4. 此时B对象初始化成功丢入一级缓存</span><br><span class="line">5. 接着继续初始化A对象，顺利从一级缓存拿到B初始化对象，A初始化成功丢入到一级缓存，A的实例化对象在二级缓存中删除</span><br><span class="line"></span><br><span class="line">这里通过类的实例化和初始化松耦合实现循环依赖，如果依赖注入都写在构造方法是不生效的，因为构造方法里面是一个不可拆分的实例化和初始化的步骤</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><p><img src="https://note.youdao.com/yws/api/personal/file/0ACEE7D780CF4A469F50DB20F12386A4?method=download&shareKey=87365ee134c4a62b8e7c248fa8a68432" alt="img"></p>
+<h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><blockquote>
+<p>以application为中心提供自动配置(约定大于配置)<br>官方文档：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/</a><br>feature: 1. 远离繁琐配置(约定大于配置) 2. 避免maven版本冲突，对版本统一管理 3. 开箱即用，快速开发</p>
+</blockquote>
+<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-MYQ-meSUcr-wZhfUbGq3Q">https://mp.weixin.qq.com/s/-MYQ-meSUcr-wZhfUbGq3Q</a></p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/F05D312070B14972A7F356CF19E05563?method=download&shareKey=e2528ee2f7a86350ce22468f88f2b911"></p>
+<h2 id="核心注解"><a href="#核心注解" class="headerlink" title="核心注解"></a>核心注解</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NqG7GzsPhwI76h3nujTCgQ">https://mp.weixin.qq.com/s/NqG7GzsPhwI76h3nujTCgQ</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@EnableAutoConfiguration：</span><br><span class="line">从 ClassPath下扫描所有的 META-INF/spring.factories 配置文件，并将spring.factories文件中的</span><br><span class="line"> EnableAutoConfiguration对应的配置项通过反射机制实例化为对应标注了</span><br><span class="line">  @Configuration 的形式的IoC配置类，然后注入IoC容器</span><br><span class="line"></span><br><span class="line">@ComponentScan：</span><br><span class="line">将一些标注了特定注解(@Component,@Service等)的bean定义批量采集注册到Spring的IoC容器之中（组件扫描）</span><br><span class="line">.basePackages细粒度控制范围</span><br><span class="line">@ComponentScan(basePackages = &#123;&quot;cn.zzz.controller&quot;,&quot;cn.zzz.entity&quot;&#125;)</span><br><span class="line"></span><br><span class="line">@SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="如何自定义starter"><a href="#如何自定义starter" class="headerlink" title="如何自定义starter"></a>如何自定义starter</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">starter就是一个符合springboot标准的module jar包</span><br><span class="line"></span><br><span class="line">基于springboot的约定大于配置的原则，通过@EnableAutoConfiguration特性来实现,</span><br><span class="line">(1) 引入spring-boot-autoconfigure maven依赖</span><br><span class="line">(2) 编写@Configuration类并添加待封装的业务类的方法，在方法上添加@Bean，将此类注册到IOC中</span><br><span class="line">(3) 在resource下新建META-INF/spring.factories，添加</span><br><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=编写@Configuration的类路径</span><br><span class="line">(4) 在pom中添加nexus依赖，通过mvn deploy推到远程仓库给其他人使用</span><br><span class="line">(5) 之后就可以在其他springBoot项目,通过@EnableAutoConfiguration自动装配你创建的starter即可使用</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="spring-boot-starter-parent-有什么用"><a href="#spring-boot-starter-parent-有什么用" class="headerlink" title="spring-boot-starter-parent 有什么用"></a>spring-boot-starter-parent 有什么用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">定义了 Java 编译版本为 1.8 。</span><br><span class="line">使用 UTF-8 格式编码。</span><br><span class="line">继承自 spring-boot-dependencies，这个里边定义了依赖的版本，</span><br><span class="line">也正是因为继承了这个依赖，所以我们在写依赖时才不需要写版本号。</span><br><span class="line"></span><br><span class="line">所以开启 Spring Boot 特性有哪几种方式？</span><br><span class="line">1）继承spring-boot-starter-parent项目</span><br><span class="line">2）导入spring-boot-dependencies项目依赖</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring用到的设计模式"><a href="#Spring用到的设计模式" class="headerlink" title="Spring用到的设计模式"></a>Spring用到的设计模式</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ZcKqGT2Sn4wVScExSF9Alg">https://mp.weixin.qq.com/s/ZcKqGT2Sn4wVScExSF9Alg</a></p>
+</blockquote>
+<ol>
+<li><p>代理模式<br>Spring AOP 采用动态代理对类的方法进行切面增强,动态生成目标对象的代理类<br>，并在代理类的方法中设置拦截器，通过执行拦截器中的逻辑增强了代理方法的功能，从而实现 AOP</p>
+</li>
+<li><p>策略模式<br>Spring AOP支持两种动态代理的实现,如AopProxy是策略接口,JdkDynamicAopProxy、CglibAopProxy 是两个实现了 AopProxy 接口的策略类</p>
+</li>
+<li><p>单例模式<br>在Spring默认，一个类在整个系统运行过程中，只允许产生一个实例<br>通过DefaultSingletonBeanRegistry 实现，通过hashmaps实现。<br>HashMap去拿单实例对象，没拿到就创建一个添加到 HashMap</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class DefaultSingletonBeanRegistry &#123;</span><br><span class="line">    </span><br><span class="line">    //使用了线程安全容器ConcurrentHashMap，保存各种单实例对象</span><br><span class="line">    private final Map singletonObjects = new ConcurrentHashMap;</span><br><span class="line"></span><br><span class="line">    protected Object getSingleton(String beanName) &#123;</span><br><span class="line">    //先到HashMap中拿Object</span><br><span class="line">    Object singletonObject = singletonObjects.get(beanName);</span><br><span class="line">    </span><br><span class="line">    //如果没拿到通过反射创建一个对象实例，并添加到HashMap中</span><br><span class="line">    if (singletonObject == null) &#123;</span><br><span class="line">      singletonObjects.put(beanName,</span><br><span class="line">                           Class.forName(beanName).newInstance());</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   //返回对象实例</span><br><span class="line">   return singletonObjects.get(beanName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>工厂模式<br>Spring 通过BeanFactory创建管理bean对象</p>
+</li>
+<li><p>观察者模式<br>ApplicationListener<br>ApplicationEvent<br>this.applicationContext.publishEvent</p>
+</li>
+</ol>
+<h1 id="Reactive-programming"><a href="#Reactive-programming" class="headerlink" title="Reactive programming"></a>Reactive programming</h1><blockquote>
+<p>响应式编程是一种基于数据流和变化传递的声明式编程范式</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">变化传递：可以理解为一个excel表格，如一列依赖与其他列的数值和计算公式，</span><br><span class="line">如果被依赖的列数值变化，那么此列的结果也会相应变化</span><br><span class="line">(生产者只负责生成并发出数据/事件，消费者来监听并负责定义如何处理数据/事件的变化传递方式)</span><br><span class="line"></span><br><span class="line">数据流：可以理解为记账的时间抽，你的具体消费记录等一串信息，为数据流</span><br><span class="line">声明式：提前声明数据流将会如何处理</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">feature如下：</span><br><span class="line"></span><br><span class="line">我们从底层数据库驱动，经过持久层、服务层、MVC 层中的 model， 到用户的前端界面的元素,</span><br><span class="line">全部都采用声明式的编程范式，从而搭建一条能够传递变化的管道,</span><br><span class="line">这样我们只要更新一下数据库中的数据，用户的界面上就相应的发生变化,</span><br><span class="line">一处发生变化，我们不需要各种命令式的调用来传递这种变化，而是由搭建 好的“流水线”自动传递</span><br><span class="line"></span><br><span class="line">比如一个日志监控系统，我们的前端页面将不再需要通过“命令式”的轮 询的方式不断向服务器</span><br><span class="line">请求数据然后进行更新，而是在建立好通道之后，数据流从系统源 </span><br><span class="line">源不断流向页面，从而展现实时的指标变化曲线；再比如一个社交平台，</span><br><span class="line">朋友的动态、点赞和留言不是手动刷出来的，而是当后台数据变化的时候自动体现到界面上的</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Reactive-Stream"><a href="#Reactive-Stream" class="headerlink" title="Reactive Stream"></a>Reactive Stream</h2><blockquote>
+<p>异步非阻塞 和 流量控制 能力的数据流</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">webApp 具有I/O密集型的特点，I/O的阻塞会造成较大的性能损耗,阻塞是性能杀手。</span><br><span class="line">相比于Java Stream,属于一种同步API且不具备数据流的流量控制能力，</span><br><span class="line">所以需要异步非阻塞的API就需要用Reactive Stream来进行性能上的提高。</span><br><span class="line">市面上比较流行的有基于Reactor的webflux,RxJava,Vertx</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如何理解异步与非阻塞？</span><br><span class="line"></span><br><span class="line">阻塞和非阻塞反映的是调用者的状态：</span><br><span class="line">当调用者调用了服务提供者的方法后，如果一直在等待结果返回，否则无法执行后续的操作，</span><br><span class="line">那就是阻塞状态；如果调用之后直接返回， 从而可以继续执行后续的操作，那可以理解为非阻塞的</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">同步和异步反映的是服务提供者的能力：</span><br><span class="line">当调用者调用了服务提供者的方法后，如果服务提供者能够立马返回，并在处理完成后通过某种方式通知到调用者，</span><br><span class="line">那可以理解为异步的；否则，如果只是在处理完成后才返回，或者需要调用者再去主动查询处理是否完成，就可以</span><br><span class="line">理解为是同步的</span><br><span class="line"></span><br><span class="line">https://github.com/zljin/surge/blob/master/src/main/java/com/zou/corejava/webflux1/PSVM.java</span><br></pre></td></tr></table></figure>
+
+<h1 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://spring.io/projects/spring-cloud">https://spring.io/projects/spring-cloud</a></p>
+</blockquote>
+<p>整体架构和主要项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Spring Cloud Config(分布式配置):将配置集中化</span><br><span class="line">Spring Cloud Bus(消息总线):动态刷新集群中的服务配置</span><br><span class="line">Spring Cloud Eureka(服务发现与注册)</span><br><span class="line"></span><br><span class="line">alibaba将上面3个加起来封装成Nacos使用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Spring Cloud openFeign(服务间调用)</span><br><span class="line">Spring Cloud Hystrix(熔断器)/sentinel：解决服务间调用宕机的兜底，保证主链路的最小成功</span><br><span class="line"></span><br><span class="line">降级：服务提供方出问题的备选兜底方案</span><br><span class="line">熔断：带有条件的服务的降级，当满足XX条件后，服务端没有出现问题也会降级，过段时间后尝试恢复，限流就是熔断的一种</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Spring Cloud Gateway(服务网关)/Zuul</span><br><span class="line"></span><br><span class="line">Seata(分布式事务)</span><br></pre></td></tr></table></figure>
+
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/05/sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/05/sql/" itemprop="url">sql</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-05T19:00:45+08:00">
+                2022-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>关系型数据库</p>
+</blockquote>
+<h2 id="sql引擎解析顺序"><a href="#sql引擎解析顺序" class="headerlink" title="sql引擎解析顺序"></a>sql引擎解析顺序</h2><blockquote>
+<p>建议写sql的时候也遵循这个思路去写</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB03bfd5ded39d2d70a2fff731150d7430?method=download&shareKey=994056bb5d88d3fec98f15950079cf13"></p>
+<h2 id="题库"><a href="#题库" class="headerlink" title="题库"></a>题库</h2><blockquote>
+<p>(sql练习题)[<a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_36695217/article/details/79790813]">https://blog.csdn.net/baidu_36695217/article/details/79790813]</a> </p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-- 20、统计列各科成绩,各分数段人数:课程ID,课程名称,[100-85],[85-70],[70-60],[ &lt;60]</span><br><span class="line">select c.cno,c.cname,</span><br><span class="line">sum(case when sc.score BETWEEN 85 and 100 then 1 else 0 end ) as &#x27;[100-85]&#x27;,</span><br><span class="line">sum(case when sc.score BETWEEN 70 and 85 then 1 else 0 end ) as &#x27;[85-70]&#x27;,</span><br><span class="line">sum(case when sc.score BETWEEN 60 and 70 then 1 else 0 end ) as &#x27;[70-60]&#x27;,</span><br><span class="line">sum(case when sc.score BETWEEN 0 and 60 then 1 else 0 end ) as &#x27;[60-0]&#x27;</span><br><span class="line">from sc </span><br><span class="line">inner join course c on sc.cno = c.cno</span><br><span class="line">GROUP BY c.cno,c.cname</span><br><span class="line"></span><br><span class="line">-- 2. 查询平均成绩大于60 分的同学的学号和平均成绩</span><br><span class="line">select sno,avg(score) from sc group by sno having avg(score)&gt;60;</span><br><span class="line"></span><br><span class="line">-- 1、查询“c001”课程比“c002”课程成绩高的所有学生的学号</span><br><span class="line"></span><br><span class="line">select a.sno</span><br><span class="line">from </span><br><span class="line">(select sno,score from sc where cno = &#x27;c001&#x27;) a</span><br><span class="line">inner join </span><br><span class="line">(select sno,score from sc where cno = &#x27;c002&#x27;) b</span><br><span class="line">on a.sno = b.sno and a.score&gt;b.score</span><br><span class="line"></span><br><span class="line">select a.sno</span><br><span class="line">from sc a where a.cno = &#x27;c001&#x27;</span><br><span class="line">and exists(select * from sc b </span><br><span class="line">where b.cno = &#x27;c002&#x27;  and a.score&gt;b.score and a.sno = b.sno )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">1. drop truncate delete区别</span><br><span class="line"></span><br><span class="line">drop table 直接将表空间删除 (删除表结构和数据)</span><br><span class="line">truncate table 清空表并将索引所占的空间恢复初始大小,不可在事务日志中回滚 (只删除数据)</span><br><span class="line">delete 不会减少索引的占用空间,且可被触发器触发,每执行一次都会写到undo log中,可被事务回滚, (只删除数据)</span><br><span class="line"></span><br><span class="line">2. exists 和 in (https://www.jianshu.com/p/f212527d76ff)</span><br><span class="line">select * from A where id in (select id from B); -- in是在内存里遍历比较</span><br><span class="line">select * from A where exists (select 1 from B where A.id=B.id); -- exists需要查询数据库</span><br><span class="line"></span><br><span class="line">in 相当于两个for循环,对内存需求高,适合外表大而内表小</span><br><span class="line">List resultSet=&#123;&#125;;</span><br><span class="line">Array A=(select * from A);</span><br><span class="line">Array B=(select id from B);</span><br><span class="line"></span><br><span class="line">for(int i=0;i&lt;A.length;i++) &#123;</span><br><span class="line">  for(int j=0;j&lt;B.length;j++) &#123;</span><br><span class="line">      if(A[i].id==B[j].id) &#123;</span><br><span class="line">        resultSet.add(A[i]);</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">return resultSet;</span><br><span class="line"></span><br><span class="line">exsitst 一个for循环,但有io查询影响性能,适合内表大,外包小,且in查询一般不走索引</span><br><span class="line"></span><br><span class="line">List resultSet=&#123;&#125;;</span><br><span class="line">Array A=(select * from A);</span><br><span class="line">for(int i=0;i&lt;A.length;i++) &#123;</span><br><span class="line">   if(exists(A[i].id) &#123;  //执行select 1 from B where B.id=A.id是否有记录返回</span><br><span class="line">       resultSet.add(A[i]);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">return resultSet;</span><br><span class="line">      </span><br><span class="line">3. count(1)、count(*)与count(列名)的区别</span><br><span class="line">执行效果上：</span><br><span class="line">count(*)包括了所有的列，相当于行数，sql会自动会优化指定到那一个字段</span><br><span class="line">count(1)包括了忽略所有列，用1代表代码行</span><br><span class="line">count(列名)只包括列名那一列，统计时，NULL不统计。</span><br><span class="line"></span><br><span class="line">执行效率上：</span><br><span class="line">列名为主键，count(列名)会比count(1)快</span><br><span class="line">列名不为主键，count(1)会比count(列名)快</span><br><span class="line">表多列并无主键，则 count（1）的执行效率优于 count（*）</span><br></pre></td></tr></table></figure>
+
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="数据脚本"><a href="#数据脚本" class="headerlink" title="数据脚本"></a>数据脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"># 插入脚本</span><br><span class="line">CREATE TABLE `course` (</span><br><span class="line">  `cno` varchar(255) NOT NULL,</span><br><span class="line">  `cname` varchar(255) DEFAULT NULL,</span><br><span class="line">  `tno` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`cno`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `sc` (</span><br><span class="line">  `sno` varchar(255) DEFAULT NULL,</span><br><span class="line">  `cno` varchar(255) DEFAULT NULL,</span><br><span class="line">  `score` varchar(255) DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `student` (</span><br><span class="line">  `sno` varchar(255) NOT NULL,</span><br><span class="line">  `sname` varchar(255) DEFAULT NULL,</span><br><span class="line">  `sage` varchar(255) DEFAULT NULL,</span><br><span class="line">  `ssex` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`sno`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">  `tno` varchar(255) NOT NULL,</span><br><span class="line">  `tname` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`tno`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">insert into sc values (&#x27;s001&#x27;,&#x27;c001&#x27;,78.9);</span><br><span class="line">insert into sc values (&#x27;s002&#x27;,&#x27;c001&#x27;,80.9);</span><br><span class="line">insert into sc values (&#x27;s003&#x27;,&#x27;c001&#x27;,81.9);</span><br><span class="line">insert into sc values (&#x27;s004&#x27;,&#x27;c001&#x27;,60.9);</span><br><span class="line">insert into sc values (&#x27;s001&#x27;,&#x27;c002&#x27;,82.9);</span><br><span class="line">insert into sc values (&#x27;s002&#x27;,&#x27;c002&#x27;,72.9);</span><br><span class="line">insert into sc values (&#x27;s003&#x27;,&#x27;c002&#x27;,81.9);</span><br><span class="line">insert into sc values (&#x27;s001&#x27;,&#x27;c003&#x27;,59);</span><br><span class="line">insert into course values (&#x27;c001&#x27;,&#x27;J2SE&#x27;,&#x27;t002&#x27;);</span><br><span class="line">insert into course values (&#x27;c002&#x27;,&#x27; Java  Web&#x27;,&#x27;t002&#x27;);</span><br><span class="line">insert into course values (&#x27;c003&#x27;,&#x27;SSH&#x27;,&#x27;t001&#x27;);</span><br><span class="line">insert into course values (&#x27;c004&#x27;,&#x27; Oracle &#x27;,&#x27;t001&#x27;);</span><br><span class="line">insert into course values (&#x27;c005&#x27;,&#x27;SQL SERVER 2005&#x27;,&#x27;t003&#x27;);</span><br><span class="line">insert into course values (&#x27;c006&#x27;,&#x27;C#&#x27;,&#x27;t003&#x27;);</span><br><span class="line">insert into course values (&#x27;c007&#x27;,&#x27; JavaScript &#x27;,&#x27;t002&#x27;);</span><br><span class="line">insert into course values (&#x27;c008&#x27;,&#x27;DIV+ CSS &#x27;,&#x27;t001&#x27;);</span><br><span class="line">insert into course values (&#x27;c009&#x27;,&#x27; PHP &#x27;,&#x27;t003&#x27;);</span><br><span class="line">insert into course values (&#x27;c010&#x27;,&#x27;EJB3.0&#x27;,&#x27;t002&#x27;);</span><br><span class="line">insert into teacher values (&#x27;t001&#x27;, &#x27;刘阳&#x27;);</span><br><span class="line">insert into teacher values (&#x27;t002&#x27;, &#x27;谌燕&#x27;);</span><br><span class="line">insert into teacher values (&#x27;t003&#x27;, &#x27;胡明星&#x27;);</span><br><span class="line">insert into student values (&#x27;s001&#x27;,&#x27;张三&#x27;,23,&#x27;男&#x27;);</span><br><span class="line">insert into student values (&#x27;s002&#x27;,&#x27;李四&#x27;,23,&#x27;男&#x27;);</span><br><span class="line">insert into student values (&#x27;s003&#x27;,&#x27;吴鹏&#x27;,25,&#x27;男&#x27;);</span><br><span class="line">insert into student values (&#x27;s004&#x27;,&#x27;琴沁&#x27;,20,&#x27;女&#x27;);</span><br><span class="line">insert into student values (&#x27;s005&#x27;,&#x27;王丽&#x27;,20,&#x27;女&#x27;);</span><br><span class="line">insert into student values (&#x27;s006&#x27;,&#x27;李波&#x27;,21,&#x27;男&#x27;);</span><br><span class="line">insert into student values (&#x27;s007&#x27;,&#x27;刘玉&#x27;,21,&#x27;男&#x27;);</span><br><span class="line">insert into student values (&#x27;s008&#x27;,&#x27;萧蓉&#x27;,21,&#x27;女&#x27;);</span><br><span class="line">insert into student values (&#x27;s009&#x27;,&#x27;陈萧晓&#x27;,23,&#x27;女&#x27;);</span><br><span class="line">insert into student values (&#x27;s010&#x27;,&#x27;陈美&#x27;,22,&#x27;女&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"># DML:数据操作语句</span><br><span class="line">INSERT INTO mytable(col1, col2) VALUES(val1, val2);</span><br><span class="line">INSERT INTO mytable1(col1, col2) SELECT col1, col2 FROM mytable2;</span><br><span class="line">CREATE TABLE newtable AS SELECT * FROM mytable;</span><br><span class="line">	</span><br><span class="line">UPDATE mytable SET col = val,col2=val WHERE id = 1;</span><br><span class="line"></span><br><span class="line">truncate TABLE mytable; #以清空表，也就是删除所有行</span><br><span class="line"></span><br><span class="line"># DQL:数据查询语句</span><br><span class="line">SELECT DISTINCT col1, col2 </span><br><span class="line">   FROM mytable  </span><br><span class="line">   WHERE col LIKE &#x27;AB%&#x27; </span><br><span class="line">   ORDER BY col1 DESC, col2 ASC </span><br><span class="line">   LIMIT a, b;# 返回int (a+1) ~ (a+b)行</span><br><span class="line"></span><br><span class="line"># GROUP BY</span><br><span class="line"># (除汇总字段外)select的每个字段都需在group by中给出</span><br><span class="line"># NULL 的行会单独分为一组,GROUP BY不支持可变长度的数据类型</span><br><span class="line"></span><br><span class="line">SELECT col, COUNT(1) AS num </span><br><span class="line">FROM mytable </span><br><span class="line">WHERE col &gt; 2 </span><br><span class="line">GROUP BY col HAVING num &gt;= 2 </span><br><span class="line">ORDER BY num desc;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 时间函数</span><br><span class="line">select now();</span><br><span class="line">## 最后一栏可填SECONDS,MINUTES HOURS DAYS</span><br><span class="line">DATE_SUB(date,INTERVAL &#x27;1:30&#x27; MINUTE_SECOND)  #表示减掉1分30秒</span><br><span class="line">DATE_ADD(date,INTERVAL 60 SECOND)  #表示加上60秒</span><br><span class="line"></span><br><span class="line"># 条件函数</span><br><span class="line">SELECT IF(1 &gt; 0,&#x27;正确&#x27;,&#x27;错误&#x27;)---&gt;正确</span><br><span class="line"></span><br><span class="line">SELECT CASE </span><br><span class="line">            　　WHEN 1 &gt; 0</span><br><span class="line">            　　THEN &#x27;1 &gt; 0&#x27;</span><br><span class="line">            　　WHEN 2 &gt; 0</span><br><span class="line">            　　THEN &#x27;2 &gt; 0&#x27;</span><br><span class="line">            　　ELSE &#x27;3 &gt; 0&#x27;</span><br><span class="line">            　　END   ---&gt;1 &gt; 0</span><br><span class="line"># 字符串函数</span><br><span class="line">CONCAT(s1,s2,......)合并字符串函数</span><br><span class="line">GROUP_CONCAT()，将部分字符按照分组链接起来</span><br><span class="line">TRIM(S)  清除空格</span><br><span class="line">SYBSTRING(S,N,LEN),截取字符串函数</span><br><span class="line"></span><br><span class="line"># exists() --&gt; return Boolean</span><br><span class="line">将外查询表的每一行，代入exists内查询作为检验,若存在则展示结果</span><br><span class="line">在子查询中使用 NULL 仍然返回结果集</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 内连接:等值连接,无条件语句下返回笛卡尔积</span><br><span class="line">select * from t1 inner join t2 on t1.C=t2.C;</span><br><span class="line">	+---+---+---+---+---+---+</span><br><span class="line">	| A | B | C | C | D | E |</span><br><span class="line">	+---+---+---+---+---+---+</span><br><span class="line">	| 1 | 2 | 3 | 3 | 4 | 5 |</span><br><span class="line">	+---+---+---+---+---+---+</span><br><span class="line">	</span><br><span class="line">## 外连接:返回左边所有的记录和右表中连接字段相等的记录</span><br><span class="line">select t1.A,t1.B,t1.C,t2.D,t2.E from t1 left join t2 on t1.C=t2.C;</span><br><span class="line">	+---+---+---+------+------+</span><br><span class="line">	| A | B | C | D    | E    |</span><br><span class="line">	+---+---+---+------+------+</span><br><span class="line">	| 1 | 2 | 3 |    4 |    5 |</span><br><span class="line">	| 5 | 6 | 7 | NULL | NULL |</span><br><span class="line">	+---+---+---+------+------+</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="sql调优"><a href="#sql调优" class="headerlink" title="sql调优"></a>sql调优</h2><ol>
+<li>常用命令</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">top mysqld</span><br><span class="line">show processlist 查看用户session情况,看是单个sql消耗资源过多,还是session连接变多导致的</span><br><span class="line">慢日志查询</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>explain</li>
+</ol>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB923fd38606b0009e6f29281672d2132f?method=download&shareKey=8317adf3d9622326ff0303287fdc7bfb"></p>
+<ol start="3">
+<li>sql性能优化</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a. 避免select * ,因为现代的数据库或者数据文件是以列的形式进行数据存储，每多个数据列，就会多扫描一些数据文件，</span><br><span class="line">减少IO和缓存占用比如阿里云按量付费查询，就有巨大的差距</span><br><span class="line">b. 添加分区，避免全局扫描</span><br><span class="line">c. 先子查询过滤后再进行关联</span><br><span class="line">d. where条件 中 转换函数用在静态数据上，主要是避免每一条数据做类型转换</span><br><span class="line">e. 多join,少用exists和in, 如果实在要用in查询,建一张临时表，先将list_id插入到临时表中，最好也建上索引，然后再关联查询即可</span><br><span class="line">f. 认识到什么是增量表和快照表</span><br><span class="line">g. 减少无用的排序</span><br><span class="line">h. 关联查询需要明细关联粒度，非必要不要使用笛卡尔积</span><br><span class="line">i. 查询时，where条件千万别漏</span><br><span class="line">j. 避免在客户端查看大量数据，应该将查询的大量数据存储在临时表和暂存文件中，主要可以减少带宽</span><br><span class="line">k. 从业务的理解去思考优化业务</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>索引使用准则</li>
+</ol>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBf5d5ff545df9972d364ac5d4da8bc222?method=download&shareKey=1f372f9879111bc6d35e7f839664030b"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/07/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/07/git/" itemprop="url">git</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-07T12:00:45+08:00">
+                2021-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  302 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>Git是一个分布式版本控制工具,Github是通过Git进行版本控制的软件源代码托管服务平台<br><img src="https://cdn.jsdelivr.net/gh/CL0610/codercc-cdn@1.8/img/git/git%E6%93%8D%E4%BD%9C%E9%80%9A%E7%94%A8%E6%B5%81%E7%A8%8B.png" alt="image"></p>
+</blockquote>
+<h2 id="cheat-sheet"><a href="#cheat-sheet" class="headerlink" title="cheat sheet"></a>cheat sheet</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">git help [command]</span><br><span class="line"></span><br><span class="line">git config --global -l</span><br><span class="line">git config --global user.name &quot;&quot;</span><br><span class="line"></span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &#x27;&#x27;</span><br><span class="line">git remote add origin https://github.com/zljin/demo_boot.git</span><br><span class="line">git remote set-url origin https://github.com/zljin/demo_boot.git</span><br><span class="line">git remote -v</span><br><span class="line">git push -u origin master -f</span><br><span class="line">git clone https://github.com/zljin/demo_boot.git</span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">## Branch &amp; Merge</span><br><span class="line"></span><br><span class="line">git checkout -b newbranch</span><br><span class="line">git branch</span><br><span class="line">git merge &lt;your_branch&gt;</span><br><span class="line">git rebase &lt;your_branch&gt;</span><br><span class="line"></span><br><span class="line"># move HEAD</span><br><span class="line">git branch -f &lt;your_branch&gt; HEAD~3</span><br><span class="line">git checkout &lt;your_branch&gt;^</span><br><span class="line">git rebase -i HEAD~4</span><br><span class="line"></span><br><span class="line">## Combile multiple commit</span><br><span class="line"></span><br><span class="line">git cherry-pick [commitId of another branch]</span><br><span class="line">git cherry-pick --no-commit commit-id-1</span><br><span class="line">git cherry-pick --no-commit commit-id-2</span><br><span class="line">git cherry-pick --no-commit commit-id-3</span><br><span class="line"></span><br><span class="line">git commit -m &#x27;change title&#x27;</span><br><span class="line"></span><br><span class="line">git log</span><br><span class="line"></span><br><span class="line">## Revert commit</span><br><span class="line"></span><br><span class="line">git revert [target commit-id]</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">git revert --no-commit [commit-id]</span><br><span class="line">git commit -m &#x27;chage title</span><br><span class="line"></span><br><span class="line">## Delete local repo commit</span><br><span class="line"></span><br><span class="line">git reset --hard [target commitId]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## Stash</span><br><span class="line">git stash save &quot;willbacktag&quot;</span><br><span class="line">git stash list</span><br><span class="line">git stash pop</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ssh connect github</span><br><span class="line">ssh-keygen -t rsa -C &#x27;464480515@qq.com&#x27;</span><br><span class="line">copy C:\Users\lenovo\.ssh\id_rsa.pub to github --&gt; setting --&gt; ssh config item</span><br><span class="line">ssh -t git@github.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Strategy-of-branch-management"><a href="#Strategy-of-branch-management" class="headerlink" title="Strategy of branch management"></a>Strategy of branch management</h2><p>we have master,pre,test branch in company for example</p>
+<ol>
+<li>checkout master_hotfix branch from master</li>
+<li>merge master_hotfix to test branch and test pass</li>
+<li>merge master_hotfix to pre branch and test pass</li>
+<li>checkout master_release branch from master and then master_hotfix merge to it</li>
+<li>release master_release branch,and finally merge back to master</li>
+</ol>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a target="_blank" rel="noopener" href="https://learngitbranching.js.org/?locale=zh_CN">https://learngitbranching.js.org/?locale=zh_CN</a></p>
+<p><a target="_blank" rel="noopener" href="https://education.github.com/git-cheat-sheet-education.pdf">https://education.github.com/git-cheat-sheet-education.pdf</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/07/docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/03/07/docker/" itemprop="url">Docker</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-07T12:00:45+08:00">
+                2021-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/devops/" itemprop="url" rel="index">
+                    <span itemprop="name">devops</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>docker是容器引擎,将虚拟机的os抽离出来的一种抽象<br>docker的优点有：轻量，一致，易扩展迁移部署迭代<br>docker可以看成游轮(服务器)上的集装箱(容器),容器是由一个应用程序和其依赖的应用环境(操作系统)打成一个包</p>
+</blockquote>
+<h2 id="安装与启动命令"><a href="#安装与启动命令" class="headerlink" title="安装与启动命令"></a>安装与启动命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">### 安装</span><br><span class="line">yum install -y docker # centos安装</span><br><span class="line">vi /etc/docker/daemon.json ## 国内镜像加速配置</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot; : [&quot;https://docker.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">&#125;</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker.service</span><br><span class="line">docker version # 严重安装是否成功</span><br><span class="line"></span><br><span class="line">### 启动</span><br><span class="line">service docker start //启动docker后台服务</span><br><span class="line">systemctl enable docker //开机自动启动</span><br><span class="line">systemctl start/restart/stop/status docker</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">docker info # 概要信息</span><br><span class="line">docker -h # 命令手册</span><br><span class="line">## 镜像操作，可看成容器的类</span><br><span class="line">docker images</span><br><span class="line">docker search 镜像名称 #搜索镜像</span><br><span class="line">docker pull ** # 拉取镜像</span><br><span class="line">docker rmi 镜像ID</span><br><span class="line"></span><br><span class="line">## 容器操作</span><br><span class="line"></span><br><span class="line">### 查看容器</span><br><span class="line">docker ps -a</span><br><span class="line">### 通过拉去镜像创建容器</span><br><span class="line">1. 拉取镜像</span><br><span class="line">docker pull tomcat:7-jre7</span><br><span class="line">2. 创建容器</span><br><span class="line">-p :表示地址映射调用 宿主9001端口:容器端口8080</span><br><span class="line">-v :目录映射 宿主文件:容器的文件</span><br><span class="line">-i :以交互模式运行容器</span><br><span class="line">-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用</span><br><span class="line">-d :后台运行容器，并返回容器ID</span><br><span class="line">--privileged=true 解决挂载的目录无权限问题</span><br><span class="line"></span><br><span class="line">docker run -di --name=Mytomcat \</span><br><span class="line">-p 9001:8080  \</span><br><span class="line">-v /usr/local/webapps:/usr/local/tomcat/webapps tomcat:7-jre7</span><br><span class="line"></span><br><span class="line">3. 进入容器和退出</span><br><span class="line">docker exec -it 容器ID /bin/bash </span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">3.1 进入未启动成功的镜像</span><br><span class="line">docker run -it --entrypoint sh imageName:tag</span><br><span class="line"></span><br><span class="line">4. 文件拷贝</span><br><span class="line">docker cp 容器名称:容器目录/文件 本地文件名字</span><br><span class="line">docker cp tensquare_elasticsearch:/usr/share/elasticsearch/config/elasticsearch.yml  /usr/share/elasticsearch.yml</span><br><span class="line"></span><br><span class="line">### 其他</span><br><span class="line">docker stop/start/rm 容器名称(或容器ID)</span><br><span class="line">docker logs 容器名称(或容器ID)</span><br><span class="line">docker inspect 容器名称(或容器ID) ## 容器所有信息 --format=&#x27;&#123;&#123;.NetworkSettings.IPAddress&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h2><blockquote>
+<p>由一系列命令和参数构成的脚本，这些命令应用于基础镜像并最终创建一个新的镜像<br>基础镜像：如Centos就是操作系统级别的镜像，如果要创建一个镜像那么这个镜像本身是要代操作系统的</p>
+</blockquote>
+<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FROM image_ name:tag</td>
+<td>定义了使用哪个基础镜像启动构建流程</td>
+</tr>
+<tr>
+<td>MAINTAINER user_ name</td>
+<td>声明镜像的创建者</td>
+</tr>
+<tr>
+<td>ENV key value</td>
+<td>设置环境变量(可以写多条)</td>
+</tr>
+<tr>
+<td>RUN command</td>
+<td>是Dockerfile的核心部分(可以写多条)</td>
+</tr>
+<tr>
+<td>ADD source_dir&#x2F;file dest_ dir&#x2F;file</td>
+<td>将宿主机的文件复制到容器内，如果是一个压缩文件， 将会在复制后自动解压</td>
+</tr>
+<tr>
+<td>copy source_dir&#x2F;file dest_ dir&#x2F;file</td>
+<td>与上面相同，只是不解压</td>
+</tr>
+<tr>
+<td>WORKDIR path_ _dir</td>
+<td>设置工作目录</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 以DockerFile来构建一个jdk镜像为例</span><br><span class="line">mkdir -p /usr/local/dockerjdk8  # 创建一个目录</span><br><span class="line">cp softwares/jdk-8u201-linux-x64.tar.gz /usr/local/dockerjdk8/  # 将压缩包放入</span><br><span class="line">vi Dockerfile  # 3.编写dockerfile脚本,名字固定</span><br><span class="line"></span><br><span class="line">### 脚本内容</span><br><span class="line">FROM centos:7 --为基础镜像,此镜像必须存在否则会自行下载</span><br><span class="line">MAINTAINER leonard --指定镜像的创建者信息</span><br><span class="line">WORKDIR /usr  </span><br><span class="line">RUN mkdir /usr/local/java</span><br><span class="line">ADD jdk-8u201-linux-x64.tar.gz /usr/local/java</span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME /usr/loca1/java/jdk1.8.0_201  --配置环境变量</span><br><span class="line">ENV JRE_HOME $JAVA_HOME/jre</span><br><span class="line">ENV CLASSPATH $JAVA_HOME/bin/dt.jar:$JAVA_HOME/1ib/tools.jar:$JRE_HOME/1ib:$CLASSPATH</span><br><span class="line">ENV PATH $JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">### 输入命令,开始构建 </span><br><span class="line">docker build -t=&#x27;jdk1.8&#x27; .  # 在当前目录下寻找脚本执行</span><br><span class="line">docker images   # 查看结果 </span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-私服"><a href="#docker-私服" class="headerlink" title="docker 私服"></a>docker 私服</h3><blockquote>
+<p>公有仓库是那种通用性的仓库,私有仓库是公司开发的企业级应用,为了在一个局域网共享这个镜像</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">1.docker pull registry --拉取私有仓库镜像</span><br><span class="line">2.docker run -di --name=registry -p 5000:5000 registry   --启动私有仓库</span><br><span class="line">3.curl http://192.168.2.6:5000/v2/_calalog  ---&gt;  &#123;&quot;repostories:[]&quot;&#125; -- 私仓创建成功</span><br><span class="line"></span><br><span class="line">## 下面将镜像上传至私有仓库</span><br><span class="line">1. 修改daemon.json</span><br><span class="line">vi /etc/docker/daemon.json</span><br><span class="line">添加以下内容退出,目的是:让docker容器信任私有仓库的地址</span><br><span class="line">&#123;&quot;insecure-registries&quot;:[&quot;192.168.2.6:5000&quot;]&#125;</span><br><span class="line"></span><br><span class="line">systemctl restart docker</span><br><span class="line">(1)标记此镜像为私有仓库的镜像</span><br><span class="line">docker tag jdk1.8 192.168.2.6:5000/jdk1.8</span><br><span class="line">(2)上传标记的镜像</span><br><span class="line">docker push 192.168.2.6:5000/jdk1.8</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><blockquote>
+<p>docker compose可以通过yml配置定义多个容器同时部署，而DockerFile一次只能部署一次</p>
+</blockquote>
+<p>如docker安装kafka时,需要依赖zk,我们可以用docker compose同时安装即可</p>
+<h3 id="core-concept"><a href="#core-concept" class="headerlink" title="core concept"></a>core concept</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务 (service) ：一个应用的容器，实际上可以包括若干运行相同镜像的容器实例</span><br><span class="line">项目 (project) ：由一组关联的应用容器组成的一个完整业务单元，在 docker-compose.yml 文件中定义</span><br></pre></td></tr></table></figure>
+
+<h3 id="install-docker-compose"><a href="#install-docker-compose" class="headerlink" title="install docker-compose"></a>install docker-compose</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/bin/</span><br><span class="line">wget https://github.com/docker/compose/releases/download/1.14.0-rc2/docker-compose-Linux-x86_64 --no-check-certificate</span><br><span class="line">mv docker-compose-Linux-x86_64 docker-compose</span><br><span class="line">chmod +x /usr/local/bin/docker-compose</span><br><span class="line">docker-compose version</span><br></pre></td></tr></table></figure>
+
+<h3 id="install-zk-kafka-by-docker-compose"><a href="#install-zk-kafka-by-docker-compose" class="headerlink" title="install zk,kafka by docker-compose"></a>install zk,kafka by docker-compose</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">mkdir kafka_zk</span><br><span class="line">cd kafka_zk</span><br><span class="line">vi docker-compose.yml</span><br><span class="line"></span><br><span class="line">version: &#x27;3&#x27;</span><br><span class="line">services:</span><br><span class="line">  zookeeper:</span><br><span class="line">    image: wurstmeister/zookeeper:latest</span><br><span class="line">    container_name: zookeeper</span><br><span class="line">    # always restart</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">      - 2181:2181</span><br><span class="line"></span><br><span class="line">  kafka:</span><br><span class="line">    image: wurstmeister/kafka:latest</span><br><span class="line">    container_name: kafka</span><br><span class="line">    ports:</span><br><span class="line">      - 9092:9092</span><br><span class="line">    # host ip</span><br><span class="line">    environment:</span><br><span class="line">      KAFKA_ADVERTISED_HOST_NAME: kafka</span><br><span class="line">      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181</span><br><span class="line">    # always restart</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - ./docker.sock:/var/run/docker.sock</span><br><span class="line"></span><br><span class="line">wq docker-compose.yml</span><br><span class="line">docker-compose -f docker-compose.yml up</span><br><span class="line">docker-compose -f docker-compose.yml up -d # 后台启动</span><br><span class="line">docker-compose -f docker-compose.yml down</span><br><span class="line">docker-compose up -d</span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose ps</span><br><span class="line">docker-compose h</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/08/linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/01/08/linux/" itemprop="url">linux</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T12:00:45+08:00">
+                2021-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/devops/" itemprop="url" rel="index">
+                    <span itemprop="name">devops</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  571 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="文本文件操作"><a href="#文本文件操作" class="headerlink" title="文本文件操作"></a>文本文件操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cat report-management.log | grep -C 5 &#x27;Keyword&#x27;  # 文本查找</span><br><span class="line">sed -i &#x27;s/APP_NAME/surge/g&#x27; release.yaml  # 文本处理(替换)</span><br><span class="line">awk &#x27;&#123;print $4,$6&#125;&#x27; f.txt # 文本分析 todo learn</span><br><span class="line"></span><br><span class="line">tail -f 100 report-management.log | grep -C 5 &quot;Keyword&quot; # 文件监听</span><br><span class="line">find ~ -iname &quot;*java&quot; # 文件查找</span><br><span class="line">ls -lht # 查看文件大小</span><br><span class="line"></span><br><span class="line"># 文件解压缩</span><br><span class="line">tar zvxf jdk-8u201-linux-x64.tar.gz -C /usr/java/ </span><br><span class="line">tar zvcf file.tar.gz 1.txt 2.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看网络和进程"><a href="#查看网络和进程" class="headerlink" title="查看网络和进程"></a>查看网络和进程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 进程</span><br><span class="line">top -d 2 # 实时显示进程信息 2s一次</span><br><span class="line">top -Hp pid # 查看某个进程的线程信息,找到进程中耗时最大的线程tid</span><br><span class="line">ps -aux | grep java # 查看某个时间点的进程信息</span><br><span class="line">kill -9 pid # 强制杀进程</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 网络</span><br><span class="line">ifconfig               # 查看所有网络接口的属性</span><br><span class="line">iptables -L            # 查看防火墙设置</span><br><span class="line">route -n               # 查看路由表</span><br><span class="line">netstat -lntp          # 查看所有监听端口</span><br><span class="line">netstat -antp          # 查看所有已经建立的连接</span><br><span class="line">netstat -s             # 查看网络统计信息</span><br><span class="line">nslookup www.bilibili.com # check dns</span><br><span class="line">netstat -anp | grep 12471 # 找到pid为12471的端口号</span><br><span class="line">netstat -n | awk &#x27;/^tcp/&#123;++S[$NF]&#125;END&#123;for(a in 5) print a,S[a]&#125;&#x27; # 查看当前连接</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看硬件信息"><a href="#查看硬件信息" class="headerlink" title="查看硬件信息"></a>查看硬件信息</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">free -m # 查看内存使用情况</span><br><span class="line">vi ~/.bashrc source ~/.bashrc  # 当前用户环境变量配置</span><br><span class="line">env # 环境变量</span><br><span class="line">uptime # 查看系统运行时间、用户数、负载</span><br><span class="line">uname -a # 查看内核/操作系统/CPU信息的linux系统信息命令</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看服务，模块和包相关"><a href="#查看服务，模块和包相关" class="headerlink" title="查看服务，模块和包相关"></a>查看服务，模块和包相关</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -l </span><br><span class="line">chkconfig –list | grep on  # 列出所有启动的系统服务程序</span><br><span class="line">rpm -qa # 查看所有安装的软件包</span><br></pre></td></tr></table></figure>
+
+<h2 id="用户和组相关"><a href="#用户和组相关" class="headerlink" title="用户和组相关"></a>用户和组相关</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">w                      # 查看活动用户</span><br><span class="line">id &lt;用户名&gt;            # 查看指定用户信息</span><br><span class="line">last                   # 查看用户登录日志</span><br><span class="line">cut -d: -f1 /etc/passwd   # 查看系统所有用户</span><br><span class="line">cut -d: -f1 /etc/group    # 查看系统所有组</span><br></pre></td></tr></table></figure>
+
+<h2 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp local_file remote_username@remote_host:remote_path</span><br><span class="line">scp remote_username@remote_host:remote_file local_path</span><br></pre></td></tr></table></figure>
+
+<h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl --help</span><br><span class="line">-I # 只返回http status</span><br><span class="line">-x # 代理访问</span><br><span class="line">-X # 指定http method 访问</span><br><span class="line">-k # 跳过证书验证</span><br><span class="line">-v # 打印详细的通信信息</span><br><span class="line">--cacert a.pem # 采用此证书</span><br><span class="line"></span><br><span class="line">curl -x http://127.0.0.1:7890 https://google.com.hk # 代理访问</span><br><span class="line">curl -I -X GET &#x27;https://www.bilibili.com/&#x27;</span><br><span class="line">curl -o a.html https://www.bilibili.com/ # output</span><br></pre></td></tr></table></figure>
+
+<h2 id="springboot-nohup-run"><a href="#springboot-nohup-run" class="headerlink" title="springboot nohup run"></a>springboot nohup run</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -Xms3g -Xmx3g -jar app.jar --spring.config.location=applications.yml &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ftl1012/p/netstat.html">https://www.cnblogs.com/ftl1012/p/netstat.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹龄晋</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">总字数&#58;</span>
+    
+    <span title="总字数">14.9k</span>
+  
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
