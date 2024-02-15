@@ -263,6 +263,197 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_f
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/08/linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://note.youdao.com/yws/api/personal/file/WEB234f9a48b23d3e775396ca8c9a4f4528?method=download&shareKey=3780f3f04c547e0be1f0615ea1570554">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leonard">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/01/08/linux/" itemprop="url">linux</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T12:00:45+08:00">
+                2021-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/devops/" itemprop="url" rel="index">
+                    <span itemprop="name">devops</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  571 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="文本文件操作"><a href="#文本文件操作" class="headerlink" title="文本文件操作"></a>文本文件操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cat report-management.log | grep -C 5 &#x27;Keyword&#x27;  # 文本查找</span><br><span class="line">sed -i &#x27;s/APP_NAME/surge/g&#x27; release.yaml  # 文本处理(替换)</span><br><span class="line">awk &#x27;&#123;print $4,$6&#125;&#x27; f.txt # 文本分析 todo learn</span><br><span class="line"></span><br><span class="line">tail -f 100 report-management.log | grep -C 5 &quot;Keyword&quot; # 文件监听</span><br><span class="line">find ~ -iname &quot;*java&quot; # 文件查找</span><br><span class="line">ls -lht # 查看文件大小</span><br><span class="line"></span><br><span class="line"># 文件解压缩</span><br><span class="line">tar zvxf jdk-8u201-linux-x64.tar.gz -C /usr/java/ </span><br><span class="line">tar zvcf file.tar.gz 1.txt 2.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看网络和进程"><a href="#查看网络和进程" class="headerlink" title="查看网络和进程"></a>查看网络和进程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 进程</span><br><span class="line">top -d 2 # 实时显示进程信息 2s一次</span><br><span class="line">top -Hp pid # 查看某个进程的线程信息,找到进程中耗时最大的线程tid</span><br><span class="line">ps -aux | grep java # 查看某个时间点的进程信息</span><br><span class="line">kill -9 pid # 强制杀进程</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 网络</span><br><span class="line">ifconfig               # 查看所有网络接口的属性</span><br><span class="line">iptables -L            # 查看防火墙设置</span><br><span class="line">route -n               # 查看路由表</span><br><span class="line">netstat -lntp          # 查看所有监听端口</span><br><span class="line">netstat -antp          # 查看所有已经建立的连接</span><br><span class="line">netstat -s             # 查看网络统计信息</span><br><span class="line">nslookup www.bilibili.com # check dns</span><br><span class="line">netstat -anp | grep 12471 # 找到pid为12471的端口号</span><br><span class="line">netstat -n | awk &#x27;/^tcp/&#123;++S[$NF]&#125;END&#123;for(a in 5) print a,S[a]&#125;&#x27; # 查看当前连接</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看硬件信息"><a href="#查看硬件信息" class="headerlink" title="查看硬件信息"></a>查看硬件信息</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">free -m # 查看内存使用情况</span><br><span class="line">vi ~/.bashrc source ~/.bashrc  # 当前用户环境变量配置</span><br><span class="line">env # 环境变量</span><br><span class="line">uptime # 查看系统运行时间、用户数、负载</span><br><span class="line">uname -a # 查看内核/操作系统/CPU信息的linux系统信息命令</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看服务，模块和包相关"><a href="#查看服务，模块和包相关" class="headerlink" title="查看服务，模块和包相关"></a>查看服务，模块和包相关</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -l </span><br><span class="line">chkconfig –list | grep on  # 列出所有启动的系统服务程序</span><br><span class="line">rpm -qa # 查看所有安装的软件包</span><br></pre></td></tr></table></figure>
+
+<h2 id="用户和组相关"><a href="#用户和组相关" class="headerlink" title="用户和组相关"></a>用户和组相关</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">w                      # 查看活动用户</span><br><span class="line">id &lt;用户名&gt;            # 查看指定用户信息</span><br><span class="line">last                   # 查看用户登录日志</span><br><span class="line">cut -d: -f1 /etc/passwd   # 查看系统所有用户</span><br><span class="line">cut -d: -f1 /etc/group    # 查看系统所有组</span><br></pre></td></tr></table></figure>
+
+<h2 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp local_file remote_username@remote_host:remote_path</span><br><span class="line">scp remote_username@remote_host:remote_file local_path</span><br></pre></td></tr></table></figure>
+
+<h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl --help</span><br><span class="line">-I # 只返回http status</span><br><span class="line">-x # 代理访问</span><br><span class="line">-X # 指定http method 访问</span><br><span class="line">-k # 跳过证书验证</span><br><span class="line">-v # 打印详细的通信信息</span><br><span class="line">--cacert a.pem # 采用此证书</span><br><span class="line"></span><br><span class="line">curl -x http://127.0.0.1:7890 https://google.com.hk # 代理访问</span><br><span class="line">curl -I -X GET &#x27;https://www.bilibili.com/&#x27;</span><br><span class="line">curl -o a.html https://www.bilibili.com/ # output</span><br></pre></td></tr></table></figure>
+
+<h2 id="springboot-nohup-run"><a href="#springboot-nohup-run" class="headerlink" title="springboot nohup run"></a>springboot nohup run</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -Xms3g -Xmx3g -jar app.jar --spring.config.location=applications.yml &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ftl1012/p/netstat.html">https://www.cnblogs.com/ftl1012/p/netstat.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/08/link/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -857,7 +1048,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_f
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -868,7 +1059,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_f
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -879,7 +1070,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_f
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -930,7 +1121,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_f
     
       <span class="post-meta-item-text">总字数&#58;</span>
     
-    <span title="总字数">14.9k</span>
+    <span title="总字数">18.6k</span>
   
 </div>
 
