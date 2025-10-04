@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>你的好运即将来临 - 一切都是最好的安排</title><meta name="author" content="Leonard Zou"><meta name="copyright" content="Leonard Zou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="知行合一">
+<meta property="og:type" content="website">
+<meta property="og:title" content="你的好运即将来临">
+<meta property="og:url" content="https://zljin.github.io/index.html">
+<meta property="og:site_name" content="你的好运即将来临">
+<meta property="og:description" content="知行合一">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png">
+<meta property="article:author" content="Leonard Zou">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "你的好运即将来临",
+  "alternateName": [
+    "一切都是最好的安排",
+    "zljin.github.io"
+  ],
+  "url": "https://zljin.github.io/"
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zljin.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Leonard Zou","link":"Link: ","source":"Source: 你的好运即将来临","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '你的好运即将来临',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/zljin/document/img/background/meitu2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">你的好运即将来临</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/zljin" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/464480515@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/03/02/py01/" title="python virtual">python virtual</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-03-02T02:15:45.000Z" title="Created 2025-03-02 10:15:45">2025-03-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/python/">python</a></span></div><div class="content">虚拟开发环境工具链迁移  Maven&#x2F;Gradle → pip + requirements.txt JUnit → pytest IDEA → PyCharm&#x2F;VSCode配置   vitualenv 保证每个python项目 依赖版本的独立性  1234567891011121314151617181920212223# 1. install virtualenv tool by pippip install virtualenv# 2. create virtualenv and directory name is venvvirtualenv venv# 3. switch virtual env## windowsvenv\Scripts\activate## macbooksource venv/bin/activate # 4. view all Dependenciespip list# 5. like maven install some Dependenciespip install -r requirements.txt# 6. down...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/06/22/baseES/" title="elasticsearch basics">elasticsearch basics</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-06-22T11:16:45.000Z" title="Created 2024-06-22 19:16:45">2024-06-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/database/">database</a></span></div><div class="content">概念索引 (index) : 相同类型文档的集合，类比与一张表 映射（mapping）: 类比与一张表结构 文档（document）: 表中的一行数据，类比与表的一行 字段（field）：表的列属性 词条（term）: 通过分词后的词组 es的倒排索引的查询步骤： 小米手机—&gt; ik分词器—&gt; 两个词条： 小米　and 手机 —-&gt; 根据这两个词条查询文档id —&gt; 返回文档id的结果集 快速安装1234567891011121314151617181920212223242526272829303132333435363738394041424344454647docker network create es-net # 网络创建，用来划分网络，kibana和es在同一个网断内# 安装esdocker run -d \	--name elasticsearch \    -e &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot; \    -e &quot;discovery.type=single-node&quot; ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/06/12/jmeter/" title="jmeter">jmeter</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-06-12T02:23:45.000Z" title="Created 2024-06-12 10:23:45">2024-06-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/devTools/">devTools</a></span></div><div class="content"> download address  https://jmeter.apache.org/download_jmeter.cgi  useful extensions to jmeter  https://jmeter-plugins.org/downloads/old/ JMeterPlugins-Standard-1.4.0.jarjpgc-autostop-0.1.jar you need to add them to your jmeter&#x2F;lib&#x2F;ext directory  peak test  provide high tps test about 1 hour  capacity test  provide increasing tps test about 1 hour.aim to check the baseline to peak test or soak test  soak test  provide medium tps test about 8 hour. check system if stable if your tesk ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/01/31/jvm/" title="jvm">jvm</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-01-31T00:00:45.000Z" title="Created 2024-01-31 08:00:45">2024-01-31</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/java/">java</a></span></div><div class="content">java内存模型线程共享区:方法区：存放类信息、常量、静态变量、即时编译器编译后的代码等数据有永久代和元空间(使用本地内存)两种实现方法 堆：内存最大的区域，存放实例对象，gc的主要区域 线程独占区:虚拟机栈：存放方法运行时所需要的数据,里面包含局部变量表（八大原始数据类型，对象引用,returnAddrss），操作数栈，动态连接和返回地址等信息,称为栈帧如果线程栈的深度大于虚拟机栈则会Stackoverflow,如果虚拟机栈无法动态申请足够的空间则会OutOfMemory 程序计数器：记录当前执行到字节码的行号，通过改变计数器的值来选取下一条需要执行的命令本地方法栈：调用native代码，主要是非java代码部分(C++实现)  垃圾回收判断垃圾回收的标准a. 引用计数算法(无法处理循环引用)通过判读对象的引用数量来决定是否gcb. 可达性算法GCRoot是可达性算法的一个起点，所有线程当前活跃的栈帧都会指向GCRoot,通过GCRoot找出所有存活的对象，剩下的对象就是被回收的对象 c. 可作为GCRoot的对象方法区的静态属性和常量引用虚拟机栈帧引用的对象本地方法引用的对象...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/07/SpringCloud/" title="SpringCloud">SpringCloud</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-07-07T09:00:45.000Z" title="Created 2023-07-07 17:00:45">2023-07-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/spring/">spring</a></span></div><div class="content"> springCloud: 以service为中心提供服务的注册与发现和服务调用和负载均衡等分布式系统框架  Nacos 注册中心（服务发现&#x2F;注册）and 配置中心（动态配置管理）   https://github.com/alibaba/nacos/releases/tag/1.1.4  Spring Cloud Gateway https://www.baeldung.com/spring-cloud-custom-gateway-filters   https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.1.3.RELEASE/single/spring-cloud-gateway.html#_rewritepath_gatewayfilter_factory   https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.1.3.RELEASE/single/spring-cloud-gateway.html#_...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/06/07/SpringSecurity/" title="SpringSecurity">SpringSecurity</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-06-07T09:00:45.000Z" title="Created 2023-06-07 17:00:45">2023-06-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/spring/">spring</a></span></div><div class="content">SpringSecurity implement：https://github.com/zljin/hyena-cloud/tree/master/hyena-auth   本质上是过滤器链,重点关注3个过滤器  FilterSecurityInterceptor：是一个方法级的权限过滤器, 基本位于过滤链的最底部,执行完此过滤器会直接跳到真正的后台服务中 ExceptionTranslationFilter：是个异常过滤器，用来处理在认证授权过程中抛出的异常 UsernamePasswordAuthenticationFilter ：对&#x2F;login 的 POST 请求做拦截，校验表单中用户名，密码  UserDetailsService接口,通过实现这个接口进行自定义逻辑控制认证逻辑.其中返回值UserDetails为系统默认的主体接口   PasswordEncoder接口 需实现此接口指定密码加密算法   使用注解进行授权控制   @EnableGlobalMethodSecurity(prePostEnabled &#x3D; true) @PreAuthori...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/03/11/redis/" title="redis">redis</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-03-11T04:00:45.000Z" title="Created 2023-03-11 12:00:45">2023-03-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/database/">database</a></span></div><div class="content"> install: docker run -id –name dev-redis -p 6379:6379 redis  SpringBoot集成 https://github.com/zljin/Spring-Boot-In-Action/blob/master/springboot_redis/README.md  数据类型   数据类型 可以存储的值 操作    STRING 字符串或数值 字符串操作,数字类型的自增自减   LIST 列表 就是队列   SET 无序集合 去重，集合计算，是否存在某元素判断   HASH 包含键值对的无序散列表 存k-&gt;Map(k,v) 可存一个java bean类的对象   ZSET 有序集合 可为元素设置分值，根据分值进行排序，查询分数范围的对象   Geospatial 地理位置 通过Java将经纬度数据导入redis，之后即可通过经纬度计算距离等   Hyperloglog 基数(两个数据集中不重复的元素) 适用于快速合并数据去重，允许一定误差值，效率很高(网站访问量)   Bitmap 位存储 二进制记录，适用于统计员工打卡...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/02/23/nginx/" title="nginx">nginx</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-02-23T02:23:45.000Z" title="Created 2023-02-23 10:23:45">2023-02-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/devops/">devops</a></span></div><div class="content">nginx基础用法 下面实现了动静分离与反向代理到SpringCloudGatewaynginx-1.26.2\conf\nginx.conf  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253worker_processes  1;events &#123;    worker_connections  1024;&#125;http &#123;    include       mime.types;    default_type  application/octet-stream;    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;                      &#x27;$status $body_bytes_sent &quot;$http_referer&quot; ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2022/11/13/kafka/" title="kafka">kafka</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-11-13T04:00:45.000Z" title="Created 2022-11-13 12:00:45">2022-11-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/mq/">mq</a></span></div><div class="content"> 消息队列主要用作解耦，削峰，异步的功能，kafka的特点是更高的并发量，毫秒级延迟，易扩展  安装 docker-compose -f docker-compose.yml up -d  1234567891011121314151617181920212223version: &#x27;3&#x27;services:  zookeeper:    image: wurstmeister/zookeeper:latest    container_name: zookeeper    # always restart    restart: always    ports:      - 2181:2181  kafka:    image: wurstmeister/kafka:latest    container_name: kafka    ports:      - 9092:9092    # host ip    environment:      KAFKA_ADVERTISED_HOST_NAME: kafka      KAFKA_ZOOKEEPER_C...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2022/10/13/rabbitmq/" title="rabbitmq">rabbitmq</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-10-13T04:00:45.000Z" title="Created 2022-10-13 12:00:45">2022-10-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/mq/">mq</a></span></div><div class="content">安装1234docker run -id -p 5672:5672 -p 15672:15672 --name dev-rabbitmq rabbitmq:managementhttp://localhost:15672/#/   # guest guest  基本概念publisher：生产者 exchange个：交换机,负责消息路由. 有三种类型分别代表三种消息模型: direct,fanout,topic queue：队列，存储消息 virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离 consumer：消费者 123publisher ---&gt; &#123;(exchange ---&gt; queue) virtualHost&#125; ---&gt; consumerpublisher ---&gt; &#123;(exchange ---&gt; queue) virtualHost&#125; ---&gt; consumerpublisher ---&gt; &#123;(exchange ---&gt; queue)...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Leonard Zou</div><div class="author-info-description">知行合一</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zljin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zljin" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/464480515@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">君子生非异也,善假于物也</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/py01/" title="python virtual">python virtual</a><time datetime="2025-03-02T02:15:45.000Z" title="Created 2025-03-02 10:15:45">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/22/baseES/" title="elasticsearch basics">elasticsearch basics</a><time datetime="2024-06-22T11:16:45.000Z" title="Created 2024-06-22 19:16:45">2024-06-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/12/jmeter/" title="jmeter">jmeter</a><time datetime="2024-06-12T02:23:45.000Z" title="Created 2024-06-12 10:23:45">2024-06-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/31/jvm/" title="jvm">jvm</a><time datetime="2024-01-31T00:00:45.000Z" title="Created 2024-01-31 08:00:45">2024-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/07/SpringCloud/" title="SpringCloud">SpringCloud</a><time datetime="2023-07-07T09:00:45.000Z" title="Created 2023-07-07 17:00:45">2023-07-07</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/database/"><span class="card-category-list-name">database</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/devTools/"><span class="card-category-list-name">devTools</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/devops/"><span class="card-category-list-name">devops</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/java/"><span class="card-category-list-name">java</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/mq/"><span class="card-category-list-name">mq</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/python/"><span class="card-category-list-name">python</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/spring/"><span class="card-category-list-name">spring</span><span class="card-category-list-count">4</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" style="font-size: 1.1em; color: #999">技术笔记</a></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">24</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-10-04T07:51:32.451Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2025 By Leonard Zou</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = [].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
