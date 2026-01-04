@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SpringBucket | 一切都是最好的安排</title><meta name="author" content="Leonard"><meta name="copyright" content="Leonard"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="springboot的完整项目实战 https:&#x2F;&#x2F;github.com&#x2F;zljin&#x2F;ms-app?tab&#x3D;readme-ov-file#how2springboot https:&#x2F;&#x2F;github.com&#x2F;zljin&#x2F;flashbuy  Spring的核心：以bean为中心提供IOC和AOP的功能,简化开发JavaApp的框架SpringMVC：是webmvc框架，servlet的增强，提供丰富的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBucket">
+<meta property="og:url" content="https://zljin.github.io/2022/06/05/developer/backend/Spring/index.html">
+<meta property="og:site_name" content="一切都是最好的安排">
+<meta property="og:description" content="springboot的完整项目实战 https:&#x2F;&#x2F;github.com&#x2F;zljin&#x2F;ms-app?tab&#x3D;readme-ov-file#how2springboot https:&#x2F;&#x2F;github.com&#x2F;zljin&#x2F;flashbuy  Spring的核心：以bean为中心提供IOC和AOP的功能,简化开发JavaApp的框架SpringMVC：是webmvc框架，servlet的增强，提供丰富的">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png">
+<meta property="article:published_time" content="2022-06-05T09:00:45.000Z">
+<meta property="article:modified_time" content="2026-01-04T15:46:23.233Z">
+<meta property="article:author" content="Leonard">
+<meta property="article:tag" content="developer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SpringBucket",
+  "url": "https://zljin.github.io/2022/06/05/developer/backend/Spring/",
+  "image": "https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png",
+  "datePublished": "2022-06-05T09:00:45.000Z",
+  "dateModified": "2026-01-04T15:46:23.233Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Leonard",
+      "url": "https://zljin.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zljin.github.io/2022/06/05/developer/backend/Spring/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Leonard","link":"Link: ","source":"Source: 一切都是最好的安排","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SpringBucket',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/zljin/document/img/background/meitu2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">SpringBucket</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SpringBucket</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-06-05T09:00:45.000Z" title="Created 2022-06-05 17:00:45">2022-06-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-04T15:46:23.233Z" title="Updated 2026-01-04 23:46:23">2026-01-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/backend/">backend</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>springboot的完整项目实战</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/zljin/ms-app?tab=readme-ov-file#how2springboot">https://github.com/zljin/ms-app?tab=readme-ov-file#how2springboot</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/zljin/flashbuy">https://github.com/zljin/flashbuy</a></p>
+<blockquote>
+<p>Spring的核心：以bean为中心提供IOC和AOP的功能,简化开发JavaApp的框架<br>SpringMVC：是webmvc框架，servlet的增强，提供丰富的Web开发功能<br>SpringBoot：简化Spring繁杂配置，快速开发后台应用的框架<br>SpringCloud: 以SpringBoot为基石，快速构建微服务架构，如解决微服务架构中的服务发现、配置管理、容错、路由等</p>
+</blockquote>
+<h2 id="IOC解决那些问题"><a href="#IOC解决那些问题" class="headerlink" title="IOC解决那些问题"></a>IOC解决那些问题</h2><p>IOC为控制反转，将bean的生命周期统一交给Spring工厂管理，而不是直接new对象，通过依赖注入实现对象间的相互依赖<br>IOC容器有两种，BeanFactory:提供基础的依赖注入的能力,ApplicationContext:提供更强的事件发布,国际化支持等功能</p>
+<p>注意：BeanFactory和FactoryBean区别<br>BeanFactory是Spring的一个IOC容器，用来对Bean进行实例化的<br>FactoryBean用来处理需要复杂初始化逻辑的Bean,如ProxyFactoryBean：用于创建 AOP 代理</p>
+<h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><p>依赖注入可通过字段注入，构造器注入(可保证依赖不为空，保证不可变性)，setter注入(支持循环依赖和写单例测试)<br>优点是松耦合,不关心依赖对象是如何创建的，具体如何实现的，由spring配置决定</p>
+<p>注意的点：</p>
+<blockquote>
+<p>autowired和resource区别</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>包</th>
+<th>匹配类型</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>autowired</td>
+<td>Spring自带</td>
+<td>类型匹配</td>
+<td>可以用在构造器和setter注入</td>
+</tr>
+<tr>
+<td>resource</td>
+<td>JDK自带</td>
+<td>名称匹配,默认名称为字段名或方法名</td>
+<td>不能用在构造器和setter注入</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Autowired可以用在Map上</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当<span class="doctag">@Autowired</span> 用在 Map 上时，Spring 会自动将匹配特定类型的所有 Bean 注入到这 Map 中，</span></span><br><span class="line"><span class="comment"> * 其中 Map 的 key 默认是 Bean 的名称 (驼峰类命名，或者你自己指定一个名字也行)，value 是 Bean 的实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PaymentService</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    Map&lt;String, PaymentProcessor&gt; processorMap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="AOP解决那些问题"><a href="#AOP解决那些问题" class="headerlink" title="AOP解决那些问题"></a>AOP解决那些问题</h2><p>定义：面向切面编程,动态封装一些可重用性的非业务代码(切面:封装用于横向插入方法的功能类),并通过动态代理的方式,生成对目标类进行加强的代理对象.<br>优点：复用功能性代码,消除样板代码<br>实现方式：JDK动态代理(实现接口的类增强)  cglib(实现类本身增强)</p>
+<p>例子：通过AspectJ的表达式确定被增强目标和方法，通过@Around环绕通知，将新增的动态封装的代码织入到目标类生成增强的代理对象，曾经实现了一个审计日志切面,<br>@Tranactional也是基于事务实现的等等</p>
+<h3 id="使用AOP注意的点"><a href="#使用AOP注意的点" class="headerlink" title="使用AOP注意的点"></a>使用AOP注意的点</h3><p>1、同一个类方法调用不触发aop，因为没走代理<br>2、代理模式限制，final修饰的方法不能被增强,方法要为public</p>
+<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><p>Target(目标)：被增强的对象<br>Advice(通知)：切面具体的任务，即拦截后要做的事情<br>Joinpoint(连接点)：指的是可以拦截的点(方法)<br>Pointcut(切入点)：指的是真正被拦截到的点<br>Weaving(织入)：将Advice的应用到Target的过程<br>Proxy(代理)：被Advice增强后动态生成的代理对象</p>
+<h2 id="Spring事务"><a href="#Spring事务" class="headerlink" title="Spring事务"></a>Spring事务</h2><h3 id="事务失效的排查方法"><a href="#事务失效的排查方法" class="headerlink" title="事务失效的排查方法"></a>事务失效的排查方法</h3><p>1、@EnableTransactionManagement注解是否开启<br>2、数据库引擎是否支持事务，如MyISAM<br>3、@Tranactional注解是否遵循AOP的使用原则 –&gt; 如内部方法调用,AOP就会失效,要拆出来一个service<br>4、异常是否被吞了，没有抛出或异常类型不匹配，默认只对RuntimeException回滚，最好指定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="如何开启Spring事务"><a href="#如何开启Spring事务" class="headerlink" title="如何开启Spring事务"></a>如何开启Spring事务</h3><p>1、打开开关@EnableTransactionManagement<br>2、声明式事务注解，指定事务传播和异常<br>3、编程式事务，手动开启事务commit事务</p>
+<h3 id="Spring事务传播"><a href="#Spring事务传播" class="headerlink" title="Spring事务传播"></a>Spring事务传播</h3><p>REQUIRED：当前存在事务则加入事务，没有则新创建，默认值，适合大多数场景<br>REQUIRES_NEW：始终创建新的事务，适合审计日志<br>SUPPORTS：当前存在事务则加入，否则不执行事务，适合查询场景<br>MANDATORY：必须有事务，否则报错，增强安全性检查<br>NOT_SUPPORTED: 当前有事务-&gt;事务挂起<br>NEVER: 当前有事务 -&gt;抛出异常<br>NESTED: 当前有事务(主事务提交或者回滚会影响子事务) -&gt; 开启嵌套子事务(独立提交或者回滚,不影响父)</p>
+<h2 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h2><p><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/technical/spring_bean_lifecycle.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext构造方法中有refresh()方法,是spring启动方法</span><br><span class="line"></span><br><span class="line">1. BeanDefinitionReader读取bean.xml的类定义信息 --&gt; ConcurrentHashMap&lt;beanName,BeanDefinition&gt;</span><br><span class="line"></span><br><span class="line">2. BeanFactory读取BeanDefinition信息,进行实例化 ---&gt; newInstance实例化此bean,未初始化,只是开辟一个空间</span><br><span class="line"></span><br><span class="line">3. initializeBean()初始化Bean</span><br><span class="line"></span><br><span class="line">3.1 ---&gt; 通过populateBean()方法填充bean属性(如Autowired,Setter等)</span><br><span class="line"></span><br><span class="line">3.2 ---&gt; 调用BeanPostprocessor的前置后置方法,相当于一种插件,可以自定义bean的一些操作</span><br><span class="line"></span><br><span class="line">3.3 ---&gt; 执行初始化方法 @PostConstuct,InitializingBean.afterPropertiesSet,init-method</span><br><span class="line"></span><br><span class="line">4. bean in use</span><br><span class="line"></span><br><span class="line">5. bean destory</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h3><p>单例：独一无二，默认的配置，无状态，节省内存空间，Spring自动管理生命周期，自动销毁<br>如UserDao,UserService这种一般都是单例</p>
+<p>原型：每次获取Bean是都会创建新的实例，Spring不管理销毁，适合有状态的<br>如用户表单提交，需要独立的对象与存有状态的信息，一般这种用web作用于</p>
+<p>Web作用域：<br>request: 一次http请求创建一个bean，请求结束销毁<br>session: 每个会话创建一个bean，会话结束销毁</p>
+<p>实际选择时考虑以下几点：<br>组件是否有状态，并发访问情况，内存占用和创建的成本<br>有状态，多线程就用原型模式</p>
+<h3 id="如何解决循环依赖"><a href="#如何解决循环依赖" class="headerlink" title="如何解决循环依赖"></a>如何解决循环依赖</h3><p>springboot 2.6版本以上后，默认关闭循环依赖，如需则配置打开开关</p>
+<p>构造器注入不支持循环依赖，用setter注入可支持</p>
+<p>采用三级缓存实现</p>
+<p>第一层map: 存放初始化好的单例对象<br>第二层map: 存放实例化对象<br>第三层map: 存放Bean的工厂对象，AOP代理</p>
+<p>为什么一定要三级缓存，为了解决Bean需要被AOP代理，最终注入的是代理对象而不是原始对象，<br>三级缓存中的工厂在合适的时机创建代理对象，而不是提前曝光原始对象</p>
+<p>A-&gt;B:<br>创建A的实例–&gt;将A的创建工厂放入三级缓存<br>填充A的属性–&gt;发现依赖B—&gt;转而创建B<br>创建B的实例–&gt;将B的创建工厂放入三级缓存<br>填充B的属性–&gt;发现依赖A—&gt;尝试从缓存中获取A<br>从三级缓存中获取A–&gt;然后将A的引用存入二级缓存—&gt;删除三级缓存的A工厂<br> B注入早期的A引用—&gt;B初始化完成–&gt;B放入一级缓存，并删除三级缓存中B的创建工厂<br>继续填充A的属性–&gt;在一级缓存中拿到B的初始化对象–&gt;A初始化完成，放入一级缓存</p>
+<h2 id="用到的设计模式"><a href="#用到的设计模式" class="headerlink" title="用到的设计模式"></a>用到的设计模式</h2><p>工厂模式 BeanFactory,ApplicationContext<br>单利模式  bean的默认作用于singleton<br>代理模式 AOP的jdk代理等<br>观察者模式 ApplicationContext.pushEven ,ApplicationEvent 和 ApplicationListener<br>模版方法 RestTemplate</p>
+<h2 id="Spring常用的核心注解"><a href="#Spring常用的核心注解" class="headerlink" title="Spring常用的核心注解"></a>Spring常用的核心注解</h2><p><a target="_blank" rel="noopener" href="https://github.com/Snailclimb/JavaGuide/blob/main/docs/system-design/framework/spring/spring-common-annotations.md">https://github.com/Snailclimb/JavaGuide/blob/main/docs/system-design/framework/spring/spring-common-annotations.md</a></p>
+<h2 id="Springboot"><a href="#Springboot" class="headerlink" title="Springboot"></a>Springboot</h2><p>1、简化配置，引入”约定大于配置“理念，采用注解和自动配置，快速启动一个应用<br>2、简化依赖管理，引入“starter”的概念，一个starter自动引入一组相关版本兼容的依赖<br>3、简化部署，淘汰传统的war包部署，采用内嵌web容器的可执行的jar包，java -jar就可执行</p>
+<h3 id="SpirngBoot自动装配原理"><a href="#SpirngBoot自动装配原理" class="headerlink" title="SpirngBoot自动装配原理"></a>SpirngBoot自动装配原理</h3><p>自动装配：是约定大于配置体现，根据引入的jar包依赖，自动配置Spring所需的Bean，简化手动配置</p>
+<p>核心原理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">启动流程：</span><br><span class="line">@SpringBootApplication</span><br><span class="line">    ↓</span><br><span class="line">@EnableAutoConfiguration</span><br><span class="line">    ↓</span><br><span class="line">AutoConfigurationImportSelector.selectImports()</span><br><span class="line">    ↓</span><br><span class="line">SpringFactoriesLoader.loadFactoryNames() </span><br><span class="line">    ↓ 扫描所有jar包的</span><br><span class="line">读取 META-INF/spring.factories</span><br><span class="line">    ↓ 获取所有</span><br><span class="line">自动配置类全限定名列表</span><br><span class="line">    ↓ 经过</span><br><span class="line">条件注解过滤 (@ConditionalOnClass, @ConditionalOnBean等)</span><br><span class="line">    ↓ 最终</span><br><span class="line">有效的自动配置类</span><br><span class="line">    ↓ 执行</span><br><span class="line">@Configuration类 → 创建Bean → 注入Spring容器</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="如何内嵌web容器的"><a href="#如何内嵌web容器的" class="headerlink" title="如何内嵌web容器的"></a>如何内嵌web容器的</h3><p>第一步：@SpringBootApplication–&gt;@EnableAutoConfiguration触发自动配置，扫描所有 spring.factories 中的配置类<br>AutoConfigurationImportSelector.getCandidateConfigurations</p>
+<p>第二步：刷新应用上下文时 即调用onRefresh()方法，检测到 Web 依赖（@ConditionalOnWebApplication）<br>就创建内嵌服务器（Tomcat）</p>
+<p>第三步：服务器在 refreshContext() 过程中自动启动，监听 8080 端口</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/technical/springboot_start_step.png" alt="img"></p>
+<h3 id="如何开发一个starter"><a href="#如何开发一个starter" class="headerlink" title="如何开发一个starter"></a>如何开发一个starter</h3><blockquote>
+<p>Spring Boot Starter 是一个依赖描述符，通过约定优于配置的原则，实现自动配置，简化第三方库的集成</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">my-spring-boot-starter</span><br><span class="line">├── src/main/java</span><br><span class="line">│   └── com/example/autoconfigure</span><br><span class="line">│       ├── MyServiceAutoConfiguration.java  # 自动配置类</span><br><span class="line">│       ├── MyServiceProperties.java         # 配置属性类</span><br><span class="line">│       └── MyService.java                   # 核心服务类</span><br><span class="line">└── src/main/resources</span><br><span class="line">    └── META-INF</span><br><span class="line">        └── spring.factories                 # 自动配置注册文件</span><br></pre></td></tr></table></figure>
+
+<p>1.引入autoconfigure和starter的基础依赖<br>2.定义配置属性类，@ConfigurationProperties<br>3.定义自动配置类，@EnableConfigurationProperties,@ConditionalOnProperty,@ConditionalOnClass<br>4.自动配置注册文件spring.factories</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">com.example.autoconfigure.MyServiceAutoConfiguration</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动时实现缓存预热"><a href="#启动时实现缓存预热" class="headerlink" title="启动时实现缓存预热"></a>启动时实现缓存预热</h3><p>1、使用@PostConstruct注解，在缓存服务Bean初始化完成后立即执行预热<br>2、使用实现CommandLineRunner接口，且@Order(1)可以指定顺序，在Spring上下文刷新启动完成前执行</p>
+<p>这两个都算同步预热，适合核心商品和促销数据<br>优点：实现简单<br>缺点：数据过大，影响启动时间，若出现异常，影响启动</p>
+<p>3、ApplicationReadyEvent+异步方法预热，<br>ApplicationReadyEvent是等所有 Bean 都初始化完成后再执行预热，不会影响应用启动，然后用线程池异步执行一些方法</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://zljin.github.io">Leonard</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://zljin.github.io/2022/06/05/developer/backend/Spring/">https://zljin.github.io/2022/06/05/developer/backend/Spring/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/developer/">developer</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>Sponsor</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2022/08/09/developer/devops/Kubernetes/" title="Kubernetes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Kubernetes</div></div><div class="info-2"><div class="info-item-1"> 容器编排引擎: 提供给容器化应用的集群部署和管理工具，以yaml配置文件定义集群架构的规范和最终状态，使k8s始终维持这个状态, 其中容器可以指定为[[docker]]  核心特性声明式配置：通过 YAML 定义期望状态，系统自动维护实际状态与期望状态一致 自动化编排：Pod 调度、故障恢复、滚动更新、自动扩缩容 服务发现与负载均衡：内置 DNS 和服务抽象，支持多种负载均衡策略 存储编排：支持多种存储后端，提供持久化存储抽象 配置和密钥管理：统一的配置和敏感信息管理机制 多租户支持：命名空间隔离、RBAC 权限控制、资源配额管理 核心概念Pod: 最小部署单位，包含一个或多个容器(如Java应用+SideCar容器)，并共享网络&#x2F;存储 Deployment: 管理Pod，实现滚动更新，回滚，扩缩容 Service: 暴露Pod的访问入口，支持负载均衡    1. ClusterIp (默认，集群内部访问)    2. Nodeport (节点端口对外暴露)    3. LoadBalancer(云平台LB) ingress:    1. ingress可以实现通过域...</div></div></div></a><a class="pagination-related" href="/2022/05/22/developer/backend/jcp/" title="Java并发编程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Java并发编程</div></div><div class="info-2"><div class="info-item-1"> 多线程编写原则：原子性，可见性，有序性  基础概念 进程和线程:进程进行资源调度和分配的的基本单位,由多个线程构成，多个线程共享进程内存，线程是系统最小的执行和调度单位 并发和并行:并发即在同一时间段内单核CPU对多个任务交替进行，并行即多核同时执行多个任务 阻塞和非阻塞反映的是调用者的状态–&gt;调用者是一直等待状态还是可以干其他事情？ 同步和异步反映的是服务提供者的能力–&gt;服务提供方有结果后能不能通知回调者状态？  happens-before 和 as-if-serial 有啥区别和联系指令重排序,指的是编译器和处理器为了优化程序性能而对指令执行顺序进行重新排列的行为 as-if-serial: 保证单线程程序的执行结果不受指令重排序的影响，允许编译器和处理器进行各种优化 happens-before: 定义了多线程环境下操作间的可见性规则 在多线程的情况下，如果操作 A happens-before 操作 B，那么A的结果对B可见 (不需要时间上的先后，而是逻辑上的先后) 12345678910// 在单线程环境下：// 1. 操作A和B之间没有数据依赖，可以重...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/10/13/developer/backend/RabbitMQ/" title="RabbitMQ"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-13</div><div class="info-item-2">RabbitMQ</div></div><div class="info-2"><div class="info-item-1">安装123docker run -id -p 5672:5672 -p 15672:15672 --name dev-rabbitmq rabbitmq:managementhttp://localhost:15672/#/   # guest guest  基本概念publisher：生产者 exchange个：交换机,负责消息路由. 有三种类型分别代表三种消息模型: direct,fanout,topic queue：队列，存储消息 virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离 consumer：消费者 123publisher ---&gt; &#123;(exchange ---&gt; queue) virtualHost&#125; ---&gt; consumerpublisher ---&gt; &#123;(exchange ---&gt; queue) virtualHost&#125; ---&gt; consumerpublisher ---&gt; &#123;(exchange ---&gt; queue) ...</div></div></div></a><a class="pagination-related" href="/2023/03/11/developer/backend/Redis/" title="Redis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-11</div><div class="info-item-2">Redis</div></div><div class="info-2"><div class="info-item-1"> 缓存中间件，也是分布式缓存和分布式锁的核心选项  12# installdocker run -id --name dev-redis -p 6379:6379 redis   应用场景  1、查询缓存，注意缓存穿透和雪崩问题2、短信登录，Redis共享session应用3、优惠卷秒杀，Redis计数器、Redis分布式锁、Redis三种消息队列4、排行版功能，基于zset，设置分数5、附近商户，GeoHash存放地址信息，算距离等  文章推荐  https://juejin.cn/column/6963184822332325919 https://juejin.cn/post/6844903982066827277 数据类型   数据类型 可以存储的值 操作    STRING 字符串或数值 字符串操作,数字类型的自增自减   LIST 列表 就是队列   SET 无序集合 去重，集合计算，是否存在某元素判断   HASH 包含键值对的无序散列表 存k-&gt;Map(k,v) 可存一个bean   ZSET 有序集合 可为元素设置分值，根据分值进行排序，查询分数范围的对象...</div></div></div></a><a class="pagination-related" href="/2021/02/22/developer/backend/MyBatis/" title="MyBatis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-22</div><div class="info-item-2">MyBatis</div></div><div class="info-2"><div class="info-item-1"> 方便Java程序操作数据库的一种ORM框架的  什么是ORM 对象关系映射，将javaBean对象与关系型数据库表映射的技术  mybatisplus:1、半开ORM，能够对[[MySQL]]控制灵活2、强大的插件机制 MyBatis 设计了完善的插件体系，允许开发者通过拦截器接口扩展或修改 MyBatis 的核心行为。常见的应用包括分页插件、审计日志、性能监控等，大大增强了框架的可扩展性。 jpa: 可以兼容适配多种数据库，包括非关系型数据库 你是如何设置数据库主键自增的1、单机高并发可用自增ID2、分布式系统要确定唯一性建议雪花算法 123456789101112131415mybatis-plus:  global-config:    db-config:      id-type: ASSIGN_ID # 主键生成策略，ASSIGN_ID通常配合雪花算法使用      @TableName(value =&quot;order_info&quot;)@Datapublic class OrderInfo &#123;    /**     * 订单主键     */ ...</div></div></div></a><a class="pagination-related" href="/2022/05/22/developer/backend/jcp/" title="Java并发编程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-22</div><div class="info-item-2">Java并发编程</div></div><div class="info-2"><div class="info-item-1"> 多线程编写原则：原子性，可见性，有序性  基础概念 进程和线程:进程进行资源调度和分配的的基本单位,由多个线程构成，多个线程共享进程内存，线程是系统最小的执行和调度单位 并发和并行:并发即在同一时间段内单核CPU对多个任务交替进行，并行即多核同时执行多个任务 阻塞和非阻塞反映的是调用者的状态–&gt;调用者是一直等待状态还是可以干其他事情？ 同步和异步反映的是服务提供者的能力–&gt;服务提供方有结果后能不能通知回调者状态？  happens-before 和 as-if-serial 有啥区别和联系指令重排序,指的是编译器和处理器为了优化程序性能而对指令执行顺序进行重新排列的行为 as-if-serial: 保证单线程程序的执行结果不受指令重排序的影响，允许编译器和处理器进行各种优化 happens-before: 定义了多线程环境下操作间的可见性规则 在多线程的情况下，如果操作 A happens-before 操作 B，那么A的结果对B可见 (不需要时间上的先后，而是逻辑上的先后) 12345678910// 在单线程环境下：// 1. 操作A和B之间没有数据依赖，可以重...</div></div></div></a><a class="pagination-related" href="/2021/03/07/developer/devops/Docker/" title="Docker"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-07</div><div class="info-item-2">Docker</div></div><div class="info-2"><div class="info-item-1"> 比虚拟机[[Linux]]更轻量的容器引擎，容器是由应用程序和所依赖的os组成的  https://www.docker.com/ cheatsheet1234567891011121314151617docker --helpdocker pull tomcat:7-jre7docker rmi 镜像IDdocker imagesdocker run -di --name=Mytomcat -p 9001:8080  \-v /usr/local/webapps:/usr/local/tomcat/webapps tomcat:7-jre7 \--privileged=truedocker ps -adocker stop/start/rm 容器IDdocker exec -it 容器ID /bin/bash docker run -it --entrypoint sh imageName:tagdocker cp 容器名称:容器目录/文件 本地文件名字docker inspect 容器IDdocker logs 容器ID  Dockerfile 由一系列命令和参数构成的脚本...</div></div></div></a><a class="pagination-related" href="/2021/04/07/developer/devops/Git/" title="Git"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-07</div><div class="info-item-2">Git</div></div><div class="info-2"><div class="info-item-1"> Git是一个分布式版本控制工具,Github是通过Git进行版本控制的软件源代码托管服务平台  cheatsheet12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576git help [command]git config --global -lgit config --global user.name &quot;&quot;git initgit add .git commit -m &#x27;&#x27;git remote add origin https://github.com/zljin/demo_boot.gitgit remote set-url origin https://github.com/zljin/demo_boot.gitgit remote -vgit push -u origin master -fgit c...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Leonard</div><div class="author-info-description">知行合一</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zljin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zljin" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/464480515@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">君子生非异也,善假于物也</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC%E8%A7%A3%E5%86%B3%E9%82%A3%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">IOC解决那些问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">依赖注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP%E8%A7%A3%E5%86%B3%E9%82%A3%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">AOP解决那些问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8AOP%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="toc-number">2.1.</span> <span class="toc-text">使用AOP注意的点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">2.2.</span> <span class="toc-text">相关概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.</span> <span class="toc-text">Spring事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%E7%9A%84%E6%8E%92%E6%9F%A5%E6%96%B9%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">事务失效的排查方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFSpring%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.2.</span> <span class="toc-text">如何开启Spring事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD"><span class="toc-number">3.3.</span> <span class="toc-text">Spring事务传播</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">4.</span> <span class="toc-text">Bean的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">4.1.</span> <span class="toc-text">Bean的作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="toc-number">4.2.</span> <span class="toc-text">如何解决循环依赖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E5%88%B0%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.</span> <span class="toc-text">用到的设计模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E5%B8%B8%E7%94%A8%E7%9A%84%E6%A0%B8%E5%BF%83%E6%B3%A8%E8%A7%A3"><span class="toc-number">6.</span> <span class="toc-text">Spring常用的核心注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Springboot"><span class="toc-number">7.</span> <span class="toc-text">Springboot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SpirngBoot%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E5%8E%9F%E7%90%86"><span class="toc-number">7.1.</span> <span class="toc-text">SpirngBoot自动装配原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%86%85%E5%B5%8Cweb%E5%AE%B9%E5%99%A8%E7%9A%84"><span class="toc-number">7.2.</span> <span class="toc-text">如何内嵌web容器的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAstarter"><span class="toc-number">7.3.</span> <span class="toc-text">如何开发一个starter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%97%B6%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD"><span class="toc-number">7.4.</span> <span class="toc-text">启动时实现缓存预热</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/31/developer/backend/jvm/" title="JVM">JVM</a><time datetime="2024-01-31T00:00:45.000Z" title="Created 2024-01-31 08:00:45">2024-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/11/developer/backend/Redis/" title="Redis">Redis</a><time datetime="2023-03-11T04:00:45.000Z" title="Created 2023-03-11 12:00:45">2023-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/13/developer/backend/RabbitMQ/" title="RabbitMQ">RabbitMQ</a><time datetime="2022-10-13T04:00:45.000Z" title="Created 2022-10-13 12:00:45">2022-10-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/09/20/developer/devops/Terraform/" title="Terraform">Terraform</a><time datetime="2022-09-20T04:00:45.000Z" title="Created 2022-09-20 12:00:45">2022-09-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/20/developer/devops/aws/" title="AWS">AWS</a><time datetime="2022-08-20T04:00:45.000Z" title="Created 2022-08-20 12:00:45">2022-08-20</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2026 By Leonard</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
