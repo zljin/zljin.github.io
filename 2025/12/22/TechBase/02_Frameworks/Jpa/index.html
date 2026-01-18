@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Jpa | 人生就像一盒巧克力，你永远不知道会得到什么</title><meta name="author" content="Leonard"><meta name="copyright" content="Leonard"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;6844903574963486733?searchId&#x3D;2025111821071170811D8407CA9A054CDC https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;6844904160807092237?searchId&#x3D;2025111821071170811D8407CA9A054CDC#heading-39">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jpa">
+<meta property="og:url" content="https://zljin.github.io/2025/12/22/TechBase/02_Frameworks/Jpa/index.html">
+<meta property="og:site_name" content="人生就像一盒巧克力，你永远不知道会得到什么">
+<meta property="og:description" content="https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;6844903574963486733?searchId&#x3D;2025111821071170811D8407CA9A054CDC https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;6844904160807092237?searchId&#x3D;2025111821071170811D8407CA9A054CDC#heading-39">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png">
+<meta property="article:published_time" content="2025-12-22T06:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-18T13:32:16.712Z">
+<meta property="article:author" content="Leonard">
+<meta property="article:tag" content="TechBase">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Jpa",
+  "url": "https://zljin.github.io/2025/12/22/TechBase/02_Frameworks/Jpa/",
+  "image": "https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png",
+  "datePublished": "2025-12-22T06:00:00.000Z",
+  "dateModified": "2026-01-18T13:32:16.712Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Leonard",
+      "url": "https://zljin.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zljin.github.io/2025/12/22/TechBase/02_Frameworks/Jpa/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Leonard","link":"Link: ","source":"Source: 人生就像一盒巧克力，你永远不知道会得到什么","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jpa',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">48</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/zljin/document/img/background/meitu2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">Jpa</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Jpa</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-12-22T06:00:00.000Z" title="Created 2025-12-22 14:00:00">2025-12-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-18T13:32:16.712Z" title="Updated 2026-01-18 21:32:16">2026-01-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Frameworks/">Frameworks</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903574963486733?searchId=2025111821071170811D8407CA9A054CDC">https://juejin.cn/post/6844903574963486733?searchId=2025111821071170811D8407CA9A054CDC</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904160807092237?searchId=2025111821071170811D8407CA9A054CDC#heading-39">https://juejin.cn/post/6844904160807092237?searchId=2025111821071170811D8407CA9A054CDC#heading-39</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://zljin.github.io">Leonard</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://zljin.github.io/2025/12/22/TechBase/02_Frameworks/Jpa/">https://zljin.github.io/2025/12/22/TechBase/02_Frameworks/Jpa/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TechBase/">TechBase</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>Sponsor</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/07/MindGarden/04.%20%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/MindGarden/" title="MindGarden"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">MindGarden</div></div><div class="info-2"><div class="info-item-1">123456789101112🧠 MindGarden/├── 01. 思维模型/├── 02. 阅读笔记/│   ├── 认知觉醒.md│   ├── 被讨厌的勇气.md│   └── 原则.md├── 03. 学习方法/├── 04. 灵感碎片/├── 05. 优质资源/├── 06. 工具清单/├── 07. 项目复盘/└── 08. 输出作品/  📁 01. 思维模型（Thinking Models）核心目的：存储那些能帮你更清晰、更理性地思考世界的底层逻辑框架。 ✅ 应该写：  通用思维工具：如 二阶思维（“然后呢？”）、奥卡姆剃刀（如无必要，勿增实体）、逆向思维（“如何确保失败？”） 决策模型：SWOT分析、成本-收益分析、10&#x2F;10&#x2F;10法则（这个决定在10分钟&#x2F;10个月&#x2F;10年后怎么看？） 认知偏差清单：如 确认偏误、幸存者偏差，并附上你自己的真实案例（比如：“上次选技术栈时，我只看了成功案例，忽略了失败项目”） 系统思维图：简单因果回路图，解释某个现象（如“为什么我总是拖延？”）  ❌ 不该写：  抄书定义（除非你用自...</div></div></div></a><a class="pagination-related" href="/2025/12/02/WorkEnglish/01_Situation/email/" title="email"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">email</div></div><div class="info-2"><div class="info-item-1"> objective  Dear …I’m writing to ….  Ask for clarification  Would you mind clarifying the follow points?Could you please explain what you mean by additional costs?  Highlighting important information  Please note that our opening hours have recently changed.  Requesting futher details  Could you please send me futher information on your sales training courses?  Replying to requests—&gt;positive  We are pleased to inform you that you request has been accepted.  Replying to requests—&gt;negativ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2019/01/22/TechBase/01_JavaCore/Java%E5%9F%BA%E7%A1%80/" title="Java基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-22</div><div class="info-item-2">Java基础</div></div><div class="info-2"><div class="info-item-1"> JDK LTS: 1.8、17、21  基础语法 数据类型：分为基本数据类型、包装类型、引用类型  基本数据类型：byte char booleanshort int long float double 包装类型：将简单的基本数据类型表示为一个类,好处就是会有一些类方法，如int-&gt;Integer 引用类型：如String, array  关键字：定义的一些具有特殊用途的单词  123456789101112权限关键字：    public(公共),private(本类),default(同包可访问),protected(继承关系可访问)static：    1. 随着类加载而加载,和类一起最新加载    2. 该类所有对象共享    3. 静态不能访问非静态(先人不知后人)final：    1.类不能继承和方法不能重写    2.基本类型数值不变    3.引用类型引用不变   标识符：给程序中的变量、类、方法命名的符号   运算符：给程序进行数据的运算,赋值,比较的符号   流程控制：分支结构和循环结构  12345678// JDK 14+int day = 3;...</div></div></div></a><a class="pagination-related" href="/2022/05/22/TechBase/01_JavaCore/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="Java并发编程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-22</div><div class="info-item-2">Java并发编程</div></div><div class="info-2"><div class="info-item-1"> 多线程编写原则：原子性，可见性，有序性  基础概念 进程和线程:进程进行资源调度和分配的的基本单位,由多个线程构成，多个线程共享进程内存，线程是系统最小的执行和调度单位 并发和并行:并发即在同一时间段内单核CPU对多个任务交替进行，并行即多核同时执行多个任务 阻塞和非阻塞反映的是调用者的状态–&gt;调用者是一直等待状态还是可以干其他事情？ 同步和异步反映的是服务提供者的能力–&gt;服务提供方有结果后能不能通知回调者状态？  happens-before 和 as-if-serial 有啥区别和联系指令重排序,指的是编译器和处理器为了优化程序性能而对指令执行顺序进行重新排列的行为 as-if-serial: 保证单线程程序的执行结果不受指令重排序的影响，允许编译器和处理器进行各种优化 happens-before: 定义了多线程环境下操作间的可见性规则 在多线程的情况下，如果操作 A happens-before 操作 B，那么A的结果对B可见 (不需要时间上的先后，而是逻辑上的先后) 12345678910// 在单线程环境下：// 1. 操作A和B之间没有数据依赖，可以重...</div></div></div></a><a class="pagination-related" href="/2024/01/31/TechBase/01_JavaCore/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="Java虚拟机"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-31</div><div class="info-item-2">Java虚拟机</div></div><div class="info-2"><div class="info-item-1">JVM主流参数1234567JAVA_OPTS: &gt;-Xms1300m -Xmx1300m         //堆的初始值和最大值,设置成一样可以避免扩容-XX:+UseG1GC                // 使用 G1 垃圾回收器，适合大内存低延迟场景-XX:MaxRAMPercentage=70.0   //设置 JVM 可用的最大内存占系统总内存的百分比为70%-XX:NewRatio=1              //设置新生代与老年代的比例为1:1-XX:SurvivorRatio=8         //设置 Eden 区与 Survivor 区比例为 8:1:1-XX:+PrintGCDetails -Xloggc:/path/to/gc.log   //收集GC日志   12345678910111213141516171819202122232425262728293031调优的原则1. 在应用上线前，先考虑JVM参数设置到最优2. 先要确认项目架构和代码有没有优化空间3. 在吞吐量，延迟，内存中选择两个进行JVM调优4. 遵循GC内存最大化原则：处...</div></div></div></a><a class="pagination-related" href="/2021/02/22/TechBase/02_Frameworks/MyBatis/" title="MyBatis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-22</div><div class="info-item-2">MyBatis</div></div><div class="info-2"><div class="info-item-1"> 方便Java程序操作数据库的一种ORM框架的  什么是ORM 对象关系映射，将javaBean对象与关系型数据库表映射的技术  mybatisplus:1、半开ORM，能够对[[MySQL]]控制灵活2、强大的插件机制 MyBatis 设计了完善的插件体系，允许开发者通过拦截器接口扩展或修改 MyBatis 的核心行为。常见的应用包括分页插件、审计日志、性能监控等，大大增强了框架的可扩展性。 jpa: 可以兼容适配多种数据库，包括非关系型数据库 你是如何设置数据库主键自增的1、单机高并发可用自增ID2、分布式系统要确定唯一性建议雪花算法 123456789101112131415mybatis-plus:  global-config:    db-config:      id-type: ASSIGN_ID # 主键生成策略，ASSIGN_ID通常配合雪花算法使用      @TableName(value =&quot;order_info&quot;)@Datapublic class OrderInfo &#123;    /**     * 订单主键     */ ...</div></div></div></a><a class="pagination-related" href="/2022/06/05/TechBase/02_Frameworks/Spring/" title="Spring"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-05</div><div class="info-item-2">Spring</div></div><div class="info-2"><div class="info-item-1"> Spring的核心：以bean为中心提供IOC和AOP的功能,简化开发JavaApp的框架SpringMVC：是webmvc框架，servlet的增强，提供丰富的Web开发功能SpringBoot：简化Spring繁杂配置，快速开发后台应用的框架SpringCloud: 以SpringBoot为基石，快速构建微服务架构，如解决微服务架构中的服务发现、配置管理、容错、路由等  IOC解决那些问题IOC为控制反转，将bean的生命周期统一交给Spring工厂管理，而不是直接new对象，通过依赖注入实现对象间的相互依赖IOC容器有两种，BeanFactory:提供基础的依赖注入的能力,ApplicationContext:提供更强的事件发布,国际化支持等功能 注意：BeanFactory和FactoryBean区别BeanFactory是Spring的一个IOC容器，用来对Bean进行实例化的FactoryBean用来处理需要复杂初始化逻辑的Bean,如ProxyFactoryBean：用于创建 AOP 代理 依赖注入依赖注入可通过字段注入，构造器注入(可保证依赖不为空，保证不可变性...</div></div></div></a><a class="pagination-related" href="/2022/06/06/TechBase/02_Frameworks/SpringBoot/" title="SpringBoot"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-06</div><div class="info-item-2">SpringBoot</div></div><div class="info-2"><div class="info-item-1">springboot的完整项目实战 https://github.com/zljin/ms-app?tab=readme-ov-file#how2springboot https://github.com/zljin/flashbuy Springboot1、简化配置，引入”约定大于配置“理念，采用注解和自动配置，快速启动一个应用2、简化依赖管理，引入“starter”的概念，一个starter自动引入一组相关版本兼容的依赖3、简化部署，淘汰传统的war包部署，采用内嵌web容器的可执行的jar包，java -jar就可执行4、是[[SpringCloud]]的基石 SpringBoot自动装配原理自动装配：是约定大于配置体现，根据引入的jar包依赖，自动配置Spring所需的Bean，简化手动配置 核心原理： 123456789101112131415161718启动流程：@SpringBootApplication    ↓@EnableAutoConfiguration    ↓AutoConfigurationImportSelector.selectImports() ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Leonard</div><div class="author-info-description">知行合一</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">48</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zljin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zljin" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/464480515@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">君子生非异也,善假于物也</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/04.%20%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/MindGarden/" title="MindGarden">MindGarden</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/04.%20%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/" title="TechBase">TechBase</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/04.%20%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/WorkEnglish/" title="WorkEnglish">WorkEnglish</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/22/TechBase/02_Frameworks/Jpa/" title="Jpa">Jpa</a><time datetime="2025-12-22T06:00:00.000Z" title="Created 2025-12-22 14:00:00">2025-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/02/WorkEnglish/01_Situation/email/" title="email">email</a><time datetime="2025-12-02T00:00:45.000Z" title="Created 2025-12-02 08:00:45">2025-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2026 By Leonard</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
