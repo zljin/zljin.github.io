@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>TechBase | 人生就像一盒巧克力，你永远不知道会得到什么</title><meta name="author" content="Leonard"><meta name="copyright" content="Leonard"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="太棒了！你已经理解了“MindGarden”这套方法的精髓——结构清晰、行动导向、拒绝囤积。现在，我们把这套逻辑迁移到你的技术领域，为你打造一个同样高效、可扩展、面向实战的 技术知识库（Technical Knowledge Base）。 我们将创建两个平行的主目录：  🧠 MindGarden&#x2F; —— 专注认知、学习、思维（你已有的） 💻 TechBase&#x2F; —— 专注 Java 开发 +">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TechBase">
+<meta property="og:url" content="https://zljin.github.io/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/index.html">
+<meta property="og:site_name" content="人生就像一盒巧克力，你永远不知道会得到什么">
+<meta property="og:description" content="太棒了！你已经理解了“MindGarden”这套方法的精髓——结构清晰、行动导向、拒绝囤积。现在，我们把这套逻辑迁移到你的技术领域，为你打造一个同样高效、可扩展、面向实战的 技术知识库（Technical Knowledge Base）。 我们将创建两个平行的主目录：  🧠 MindGarden&#x2F; —— 专注认知、学习、思维（你已有的） 💻 TechBase&#x2F; —— 专注 Java 开发 +">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png">
+<meta property="article:published_time" content="2026-01-07T15:00:45.000Z">
+<meta property="article:modified_time" content="2026-01-10T11:30:59.632Z">
+<meta property="article:author" content="Leonard">
+<meta property="article:tag" content="MindGarden">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "TechBase",
+  "url": "https://zljin.github.io/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/",
+  "image": "https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png",
+  "datePublished": "2026-01-07T15:00:45.000Z",
+  "dateModified": "2026-01-10T11:30:59.632Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Leonard",
+      "url": "https://zljin.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zljin.github.io/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Leonard","link":"Link: ","source":"Source: 人生就像一盒巧克力，你永远不知道会得到什么","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TechBase',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/zljin/document/img/background/meitu2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">TechBase</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">TechBase</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-10T11:30:59.632Z" title="Updated 2026-01-10 19:30:59">2026-01-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/">灵感碎片</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>太棒了！你已经理解了“MindGarden”这套方法的精髓——<strong>结构清晰、行动导向、拒绝囤积</strong>。现在，我们把这套逻辑迁移到你的<strong>技术领域</strong>，为你打造一个同样高效、可扩展、面向实战的 <strong>技术知识库（Technical Knowledge Base）</strong>。</p>
+<p>我们将创建两个平行的主目录：</p>
+<ul>
+<li>🧠 <code>MindGarden/</code> —— 专注认知、学习、思维（你已有的）</li>
+<li>💻 <code>TechBase/</code> —— 专注 Java 开发 + DevOps 实战（我们现在要建的）</li>
+</ul>
+<hr>
+<h2 id="💻-技术知识库主文件夹名建议"><a href="#💻-技术知识库主文件夹名建议" class="headerlink" title="💻 技术知识库主文件夹名建议"></a>💻 技术知识库主文件夹名建议</h2><p>表格</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>TechBase</code></td>
+<td>简洁、专业，暗示这是你的“技术地基”</td>
+</tr>
+<tr>
+<td><code>DevCraft</code></td>
+<td>“开发工艺”，强调工程感和匠人精神</td>
+</tr>
+<tr>
+<td><code>CodeOS</code></td>
+<td>像操作系统一样支撑你的编码工作流</td>
+</tr>
+<tr>
+<td><code>EngineeringNotes</code></td>
+<td>直白、通用，适合外企简历或开源项目</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>✅ <strong>推荐：<code>TechBase</code></strong><br>它和 <code>MindGarden</code> 形成完美对仗：一个管“心”，一个管“手”。</p>
+</blockquote>
+<hr>
+<h2 id="🗂️-TechBase-文件夹结构（Java-DevOps-双主线）"><a href="#🗂️-TechBase-文件夹结构（Java-DevOps-双主线）" class="headerlink" title="🗂️ TechBase/ 文件夹结构（Java + DevOps 双主线）"></a>🗂️ <code>TechBase/</code> 文件夹结构（Java + DevOps 双主线）</h2><p>采用 <strong>“能力域 + 场景”</strong> 分类，避免按技术栈割裂（比如不要单独分“Docker”“K8s”，而是按“部署”“监控”等场景聚合）。</p>
+<p>text</p>
+<p>编辑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">TechBase/</span><br><span class="line">├── 01_JavaCore/                # 语言根基</span><br><span class="line">├── 02_Frameworks/              # Spring 全家桶等</span><br><span class="line">├── 03_SystemDesign/            # 架构与设计</span><br><span class="line">├── 04_DevOps/                  # CI/CD、云原生、运维</span><br><span class="line">├── 05_Debugging/               # 故障排查 &amp; 性能优化</span><br><span class="line">├── 06_Security/                # 安全实践（常被忽略但关键！）</span><br><span class="line">├── 07_CheatSheets/             # 速查清单（命令、配置、API）</span><br><span class="line">└── 08_ProjectPatterns/         # 项目级最佳实践</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="🔍-每个文件夹详细说明（该写什么？）"><a href="#🔍-每个文件夹详细说明（该写什么？）" class="headerlink" title="🔍 每个文件夹详细说明（该写什么？）"></a>🔍 每个文件夹详细说明（该写什么？）</h3><h4 id="01-JavaCore"><a href="#01-JavaCore" class="headerlink" title="01_JavaCore"></a><strong>01_JavaCore</strong></h4><ul>
+<li>JVM 内存模型、GC 调优参数实测记录</li>
+<li>并发包源码精读（如 <code>ConcurrentHashMap</code> 的演进）</li>
+<li>新特性实战：<code>record</code>、<code>sealed class</code>、虚拟线程（Loom）怎么用？</li>
+<li>❌ 不要抄《Java 编程思想》目录！</li>
+</ul>
+<h4 id="02-Frameworks"><a href="#02-Frameworks" class="headerlink" title="02_Frameworks"></a><strong>02_Frameworks</strong></h4><ul>
+<li>Spring Boot 自动配置原理 + 自定义 Starter 示例</li>
+<li>Spring Cloud Alibaba 组件踩坑记录（Nacos 注册失败？）</li>
+<li>MyBatis 执行流程图 + 插件开发模板</li>
+<li>✅ <strong>重点</strong>：只记<strong>你调试过、改过、出过问题</strong>的部分</li>
+</ul>
+<h4 id="03-SystemDesign"><a href="#03-SystemDesign" class="headerlink" title="03_SystemDesign"></a><strong>03_SystemDesign</strong></h4><ul>
+<li>高频设计题模板：短链系统、秒杀、分布式 ID</li>
+<li>架构决策记录（ADR）：为什么选 Kafka 而不是 RabbitMQ？</li>
+<li>CAP&#x2F;BASE 理论在实际项目中的权衡案例</li>
+</ul>
+<h4 id="04-DevOps"><a href="#04-DevOps" class="headerlink" title="04_DevOps"></a><strong>04_DevOps</strong></h4><ul>
+<li><strong>CI&#x2F;CD</strong>：GitHub Actions &#x2F; GitLab CI 流水线模板（带注释）</li>
+<li><strong>容器化</strong>：Dockerfile 最佳实践（多阶段构建、安全扫描）</li>
+<li><strong>K8s</strong>：常用 <code>kubectl</code> 命令 + Helm Chart 结构图</li>
+<li><strong>云服务</strong>：AWS&#x2F;Aliyun 核心服务对比（EC2 vs ECS, S3 vs OSS）</li>
+<li><strong>IaC</strong>：Terraform 模块示例（如何创建 VPC + EKS）</li>
+</ul>
+<h4 id="05-Debugging"><a href="#05-Debugging" class="headerlink" title="05_Debugging"></a><strong>05_Debugging</strong></h4><ul>
+<li><strong>JVM 诊断</strong>：<code>jstack</code> 死锁分析、<code>Arthas</code> 线上排查命令</li>
+<li><strong>日志追踪</strong>：ELK + SkyWalking 链路整合步骤</li>
+<li><strong>性能瓶颈</strong>：CPU 飙高、Full GC 频繁的排查 checklist</li>
+<li>✅ 每篇笔记 &#x3D; <strong>现象 + 工具命令 + 根本原因 + 解决方案</strong></li>
+</ul>
+<h4 id="06-Security"><a href="#06-Security" class="headerlink" title="06_Security"></a><strong>06_Security</strong></h4><ul>
+<li>常见漏洞复现：SQL 注入、XSS、CSRF 防御代码</li>
+<li>Spring Security 配置模板（JWT、OAuth2）</li>
+<li>密钥管理：Vault &#x2F; KMS 使用指南</li>
+<li>❗ 很多开发者忽略，但面试和生产环境极其重要！</li>
+</ul>
+<h4 id="07-CheatSheets"><a href="#07-CheatSheets" class="headerlink" title="07_CheatSheets"></a><strong>07_CheatSheets</strong></h4><ul>
+<li>Linux 常用命令速查（<code>netstat</code>, <code>lsof</code>, <code>awk</code>）</li>
+<li>Maven&#x2F;Gradle 常用命令</li>
+<li>Git 高级技巧（<code>rebase -i</code>, <code>cherry-pick</code>）</li>
+<li>HTTP 状态码 &amp; 常见 Header 含义</li>
+<li>✅ <strong>格式</strong>：表格 or 代码块，一眼能找到</li>
+</ul>
+<h4 id="08-ProjectPatterns"><a href="#08-ProjectPatterns" class="headerlink" title="08_ProjectPatterns"></a><strong>08_ProjectPatterns</strong></h4><ul>
+<li>多模块 Maven 项目结构规范</li>
+<li>日志规范（MDC + TraceID）</li>
+<li>异常处理统一方案（@ControllerAdvice）</li>
+<li>数据库变更流程（Flyway&#x2F;Liquibase 实践）</li>
+<li>✅ 这是你<strong>团队协作和工程素养</strong>的体现</li>
+</ul>
+<hr>
+<h3 id="🔄-与-MindGarden-的联动"><a href="#🔄-与-MindGarden-的联动" class="headerlink" title="🔄 与 MindGarden 的联动"></a>🔄 与 <code>MindGarden</code> 的联动</h3><p>你的两个知识库不是孤立的：</p>
+<ul>
+<li><p>在 <code>MindGarden/03_LearningStrategies</code> 中，可以写：</p>
+<blockquote>
+<p>“用 <strong>费曼技巧</strong> 学习 Spring AOP：先给同事讲一遍代理模式，再看源码。”
+  </p>
+</blockquote>
+</li>
+<li><p>在 <code>TechBase/02_Frameworks/Spring_AOP.md</code> 中，可以链接：</p>
+<blockquote>
+<p><code>See also: [[MindGarden/01_ThinkingModels/InversionOfControl]]</code></p>
+</blockquote>
+</li>
+</ul>
+<p>这样，<strong>技术深度</strong> 和 <strong>认知高度</strong> 就打通了。</p>
+<hr>
+<h3 id="🛠️-工具建议"><a href="#🛠️-工具建议" class="headerlink" title="🛠️ 工具建议"></a>🛠️ 工具建议</h3><ul>
+<li><strong>Obsidian 用户</strong>：用 <code>#java</code>、<code>#devops</code>、<code>#troubleshooting</code> 打标签，方便跨文件夹检索。</li>
+<li><strong>Notion 用户</strong>：把 <code>07_CheatSheets</code> 做成数据库，支持按关键词筛选。</li>
+<li><strong>所有用户</strong>：定期（每月）清理 <code>TechBase</code> 中过时的内容（比如 Java 8 的 Lambda 笔记，如果你已熟练）。</li>
+</ul>
+<hr>
+<h3 id="✅-最后提醒"><a href="#✅-最后提醒" class="headerlink" title="✅ 最后提醒"></a>✅ 最后提醒</h3><blockquote>
+<p><strong>技术笔记的价值 &#x3D; （你踩过的坑）×（你总结的清晰度）</strong><br>不要追求“覆盖全面”，而要追求“关键时刻能救命”。</p>
+</blockquote>
+<p>现在，就去创建 <code>TechBase/</code>，从你最近解决的一个 Bug 或配置的一个 Pipeline 开始写第一篇笔记吧！</p>
+<p>你已经有了 <code>MindGarden</code>（思考力），现在加上 <code>TechBase</code>（执行力）——<br><strong>左手认知，右手代码，你就是不可替代的工程师。</strong> 💪</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://zljin.github.io">Leonard</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://zljin.github.io/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/">https://zljin.github.io/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MindGarden/">MindGarden</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>Sponsor</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/WorkEnglish/" title="WorkEnglish"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">WorkEnglish</div></div><div class="info-2"><div class="info-item-1">不做语言艺术家，只做高效工具使用者。在外企做 Java 开发，英语的核心目标是 “准确、高效、专业地完成工作沟通”，而不是追求文采或口音。 基于这个原则，我为你设计一个极度实用主义、场景驱动、即查即用的英语学习笔记结构 —— 它不是“学英语”，而是 “配置你的职场沟通操作系统”。  🗂️ WorkEnglish/ 文件夹结构（全部按真实工作场景分类）text 编辑 12345678WorkEnglish/├── 01_Email_Templates/         # 邮件模板库（核心！）├── 02_Meeting_Scripts/         # 会议高频话术├── 03_Tech_Vocabulary/         # 技术术语 &amp; 表达（Java/DevOps 专属）├── 04_Docs_Reading/            # 阅读官方文档技巧├── 05_Listening_Cues/          # 听力“信号词” &amp; 黑话├── 06_Pronunciation/           # 关键词发音（仅限易错/关键术语）└──...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/05/MindGarden/%E4%BC%98%E8%B4%A8%E8%B5%84%E6%BA%90/%E5%86%85%E8%80%97%E5%93%B2%E5%AD%A6/" title="内耗哲学"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-05</div><div class="info-item-2">内耗哲学</div></div><div class="info-2"><div class="info-item-1"> 内耗的时候多看看   内耗哲学：学会享受人生！https://space.bilibili.com/32443071/favlist?fid=6587811&amp;ftype=collect&amp;ctype=21   align failurehttps://www.bilibili.com/video/BV1QksJzXEUC/?spm_id_from=333.1387.favlist.content.click&amp;vd_source=88f2d67f21120fbed5f365a6638870f5  </div></div></div></a><a class="pagination-related" href="/2023/04/30/MindGarden/%E4%BC%98%E8%B4%A8%E8%B5%84%E6%BA%90/%E7%9C%8B%E5%89%A7%E7%A5%9E%E5%99%A8/" title="看剧神器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-30</div><div class="info-item-2">看剧神器</div></div><div class="info-2"><div class="info-item-1">https://www.555zxdy.com https://zxdy5.top https://4kvm.site/ https://www.4kvm.org/  -------------  https://missav.ws/dm221/ja https://hanime1.me/watch?v=115147 https://spankbang.com/7g537/video/nice32 </div></div></div></a><a class="pagination-related" href="/2023/05/30/MindGarden/%E4%BC%98%E8%B4%A8%E8%B5%84%E6%BA%90/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" title="科学上网"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-30</div><div class="info-item-2">科学上网</div></div><div class="info-2"><div class="info-item-1">address link：https://tzdaohang.com/ https://star.369.cyou/ https://kk.candycandy2.top/ https://xn--7kq24s4ynvb.site/#/dashboard google play download:https://play-store.en.divxland.org/download/ </div></div></div></a><a class="pagination-related" href="/2025/08/05/MindGarden/%E4%BC%98%E8%B4%A8%E8%B5%84%E6%BA%90/%E9%9D%A2%E8%AF%95%E8%B5%84%E6%BA%90%E5%92%8C%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/" title="面试资源和学习资料"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-05</div><div class="info-item-2">面试资源和学习资料</div></div><div class="info-2"><div class="info-item-1"> 个人关注的star项目https://github.com/zljin?tab=stars   有些技术过时了，结合着看就行,多用AIhttps://github.com/rbmonster/learning-note   朋友推荐的一个ai工具https://www.bomianfm.com/web  </div></div></div></a><a class="pagination-related" href="/2025/10/03/MindGarden/%E5%B7%A5%E5%85%B7%E6%B8%85%E5%8D%95/IDEA/" title="IDEA"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-03</div><div class="info-item-2">IDEA</div></div><div class="info-2"><div class="info-item-1">如何破解方法教程：https://juejin.cn/post/7403657162528505897?searchId=2025100215381189F0F80237583BE9EC2C 激活码生成器和ja-netfilter.jar下载地址：https://3.jetbra.in/ 123456789101112131415161718191. 下载，将完整的jetbra.zip解压，固定放在一个目录里2. 配置idea.vmoptions加最后一行-javaagent:/Users/zoulingjin/devtool/jetbra/ja-netfilter.jar=jetbrains3. 在jenbra文件夹里面，点击进入script,然后去执行自动化脚本./install.sh4. 启动idea5. 输入激活码激活成功troubleshoot:https://www.kdocs.cn/l/ciq6P9HPNRkA# 安装报错？请删除所有JetBrains缓存配置再试试rm -rf ~/Library/Preferences/JetBrainsrm -rf ~/Libr...</div></div></div></a><a class="pagination-related" href="/2023/04/30/MindGarden/%E5%B7%A5%E5%85%B7%E6%B8%85%E5%8D%95/anotool/" title="其他工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-30</div><div class="info-item-2">其他工具</div></div><div class="info-2"><div class="info-item-1">markdown简历工具：https://1024tools.com/markdown?help=0&amp;fullscreen=0 白嫖怪：https://www.iiice.cn/#/ </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Leonard</div><div class="author-info-description">知行合一</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zljin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zljin" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/464480515@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">君子生非异也,善假于物也</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%BB-%E6%8A%80%E6%9C%AF%E7%9F%A5%E8%AF%86%E5%BA%93%E4%B8%BB%E6%96%87%E4%BB%B6%E5%A4%B9%E5%90%8D%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.</span> <span class="toc-text">💻 技术知识库主文件夹名建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%97%82%EF%B8%8F-TechBase-%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%84%EF%BC%88Java-DevOps-%E5%8F%8C%E4%B8%BB%E7%BA%BF%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">🗂️ TechBase&#x2F; 文件夹结构（Java + DevOps 双主线）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-%E6%AF%8F%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E%EF%BC%88%E8%AF%A5%E5%86%99%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">🔍 每个文件夹详细说明（该写什么？）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#01-JavaCore"><span class="toc-number">2.1.1.</span> <span class="toc-text">01_JavaCore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#02-Frameworks"><span class="toc-number">2.1.2.</span> <span class="toc-text">02_Frameworks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#03-SystemDesign"><span class="toc-number">2.1.3.</span> <span class="toc-text">03_SystemDesign</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#04-DevOps"><span class="toc-number">2.1.4.</span> <span class="toc-text">04_DevOps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#05-Debugging"><span class="toc-number">2.1.5.</span> <span class="toc-text">05_Debugging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#06-Security"><span class="toc-number">2.1.6.</span> <span class="toc-text">06_Security</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#07-CheatSheets"><span class="toc-number">2.1.7.</span> <span class="toc-text">07_CheatSheets</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#08-ProjectPatterns"><span class="toc-number">2.1.8.</span> <span class="toc-text">08_ProjectPatterns</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E4%B8%8E-MindGarden-%E7%9A%84%E8%81%94%E5%8A%A8"><span class="toc-number">2.2.</span> <span class="toc-text">🔄 与 MindGarden 的联动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E5%B7%A5%E5%85%B7%E5%BB%BA%E8%AE%AE"><span class="toc-number">2.3.</span> <span class="toc-text">🛠️ 工具建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%85-%E6%9C%80%E5%90%8E%E6%8F%90%E9%86%92"><span class="toc-number">2.4.</span> <span class="toc-text">✅ 最后提醒</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/MindGarden/" title="MindGarden">MindGarden</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/WorkEnglish/" title="WorkEnglish">WorkEnglish</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/" title="TechBase">TechBase</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/22/TechBase/Frameworks/Jpa/" title="Jpa">Jpa</a><time datetime="2025-12-22T06:00:00.000Z" title="Created 2025-12-22 14:00:00">2025-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/02/WorkEnglish/01_Situation/email/" title="email">email</a><time datetime="2025-12-02T00:00:45.000Z" title="Created 2025-12-02 08:00:45">2025-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2026 By Leonard</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

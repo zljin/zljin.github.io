@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java虚拟机 | 人生就像一盒巧克力，你永远不知道会得到什么</title><meta name="author" content="Leonard"><meta name="copyright" content="Leonard"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JVM主流参数1234567JAVA_OPTS: &gt;-Xms1300m -Xmx1300m         &#x2F;&#x2F;堆的初始值和最大值,设置成一样可以避免扩容-XX:+UseG1GC                &#x2F;&#x2F; 使用 G1 垃圾回收器，适合大内存低延迟场景-XX:MaxRAMPercentage&#x3D;70.0   &#x2F;&#x2F;设置 JVM 可用的最大内存占系统总内存的百分比为70%-XX:NewRa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java虚拟机">
+<meta property="og:url" content="https://zljin.github.io/2024/01/31/TechBase/Java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
+<meta property="og:site_name" content="人生就像一盒巧克力，你永远不知道会得到什么">
+<meta property="og:description" content="JVM主流参数1234567JAVA_OPTS: &gt;-Xms1300m -Xmx1300m         &#x2F;&#x2F;堆的初始值和最大值,设置成一样可以避免扩容-XX:+UseG1GC                &#x2F;&#x2F; 使用 G1 垃圾回收器，适合大内存低延迟场景-XX:MaxRAMPercentage&#x3D;70.0   &#x2F;&#x2F;设置 JVM 可用的最大内存占系统总内存的百分比为70%-XX:NewRa">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png">
+<meta property="article:published_time" content="2024-01-31T00:00:45.000Z">
+<meta property="article:modified_time" content="2026-01-18T13:24:57.393Z">
+<meta property="article:author" content="Leonard">
+<meta property="article:tag" content="TechBase">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java虚拟机",
+  "url": "https://zljin.github.io/2024/01/31/TechBase/Java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/",
+  "image": "https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png",
+  "datePublished": "2024-01-31T00:00:45.000Z",
+  "dateModified": "2026-01-18T13:24:57.393Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Leonard",
+      "url": "https://zljin.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zljin.github.io/2024/01/31/TechBase/Java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Leonard","link":"Link: ","source":"Source: 人生就像一盒巧克力，你永远不知道会得到什么","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java虚拟机',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/zljin/document/img/background/meitu2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">Java虚拟机</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java虚拟机</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-31T00:00:45.000Z" title="Created 2024-01-31 08:00:45">2024-01-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-18T13:24:57.393Z" title="Updated 2026-01-18 21:24:57">2026-01-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="JVM主流参数"><a href="#JVM主流参数" class="headerlink" title="JVM主流参数"></a>JVM主流参数</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS: &gt;</span><br><span class="line">-Xms1300m -Xmx1300m         //堆的初始值和最大值,设置成一样可以避免扩容</span><br><span class="line">-XX:+UseG1GC                // 使用 G1 垃圾回收器，适合大内存低延迟场景</span><br><span class="line">-XX:MaxRAMPercentage=70.0   //设置 JVM 可用的最大内存占系统总内存的百分比为70%</span><br><span class="line">-XX:NewRatio=1              //设置新生代与老年代的比例为1:1</span><br><span class="line">-XX:SurvivorRatio=8         //设置 Eden 区与 Survivor 区比例为 8:1:1</span><br><span class="line">-XX:+PrintGCDetails -Xloggc:/path/to/gc.log   //收集GC日志</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/technical/jvm4.png?raw=true"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">调优的原则</span><br><span class="line">1. 在应用上线前，先考虑JVM参数设置到最优</span><br><span class="line">2. 先要确认项目架构和代码有没有优化空间</span><br><span class="line">3. 在吞吐量，延迟，内存中选择两个进行JVM调优</span><br><span class="line">4. 遵循GC内存最大化原则：处理吞吐量和延迟问题，垃圾处理器能使用内存越大，即堆内存越大，gc效果越好，应用更流畅</span><br><span class="line">5. GC优化必须建立各种垃圾回收器的基础上</span><br><span class="line"></span><br><span class="line">什么情况需要调优</span><br><span class="line">1. 频繁full gc</span><br><span class="line">2. 老年代持续上涨达到设置的最大内存</span><br><span class="line">3. gc停顿(stop-the-word)过长，超过1秒</span><br><span class="line">4. oom</span><br><span class="line">5. 应用占用的CPU和内存过高</span><br><span class="line"></span><br><span class="line">调优的一些概念：</span><br><span class="line">1. 吞吐量高：用户代码时间/(用户代码时间+gc时间) </span><br><span class="line">2. 低延迟:减少stw的时间，响应越快</span><br><span class="line">3. 设置gc算法时，选择空间如最大吞吐量还是时间最小延迟，由具体场景决定</span><br><span class="line">4. 减少full gc，增加minorgc</span><br><span class="line">5. 堆大小调整的分析点：</span><br><span class="line">    5.1 统计minor gc的次数和持续时间</span><br><span class="line">    5.2 统计full gc的最长持续时间</span><br><span class="line">    5.3 统计最差情况下full gc的频率</span><br><span class="line">    5.4 按照具体业务重新设计各个区的大小</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">好的探索问题：</span><br><span class="line">如何根据 jstat 输出调整 -XX:SurvivorRatio？</span><br><span class="line"></span><br><span class="line">内存泄漏排查结果如何反馈到JVM参数调优？</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="堆内存分代机制"><a href="#堆内存分代机制" class="headerlink" title="堆内存分代机制"></a>堆内存分代机制</h1><p><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/technical/jvm5.png?raw=true"></p>
+<blockquote>
+<p>对象在内存中的生命周期：<br>Eden区创建–&gt;经过minorGC存活(复制算法)–&gt;复制到Survivor区–&gt;在Survivor区多次存活(每次存活年龄+1)–&gt;达到晋升年龄阈值(-XX:MaxTenuringThreshold)–&gt;晋升老年代(存放长期存活的对象)–&gt;老年代空间不足–&gt;fullGC(标记整理算法)</p>
+</blockquote>
+<p>优势：</p>
+<ol>
+<li>提高GC效率，针对不同代采用不同的算法和触发频率</li>
+<li>可以控制GC停顿时间，在一个内存密集型应用中通过设置新生代的比例和存活区的比例,减少MinorGC的频率，提高服务响应</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 监控实时GC情况，1000代表一秒，10次代表输出10次</span></span><br><span class="line">jstat -gc &lt;pid&gt; 1000 10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">S0U    S1U      EC       EU        OC         OU</span><br><span class="line">200M   150M    2.0G     1.8G      4.0G       1.5G      <span class="comment"># 内存使用</span></span><br><span class="line"></span><br><span class="line">YGC     YGCT    FGC    FGCT</span><br><span class="line">500     25.3     2      0.8 <span class="comment"># GC统计（相比调优前显著改善）</span></span><br><span class="line"></span><br><span class="line">YGC: Young GC的次数（Young Generation GC count）</span><br><span class="line">这里已经发生了500次Young GC。</span><br><span class="line"></span><br><span class="line">YGCT: Young GC的总时间（Young Generation GC <span class="keyword">time</span>）</span><br><span class="line">所有Young GC的总耗时是25.3秒。</span><br><span class="line"></span><br><span class="line">FGC: Full GC的次数（Full GC count）</span><br><span class="line">发生了2次Full GC。</span><br><span class="line"></span><br><span class="line">FGCT: Full GC的总时间（Full GC <span class="keyword">time</span>）</span><br><span class="line">所有Full GC的总耗时是0.8秒</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. Survivor区使用率</span></span><br><span class="line">S0U/S0C ≈ 60%-80%    <span class="comment"># 说明Survivor空间利用充分但不溢出</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Eden区GC频率  </span></span><br><span class="line">YGC间隔时间 &gt; 1分钟   <span class="comment"># 说明Eden区足够大</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 老年代增长速率</span></span><br><span class="line">Full GC间隔 &gt; 24小时  <span class="comment"># 说明对象晋升控制得当</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="类加载与双亲委派机制"><a href="#类加载与双亲委派机制" class="headerlink" title="类加载与双亲委派机制"></a>类加载与双亲委派机制</h1><blockquote>
+<p>类加载机制是JVM将 .class加载到内存，创建对应Class对象的过程，是Java安全模型的基础</p>
+</blockquote>
+<p>类加载的生命周期五个阶段：</p>
+<ol>
+<li>加载：查找字节码文件并创建 Class 对象</li>
+<li>连接：包含验证(确保字节码安全)、准备(为静态变量分配内存并设默认值)、解析(将符号引用替换为直接引用)</li>
+<li>初始化：执行类构造器方法，初始化静态变量</li>
+<li>使用：实例化对象或访问静态成员</li>
+<li>卸载：类被 GC 回收</li>
+</ol>
+<p>双亲委派机制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">自定义类加载器：开发者可以自定义类加载逻辑</span><br><span class="line">    ↑</span><br><span class="line">    ├── 应用类加载器(Application)：加载应用程序 classpath 下的类</span><br><span class="line">    ├── 扩展类加载器(Extension)：加载扩展库(jre/lib/ext)</span><br><span class="line">    └── 启动类加载器(Bootstrap)：加载 JDK 核心类库(rt.jar 等)</span><br></pre></td></tr></table></figure>
+
+<p>双亲委派的工作流程是：当一个类加载器收到类加载请求时，会先委托给父加载器处理，层层向上传递至启动类加载器。只有当父加载器无法找到该类时(（抛出ClassNotFoundException）)，子加载器才会尝试自己加载</p>
+<p>意义:</p>
+<ol>
+<li>安全，防止核心 API 被篡改：例如，即使你自己编写了一个 java.lang.String 类，系统也会优先使用 JDK 内置的 String 类，保证了核心 API 的纯净性和安全性。可以确保类的唯一性：同一个类(由全限定名+类加载器共同确定)在虚拟机中只会被加载一次，避免重复加载。</li>
+<li>性能：避免重复加载类，节省内存</li>
+<li>稳定性：防止类冲突导致的系统崩溃</li>
+</ol>
+<h1 id="内存泄漏排查思路"><a href="#内存泄漏排查思路" class="headerlink" title="内存泄漏排查思路"></a>内存泄漏排查思路</h1><blockquote>
+<p>对象不再使用但GC无法回收，导致内存占用持续增长而导致的OutOfMemoryError</p>
+</blockquote>
+<p>常见原因：</p>
+<p>1.静态集合对象为强引用，会一直在整个程序的生命周期，按需清理<br>2.未关闭的资源，如IO流或数据库连接，try-with-resources 即可自动关闭资源<br>3.ThreadLocal使用不当，记住不用后手动清除<br>4.监听器和回调未注销<br>5.内部类和匿名内部类持有外部类引用，如果内部类对象生命周期较长，会导致外部类无法被回收<br>6.不合理的内部缓存设计</p>
+<p>排查方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 列出所有Java进程</span></span><br><span class="line">jcmd -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看指定进程可用的诊断命令</span></span><br><span class="line">jcmd &lt;pid&gt; <span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取堆内存概要信息（比jstat更直观）</span></span><br><span class="line">jcmd &lt;pid&gt; GC.heap_info</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用jcmd生成堆转储 - 这是关键步骤</span></span><br><span class="line">jcmd &lt;pid&gt; GC.heap_dump filename=heapdump_$(<span class="built_in">date</span> +%Y%m%d_%H%M%S).hprof</span><br><span class="line"></span><br><span class="line"><span class="comment"># 倒入hprof到MAT进行离线分析</span></span><br><span class="line"><span class="comment"># 如何使用MAT:https://juejin.cn/post/6844903501269729288#heading-4</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实施监控指标：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 监控实时GC情况</span></span><br><span class="line">jstat -gc &lt;pid&gt; 1000 10</span><br><span class="line"></span><br><span class="line">S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT    CGC    CGCT     GCT</span><br><span class="line"> 0.0   1024.0  0.0   789.5  27648.0  15360.0    9216.0     8392.0   21568.0 21451.5 2240.0 2195.5      2    0.003   0      0.000   2      0.001    0.004</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">老年代使用率：</span><br><span class="line">OU/OC：接近触发Full GC的阈值（通常92%-98%）</span><br><span class="line"></span><br><span class="line">元空间使用率：</span><br><span class="line">MU/MC：元空间即将耗尽，可能导致Metaspace OOM</span><br><span class="line"></span><br><span class="line">Eden区使用率:</span><br><span class="line">EU/EC: 0-90%（波动正常</span><br><span class="line">如果长期&gt;80%，说明Young GC频率可能过高</span><br><span class="line"></span><br><span class="line">GC频率和耗时:</span><br><span class="line">YGC: 2次 / YGCT: 0.003s  <span class="comment"># 平均每次Young GC 1.5ms - 正常</span></span><br><span class="line">FGC: 0次                 <span class="comment"># 没有Full GC - 良好</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生产环境告警阈值</span></span><br><span class="line">- 老年代使用率 &gt; 85%: WARNING</span><br><span class="line">- 老年代使用率 &gt; 92%: CRITICAL</span><br><span class="line">- 元空间使用率 &gt; 90%: WARNING  </span><br><span class="line">- 元空间使用率 &gt; 95%: CRITICAL</span><br><span class="line">- Full GC次数 &gt; 0: INVESTIGATE</span><br><span class="line">- Young GC单次耗时 &gt; 200ms: WARNING</span><br><span class="line"></span><br><span class="line">先关注容量问题（会不会OOM），再关注性能问题（GC效率）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="CPU过高排查思路"><a href="#CPU过高排查思路" class="headerlink" title="CPU过高排查思路"></a>CPU过高排查思路</h1><p>常见原因：</p>
+<p>代码层面：<br>1.死循环，递归调用<br>2.频繁GC，内存使用不当<br>3.线程阻塞，死锁，资源竞争</p>
+<p>系统层面：<br>1.系统负载过高：其他程序占用大量资源<br>2.内存不足：物理内存使用率过高<br>3.磁盘 IO 过高：频繁的磁盘读写操作<br>4.网络 IO 过高：大量的网络请求<br>5.其他进程影响：系统其他进程占用资源</p>
+<p>排查方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. top <span class="comment"># 找到cpu最高占用率的java进程pid,如4741</span></span><br><span class="line">2. top -Hp pid <span class="comment"># 查看某个进程的线程信息,找到进程中耗时最大的线程tid，如4742</span></span><br><span class="line">3. 将tid转换为16进制 <span class="built_in">printf</span> <span class="string">&#x27;0x%x&#x27;</span> 4742 =  0x1286</span><br><span class="line">4. jstack 4741 | grep 0x1286 -A 30 <span class="comment"># 打印出调用链栈</span></span><br><span class="line"><span class="string">&quot;main&quot;</span> <span class="comment">#1 prio=5 os_prio=0 tid=0x00007f3a8c009000 nid=0x1286 runnable [0x00007f3a932a3000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line">        at ch.qos.logback.classic.Logger.callAppenders(Logger.java:256)</span><br><span class="line">        at ch.qos.logback.classic.Logger.info(Logger.java:583)</span><br><span class="line">        at com.zoulj.infrastructure.schedule.CpuReaper.cpuReaper(CpuReaper.java:35)</span><br></pre></td></tr></table></figure>
+
+<h1 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h1><blockquote>
+<p>Stop-The-World: 指在垃圾回收期间，所有正在运行的程序功能必须暂停，等待垃圾回收完成后才能继续</p>
+</blockquote>
+<h2 id="判断垃圾回收的标准"><a href="#判断垃圾回收的标准" class="headerlink" title="判断垃圾回收的标准"></a>判断垃圾回收的标准</h2><p>a. 引用计数算法(无法处理循环引用)<br>通过判读对象的引用数量来决定是否gc<br>b. 可达性算法<br>GCRoot是可达性算法的一个起点，所有线程当前活跃的栈帧都会指向GCRoot,<br>通过GCRoot找出所有存活的对象，剩下的对象就是被回收的对象</p>
+<p>c. 可作为GCRoot的对象<br>方法区的静态属性和常量引用<br>虚拟机栈帧引用的对象<br>本地方法引用的对象<br>所有线程活跃的对象</p>
+<p>d. 不同的引用类型<br>强引用 通过new出来的对象就是强引用，任何时候都不会gc<br>软引用  JVM堆空间不足就会gc，有SoftReference持有<br>弱引用  只要有gc，就会回收<br>虚引用  随时都可回收</p>
+<p>例如，曾优化过一个图像处理应用，通过将大型图像缓存从强引用改为软引用，在内存压力大时自动释放不常用图像，避免了OOM 异常，系统稳定性显著提高。</p>
+<h2 id="常用的垃圾回收算法"><a href="#常用的垃圾回收算法" class="headerlink" title="常用的垃圾回收算法"></a>常用的垃圾回收算法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1. 标记清除算法</span><br><span class="line">标记：从GcRoot 根节点扫描，对存活对象进行标记</span><br><span class="line">清除：将没标记的对象一次性全部回收</span><br><span class="line">特点：碎片化</span><br><span class="line"></span><br><span class="line">2. 复制算法</span><br><span class="line">分对象面和空闲面</span><br><span class="line">将所有存活对象复制到空闲面，然后对象面全部清除</span><br><span class="line">特点：适合少量存活的对象，减少复制位移的开销</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3. 标记整理算法</span><br><span class="line">标记：从GCRoot根节点扫描,对存活对象进行标记</span><br><span class="line">清除：移动所有存活对象，按照内存地址顺序排序，将末端地址全部回收</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4. 分代收集算法(组合拳)</span><br><span class="line">按照对象的生命周期的不同划分采用以上不同的垃圾回收算法，提高垃圾回收的效率</span><br></pre></td></tr></table></figure>
+
+<h2 id="垃圾回收器选择"><a href="#垃圾回收器选择" class="headerlink" title="垃圾回收器选择"></a>垃圾回收器选择</h2><blockquote>
+<p>GC优化必须建立各种垃圾回收器的基础上</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>GC Type</th>
+<th>CPUs</th>
+<th>memory</th>
+<th>remark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Serial GC</td>
+<td>&lt;&#x3D;1</td>
+<td>&lt;2000mi</td>
+<td>单核，串行运行，gc时暂停所用应用</td>
+</tr>
+<tr>
+<td>G1GC</td>
+<td>&gt;&#x3D;2</td>
+<td>&gt;2000mi</td>
+<td>多核大内存,并发并行运行，响应速度优先，面向服务端应用</td>
+</tr>
+</tbody></table>
+<p>G1收集器|复制算法和标记整理算法<br>特点：并发和并行,分代收集,空间整合,可预测停顿<br>将整个java堆内存分成大小相同的Region,年轻代和老年代不再物理隔离</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/technical/jvm2.png?raw=true"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">线程共享区:</span><br><span class="line">方法区：存放类信息、常量、静态变量、即时编译器编译后的代码等数据</span><br><span class="line"></span><br><span class="line">堆：内存最大的区域，存放实例对象，gc的主要区域</span><br><span class="line"></span><br><span class="line">线程独占区:</span><br><span class="line">虚拟机栈(栈帧)：存放方法运行时所需要的数据,</span><br><span class="line">里面包含局部变量表(八大原始数据类型，对象引用,returnAddrss)，操作数栈，动态连接和返回地址等信息</span><br><span class="line"></span><br><span class="line">如果线程栈的深度大于虚拟机栈则会Stackoverflow,如果虚拟机栈无法动态申请足够的空间则会OutOfMemory</span><br><span class="line"></span><br><span class="line">程序计数器：记录当前执行到字节码的行号，通过改变计数器的值来选取下一条需要执行的命令</span><br><span class="line">本地方法栈：调用native代码，主要是非java代码部分(C++实现)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="一次编译到处运行"><a href="#一次编译到处运行" class="headerlink" title="一次编译到处运行"></a>一次编译到处运行</h2><p>JVM是实现跨平台的核心，javac将java代码转成Class字节码后，JVM负责将字节码转定为特定平台的机器码并执行</p>
+<h2 id="JIT"><a href="#JIT" class="headerlink" title="JIT"></a>JIT</h2><p>Just in time 即时编译技术，JVM监控频繁执行的字节码并编译成本地机器码，大幅提升运行速度<br>对于复杂计算和大量循环的业务逻辑性能效果明显</p>
+<p>-XX:+TieredCompilation 开启分层编译<br>-XX:CompileThreshold 降低编译阈值</p>
+<h2 id="Java应用-kill-9会发生什么"><a href="#Java应用-kill-9会发生什么" class="headerlink" title="Java应用 kill -9会发生什么"></a>Java应用 kill -9会发生什么</h2><blockquote>
+<p>kill -9 强制立即终止进程，不给任何进程处理的机会</p>
+</blockquote>
+<p>1.ShoudownHook会不执行，这个方法通常用于执行资源清理和状态保存等<br>2.资源泄漏，如连接池，文件流没有自动关闭<br>3.数据一致性问题，持久化时丢失<br>4.分布式锁协调，可能导致分布式锁永远不释放</p>
+<p>更安全的做法是使用kill不带9参数，这样Java程序可以捕获SIGTERN信号，优雅关闭</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://zljin.github.io">Leonard</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://zljin.github.io/2024/01/31/TechBase/Java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">https://zljin.github.io/2024/01/31/TechBase/Java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TechBase/">TechBase</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>Sponsor</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/02/14/MindGarden/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94/" title="被讨厌的勇气"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">被讨厌的勇气</div></div><div class="info-2"><div class="info-item-1">任何经历本身不是成功或者失败的原因，改变的关键在于自己赋予经历的意义，拥有获得幸福的勇气。 个人心理学最终目标：自立+自己发自内心的觉得在社会共同体中有自己的价值。无法真心祝福过的幸福的他人是因为站在竞争的角度来考虑人际关系，把他人的幸福看作“我的失败”，所以才无法给予祝福 一切烦恼都来自人际关系：人际关系分为三个课题，“工作课题”，“交友课题”，“爱的课题”什么是真正的爱？与这个人在一起可以无拘无束，既没有自卑感也不必炫耀优越性，能保持一种平静而自然的状态 课题分离： 我们不是通过别人的奖励和认可而活，而是为自己而活，活出自己的人生，你的人生由自己负责能够改变自己的，只有自己。 首先弄清楚“这不是自己的课题”这一界限;然后,请丢开别人的课题,减轻人生负担。不去干涉别人的课题也不让别人干涉自己的课题。 例子：信任行为的课题分离，信任别人，这是你的课题，但是，如何对待你的信任，那就是对方的课题了。在意你的脸的只有你自己，看到你的脸别人怎么想，那是别人的课题，你根本无法左右人际关系不应该有回报思想，不能因为我为你做了什么，你就应该给予相应的回报，我们既不可以寻求回报，也不可以受其束缚...</div></div></div></a><a class="pagination-related" href="/2023/06/07/TechBase/Frameworks/SpringCloud/" title="SpringCloud"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">SpringCloud</div></div><div class="info-2"><div class="info-item-1">速通视频：  https://www.bilibili.com/video/BV1UJc2ezEFU?spm_id_from=333.788.videopod.sections&amp;vd_source=88f2d67f21120fbed5f365a6638870f5  代码参考：https://github.com/nacycher/study-cloud/blob/master/services/pom.xml 视频的版本依赖参考： jdk 17–&gt;SpringBoot 3.3.4 –&gt; SpringCloud 2023.0.3 –&gt; SpringCloud alibaba 2023.0.3.2 Nacos 2.4.3 —&gt; Sentinel 1.8.8 –&gt; Seata 2.2.0 nacosopenFeignSentinelSpringCloud Gateway https://www.baeldung.com/spring-cloud-custom-gateway-filters  Seata</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/06/12/MindGarden/%E5%B7%A5%E5%85%B7%E6%B8%85%E5%8D%95/jmeter/" title="jmeter"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-12</div><div class="info-item-2">jmeter</div></div><div class="info-2"><div class="info-item-1"> 性能压测工具  下载https://jmeter.apache.org/download_jmeter.cgi 安装插件https://jmeter-plugins.org/downloads/old/ JMeterPlugins-Standard-1.4.0.jarjpgc-autostop-0.1.jaryou need to add them to your jmeter&#x2F;lib&#x2F;ext directory 测试类型： peak test: provide high tps test about 1 hourcapacity test: provide increasing tps test about 1 hour.aim to check the baseline to peak test or soak testsoak test: provide medium tps test about 8 hour. check system if stablepeak test: 1 hour high volume test 脚本参考：https://...</div></div></div></a><a class="pagination-related" href="/2025/12/22/TechBase/Frameworks/Jpa/" title="Jpa"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-22</div><div class="info-item-2">Jpa</div></div><div class="info-2"><div class="info-item-1">https://juejin.cn/post/6844903574963486733?searchId=2025111821071170811D8407CA9A054CDC https://juejin.cn/post/6844904160807092237?searchId=2025111821071170811D8407CA9A054CDC#heading-39 </div></div></div></a><a class="pagination-related" href="/2021/02/22/TechBase/Frameworks/MyBatis/" title="MyBatis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-22</div><div class="info-item-2">MyBatis</div></div><div class="info-2"><div class="info-item-1"> 方便Java程序操作数据库的一种ORM框架的  什么是ORM 对象关系映射，将javaBean对象与关系型数据库表映射的技术  mybatisplus:1、半开ORM，能够对[[MySQL]]控制灵活2、强大的插件机制 MyBatis 设计了完善的插件体系，允许开发者通过拦截器接口扩展或修改 MyBatis 的核心行为。常见的应用包括分页插件、审计日志、性能监控等，大大增强了框架的可扩展性。 jpa: 可以兼容适配多种数据库，包括非关系型数据库 你是如何设置数据库主键自增的1、单机高并发可用自增ID2、分布式系统要确定唯一性建议雪花算法 123456789101112131415mybatis-plus:  global-config:    db-config:      id-type: ASSIGN_ID # 主键生成策略，ASSIGN_ID通常配合雪花算法使用      @TableName(value =&quot;order_info&quot;)@Datapublic class OrderInfo &#123;    /**     * 订单主键     */ ...</div></div></div></a><a class="pagination-related" href="/2022/06/05/TechBase/Frameworks/Spring/" title="Spring"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-05</div><div class="info-item-2">Spring</div></div><div class="info-2"><div class="info-item-1"> Spring的核心：以bean为中心提供IOC和AOP的功能,简化开发JavaApp的框架SpringMVC：是webmvc框架，servlet的增强，提供丰富的Web开发功能SpringBoot：简化Spring繁杂配置，快速开发后台应用的框架SpringCloud: 以SpringBoot为基石，快速构建微服务架构，如解决微服务架构中的服务发现、配置管理、容错、路由等  IOC解决那些问题IOC为控制反转，将bean的生命周期统一交给Spring工厂管理，而不是直接new对象，通过依赖注入实现对象间的相互依赖IOC容器有两种，BeanFactory:提供基础的依赖注入的能力,ApplicationContext:提供更强的事件发布,国际化支持等功能 注意：BeanFactory和FactoryBean区别BeanFactory是Spring的一个IOC容器，用来对Bean进行实例化的FactoryBean用来处理需要复杂初始化逻辑的Bean,如ProxyFactoryBean：用于创建 AOP 代理 依赖注入依赖注入可通过字段注入，构造器注入(可保证依赖不为空，保证不可变性...</div></div></div></a><a class="pagination-related" href="/2022/06/06/TechBase/Frameworks/SpringBoot/" title="SpringBoot"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-06</div><div class="info-item-2">SpringBoot</div></div><div class="info-2"><div class="info-item-1">springboot的完整项目实战 https://github.com/zljin/ms-app?tab=readme-ov-file#how2springboot https://github.com/zljin/flashbuy Springboot1、简化配置，引入”约定大于配置“理念，采用注解和自动配置，快速启动一个应用2、简化依赖管理，引入“starter”的概念，一个starter自动引入一组相关版本兼容的依赖3、简化部署，淘汰传统的war包部署，采用内嵌web容器的可执行的jar包，java -jar就可执行4、是[[SpringCloud]]的基石 SpringBoot自动装配原理自动装配：是约定大于配置体现，根据引入的jar包依赖，自动配置Spring所需的Bean，简化手动配置 核心原理： 123456789101112131415161718启动流程：@SpringBootApplication    ↓@EnableAutoConfiguration    ↓AutoConfigurationImportSelector.selectImports() ...</div></div></div></a><a class="pagination-related" href="/2023/06/07/TechBase/Frameworks/SpringCloud/" title="SpringCloud"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-07</div><div class="info-item-2">SpringCloud</div></div><div class="info-2"><div class="info-item-1">速通视频：  https://www.bilibili.com/video/BV1UJc2ezEFU?spm_id_from=333.788.videopod.sections&amp;vd_source=88f2d67f21120fbed5f365a6638870f5  代码参考：https://github.com/nacycher/study-cloud/blob/master/services/pom.xml 视频的版本依赖参考： jdk 17–&gt;SpringBoot 3.3.4 –&gt; SpringCloud 2023.0.3 –&gt; SpringCloud alibaba 2023.0.3.2 Nacos 2.4.3 —&gt; Sentinel 1.8.8 –&gt; Seata 2.2.0 nacosopenFeignSentinelSpringCloud Gateway https://www.baeldung.com/spring-cloud-custom-gateway-filters  Seata</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/zljin/document/img/profile/tx1.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Leonard</div><div class="author-info-description">知行合一</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zljin"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zljin" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/464480515@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">君子生非异也,善假于物也</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JVM%E4%B8%BB%E6%B5%81%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">JVM主流参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E5%88%86%E4%BB%A3%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">堆内存分代机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">类加载与双亲委派机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%8E%92%E6%9F%A5%E6%80%9D%E8%B7%AF"><span class="toc-number">4.</span> <span class="toc-text">内存泄漏排查思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU%E8%BF%87%E9%AB%98%E6%8E%92%E6%9F%A5%E6%80%9D%E8%B7%AF"><span class="toc-number">5.</span> <span class="toc-text">CPU过高排查思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">6.</span> <span class="toc-text">垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E6%A0%87%E5%87%86"><span class="toc-number">6.1.</span> <span class="toc-text">判断垃圾回收的标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="toc-number">6.2.</span> <span class="toc-text">常用的垃圾回收算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E9%80%89%E6%8B%A9"><span class="toc-number">6.3.</span> <span class="toc-text">垃圾回收器选择</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">7.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.1.</span> <span class="toc-text">内存模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E7%BC%96%E8%AF%91%E5%88%B0%E5%A4%84%E8%BF%90%E8%A1%8C"><span class="toc-number">7.2.</span> <span class="toc-text">一次编译到处运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JIT"><span class="toc-number">7.3.</span> <span class="toc-text">JIT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E5%BA%94%E7%94%A8-kill-9%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88"><span class="toc-number">7.4.</span> <span class="toc-text">Java应用 kill -9会发生什么</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/MindGarden/" title="MindGarden">MindGarden</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/WorkEnglish/" title="WorkEnglish">WorkEnglish</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/07/MindGarden/%E7%81%B5%E6%84%9F%E7%A2%8E%E7%89%87/TechBase/" title="TechBase">TechBase</a><time datetime="2026-01-07T15:00:45.000Z" title="Created 2026-01-07 23:00:45">2026-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/22/TechBase/Frameworks/Jpa/" title="Jpa">Jpa</a><time datetime="2025-12-22T06:00:00.000Z" title="Created 2025-12-22 14:00:00">2025-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/02/WorkEnglish/01_Situation/email/" title="email">email</a><time datetime="2025-12-02T00:00:45.000Z" title="Created 2025-12-02 08:00:45">2025-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2026 By Leonard</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
